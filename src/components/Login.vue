@@ -12,12 +12,12 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<input class="input100" type="text" name="email" placeholder="Email" v-on:change="emailEntry($event.value)">
+						<input class="input100" type="text" name="email" placeholder="Email" v-model='email'>
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" :type="type" name="pass" placeholder="Password" v-on:change="passwordEntry($event.value)">
+						<input class="input100" :type="type" name="pass" placeholder="Password" v-model='password'>
 						<span class="focus-input100" data-placeholder="Password"></span>
                         <span class="btn-show-pass">
 							<img class="visible-eye" src="./../assets/visibility.png" v-if="!passwordVisible" v-on:click="togglePasswordVisibility">
@@ -28,7 +28,7 @@
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" type="submit" v-on:click="login">
+							<button class="login100-form-btn" v-on:click="login">
 								Login
 							</button>
 						</div>
@@ -40,7 +40,7 @@
 						</span>
 
 						<a class="txt2" href="#" v-on:click="signUp">
-							Sign Up
+							Register
 						</a>
 					</div>
 				</form>
@@ -52,10 +52,15 @@
 
 
 <script>
+import firebase from 'firebase';
+    
 
 export default {
+    
     data() {
         return {
+            email: '',
+            psasword: '',
             passwordVisible: false,
             eyeIconVisible: false,
             type: "password"
@@ -63,24 +68,15 @@ export default {
     },
 
     methods: {
-        emailEntry: function(value) {
-            if (value == "") {
-                console.log("email is empty")
-            } else {
-                console.log("email is not empty")
-            }
-        },
-
-        passwordEntry: function(value) {
-            if (value == "") {
-                console.log("pw is empty")
-            } else {
-                console.log("pw is not empty")
-            }
-        },
-
-        login: function(){
-            alert("User pressed 'Login' button")
+        login: function(e){
+            firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+            .then(user => {
+                alert(`You are logged in as ${user.user.email}`)
+            },
+            err => {
+                alert(err.message)
+            });
+            e.preventDefault();
         },
 
         signUp: function() {

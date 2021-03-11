@@ -19,6 +19,7 @@
         </div>
       </div>
     </div>
+    <Register></Register>
     <Login id="login"></Login>
     <AboutPage></AboutPage>
     <Footer></Footer>
@@ -34,6 +35,7 @@
 
 <script>
 import NavBar from "./NavBar.vue";
+import Register from './Register.vue'
 import Login from "./Login.vue";
 import AboutPage from "./AboutPage.vue";
 import Footer from "./Footer.vue";
@@ -70,6 +72,7 @@ export default {
   components: {
     NavBar: NavBar,
     Login: Login,
+    Register: Register,
     AboutPage: AboutPage,
     Footer: Footer,
     SaverPage: SaverPage,
