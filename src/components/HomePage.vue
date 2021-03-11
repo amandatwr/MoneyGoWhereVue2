@@ -3,7 +3,6 @@
     <div>
       <div>
         <NavBar></NavBar>
-        <!-- <img class="background-image" src="./../assets/office.jpg"> -->
       </div>
       <div class="banner">
         <div class="banner-text">
@@ -20,7 +19,7 @@
         </div>
       </div>
     </div>
-    <!-- <Login id="login"></Login> -->
+    <Login id="login"></Login>
     <AboutPage></AboutPage>
     <Footer></Footer>
     <br><br><br>
@@ -35,12 +34,13 @@
 
 <script>
 import NavBar from "./NavBar.vue";
-// import Login from "./Login.vue";
+import Login from "./Login.vue";
 import AboutPage from "./AboutPage.vue";
 import Footer from "./Footer.vue";
 import SaverPage from "./SaverPage.vue";
 import SellerDashboard from "./SellerDashboard.vue"
 import FindOutMorePlans from "./FindOutMorePlans.vue"
+import database from "../firebase.js"; 
 
 export default {
   data() {
@@ -59,18 +59,27 @@ export default {
       toggleIsSeller: function() {
           this.isSeller = true
           this.generalText = !this.generalText
+      },
+      fetchItems: function () {
+          database.collection('Listings').doc('VJ6L3DTdt0pSKQu9BoYy').get().then(doc => {
+            console.log(doc)
+          })
       }
   },
 
   components: {
     NavBar: NavBar,
-    // Login: Login,
+    Login: Login,
     AboutPage: AboutPage,
     Footer: Footer,
     SaverPage: SaverPage,
     SellerDashboard: SellerDashboard,
     FindOutMorePlans: FindOutMorePlans,
   },
+
+  created() {
+    this.fetchItems()
+  }
 };
 </script>
 
