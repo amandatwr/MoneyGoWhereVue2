@@ -1,0 +1,172 @@
+<template>
+  <body>
+    <div>
+      <div>
+        <NavBar></NavBar>
+        <!-- <img class="background-image" src="./../assets/office.jpg"> -->
+      </div>
+      <div class="banner">
+        <div class="banner-text">
+          <h1 class="company-name">MoneyGoWhere</h1>
+           <transition name="fade" mode="out-in">
+            <p key="1" class="tagline" v-if="generalText">Your one stop platform for all things Savings.</p>
+            <p key="2" class="tagline" v-else-if="isUser">Maximise your savings with one click.</p>
+            <p key="3" class="tagline" v-else-if="isSeller">Get matched with leads today.</p>
+          </transition>
+          <div class="banner-buttons">
+          <button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">SAVER</button>
+            <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <Login id="login"></Login> -->
+    <AboutPage></AboutPage>
+    <Footer></Footer>
+    <br><br><br>
+      <SaverPage></SaverPage>
+      <br><br><br>
+      <SellerDashboard></SellerDashboard>
+      <br><br><br>
+      <FindOutMorePlans></FindOutMorePlans>
+  </body>
+</template>
+
+
+<script>
+import NavBar from "./NavBar.vue";
+// import Login from "./Login.vue";
+import AboutPage from "./AboutPage.vue";
+import Footer from "./Footer.vue";
+import SaverPage from "./SaverPage.vue";
+import SellerDashboard from "./SellerDashboard.vue"
+import FindOutMorePlans from "./FindOutMorePlans.vue"
+
+export default {
+  data() {
+    return {
+        generalText: true,
+      isUser: false,
+      isSeller: false,
+    };
+  },
+
+  methods: {
+      toggleIsUser: function() {
+          this.isUser = !this.isUser
+          this.generalText = !this.generalText
+      },
+      toggleIsSeller: function() {
+          this.isSeller = true
+          this.generalText = !this.generalText
+      }
+  },
+
+  components: {
+    NavBar: NavBar,
+    // Login: Login,
+    AboutPage: AboutPage,
+    Footer: Footer,
+    SaverPage: SaverPage,
+    SellerDashboard: SellerDashboard,
+    FindOutMorePlans: FindOutMorePlans,
+  },
+};
+</script>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+body,
+html {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("./../assets/office.jpg");
+  background-size: cover;
+  height: 700px;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tagline {
+  text-align: center;
+  margin: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 35px;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.company-name {
+  font-family: "Open Sans", sans-serif;
+  font-size: 90px;
+  color: white;
+  margin: 0;
+  height: 120px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.5s;
+  transition-property: opacity;
+  transition-timing-function: ease-in;
+}
+.fade-enter, 
+.fade-leave-to {
+  opacity: 0%;
+} 
+
+.banner-buttons {
+    width: 100%;
+    padding: 0px 180px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+}
+
+button {
+    color: white;
+    background-color: transparent;
+	border: 2px solid white;
+	cursor: pointer;
+	letter-spacing: 0.2125rem;
+	line-height: 1;
+	overflow: hidden;
+	padding: 15px 30px;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+    outline: 0;
+}
+
+.saver-button {
+  margin-right: 50px;
+}
+
+.advisor-button {
+  margin-right: 50px;
+}
+
+.saver-button:hover {
+    background-color: #192841;
+}
+
+.advisor-button:hover {
+    background-color: #722f37;
+}
+</style>
