@@ -17,10 +17,11 @@
 
         </div>
         <div class="w3-bar-item w3-bar-right">
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-            <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ABOUT</a>
-            <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">FAQs</a>
-            <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
+            <router-link class='w3-bar-item w3-button w3-padding-large w3-hide-small"' to='/' exact>HOME</router-link>
+            <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/about' exact>ABOUT</router-link>
+            <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/faqs'>FAQs</router-link>
+            <router-link v-if='!isLoggedIn' class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/login' exact>LOGIN</router-link>
+            <a v-if='isLoggedIn' class="w3-bar-item w3-button w3-padding-large w3-hide-small" v-on:click='logout'>LOGOUT</a>
         
             <div class="w3-dropdown-hover w3-hide-small">
                 <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>
@@ -42,10 +43,21 @@
 
 
 <script>
+import firebase from 'firebase';
+
 export default {
     data() {
         return {
-            searchKeyword: ""
+            searchKeyword: "",
+            isLoggedIn: false,
+            currentUser: false
+        }
+    },
+
+    created() {
+        if (firebase.auth().currentUser) {
+            this.isLoggedIn = true;
+            this.currentUser = firebase.auth().currentUser.email;
         }
     },
 
@@ -56,6 +68,13 @@ export default {
 
         search: function() {
             alert("You are searching for " + this.searchKeyword);
+        },
+
+        logout: function() {
+            firebase.auth().signOut().then(() => {
+                this.$router.go({path: this.$router.path});
+            })
+
         }
     }
 
@@ -141,6 +160,17 @@ export default {
 input {
 	outline: none;
 	border: none;
+}
+
+.router-link {
+    color: white;
+    text-decoration: none;
+    top: 50%;
+}
+
+.router-link :hover {
+    color: black;
+    text-decoration: none;
 }
 
 </style>

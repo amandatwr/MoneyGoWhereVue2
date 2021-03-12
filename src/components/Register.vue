@@ -106,9 +106,8 @@ export default {
             console.log(this.goal)
             console.log(this.name)
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(user => {
-                console.log(user)
-                // console.log(user)
                 alert(`Account created for ${user.user.email}`)})
+            this.$router.go({path: this.$router.path});
             e.preventDefault();
         },
 

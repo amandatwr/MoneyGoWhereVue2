@@ -2,7 +2,6 @@
   <body>
     <div>
       <div>
-        <NavBar></NavBar>
       </div>
       <div class="banner">
         <div class="banner-text">
@@ -19,10 +18,6 @@
         </div>
       </div>
     </div>
-    <Register></Register>
-    <Login id="login"></Login>
-    <AboutPage></AboutPage>
-    <Footer></Footer>
     <br><br><br>
       <SaverPage></SaverPage>
       <br><br><br>
@@ -34,11 +29,6 @@
 
 
 <script>
-import NavBar from "./NavBar.vue";
-import Register from './Register.vue'
-import Login from "./Login.vue";
-import AboutPage from "./AboutPage.vue";
-import Footer from "./Footer.vue";
 import SaverPage from "./SaverPage.vue";
 import SellerDashboard from "./SellerDashboard.vue"
 import FindOutMorePlans from "./FindOutMorePlans.vue"
@@ -70,11 +60,6 @@ export default {
   },
 
   components: {
-    NavBar: NavBar,
-    Login: Login,
-    Register: Register,
-    AboutPage: AboutPage,
-    Footer: Footer,
     SaverPage: SaverPage,
     SellerDashboard: SellerDashboard,
     FindOutMorePlans: FindOutMorePlans,

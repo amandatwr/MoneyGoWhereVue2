@@ -39,9 +39,9 @@
 							Don’t have an account?
 						</span>
 
-						<a class="txt2" href="#" v-on:click="signUp">
+						<router-link class="txt2" to=/register exact>
 							Register
-						</a>
+						</router-link>
 					</div>
 				</form>
 			</div>
@@ -72,15 +72,12 @@ export default {
             firebase.auth().signInWithEmailAndPassword(this.email, this.password)
             .then(user => {
                 alert(`You are logged in as ${user.user.email}`)
+                this.$router.go({path: this.$router.path});
             },
             err => {
                 alert(err.message)
             });
             e.preventDefault();
-        },
-
-        signUp: function() {
-            alert("User pressed 'Sign Up' button")
         },
 
         togglePasswordVisibility() {
