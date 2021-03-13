@@ -5,7 +5,7 @@
       <form>
         <label>End goal: </label>
         <textarea v-model="endVal" rows="1" cols="5"></textarea><br />
-        <button onclick="move()">Update</button>
+        <button v-on:click="move()">Update</button>
       </form>
     </div>
     <br /><br />
@@ -23,8 +23,10 @@
 
 export default {
   data() {
-      return() {
+      return{
           endVal: 0,
+          i : 0,
+          id: 0,
 
       };
     
@@ -32,23 +34,26 @@ export default {
   methods: {
       
     move: function () {
-      if (i == 0) {
-        i = 1;
+      if (this.i == 0) {
+        this.i = 1;
+        this.id = setInterval(this.frame, 10);
+      }
+    },
+    frame: function () {
         var elem = document.getElementById("myBar");
         var width = 10;
-        var id = setInterval(frame, 10);
-        function frame() {
+        
           if (width >= 100) {
-            clearInterval(id);
-            i = 0;
+            clearInterval(this.id);
+            this.i = 0;
           } else {
             width++;
             elem.style.width = width + "%";
             elem.innerHTML = width + "%";
           }
-        }
-      }
-    },
+        },
+      
+    
   },
 };
 </script>
