@@ -15,6 +15,8 @@
                 </li>
             </ul>
         </div>
+    <div class="chart-title"><h1>Bar Chart</h1></div>
+    <bar-chart></bar-chart>
   </div>
 </template>
 
@@ -52,6 +54,16 @@ export default{
         }
   }
 }
+
+import BarChart from "./../charts/barchart.js";
+
+
+export default {
+  components: {
+    BarChart
+  }
+};
+
 </script>
 
 <style>
@@ -59,4 +71,9 @@ export default{
     margin-top: 65px;
     text-align: center;
 }
+
+.chart-title {
+    text-align: center;
+}
 </style>
+

@@ -415,6 +415,7 @@ a {
   margin: 0;
   padding: 0;
   z-index: 1;
+  right: 15px;
 }
 .w3-check,
 .w3-radio {
@@ -490,8 +491,10 @@ a {
 
 .w3-bar .w3-bar-item a {
    display: flex;
-  text-align: center;
-  justify-content: center;
+  text-align: left;
+  justify-content: left;
+  margin-left: 0;
+  padding-left: 10px;
 }
 
 .w3-bar-img {

@@ -21,22 +21,43 @@
             <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/about' exact>ABOUT</router-link>
             <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/faqs'>FAQs</router-link>
             <router-link v-if='!isLoggedIn' class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/login' exact>LOGIN</router-link>
-            <a v-if='isLoggedIn' class="w3-bar-item w3-button w3-padding-large w3-hide-small" v-on:click='logout'>LOGOUT</a>
-        
-            <div class="w3-dropdown-hover w3-hide-small">
-                <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>
-            <div class="w3-dropdown-content w3-bar-block w3-card-4">
-                <a href="#" class="w3-bar-item w3-button">Merchandise</a>
-                <a href="#" class="w3-bar-item w3-button">Extras</a>
-                <a href="#" class="w3-bar-item w3-button">Media</a>
-            </div>
-            </div>
+            
+            <div v-on:mouseleave='accountCircle=accountCircleWhite' v-on:mouseover='accountCircle = accountCircleBlack' v-if='isLoggedIn' class="w3-dropdown-hover w3-hide-small">
+                <a class="w3-padding-large w3-button dropdown-item">
+                    <img class='account-circle' :src="accountCircle">
+                    <div>MY ACC</div>
+                </a>
+                    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                        <router-link class="w3-bar-item w3-button" to='/dashboard'>
+                            <div class='dropdown-item'>
+                                <img src='./../assets/chart-line.png'>
+                                <div>My Savings</div>
+                            </div>
+                        </router-link>
+                        <router-link class="w3-bar-item w3-button" to='/dashboard'>
+                            <div class='dropdown-item'>
+                                <img src='./../assets/view-dashboard-outline.png'>
+                                <div>Analytics</div>
+                            </div>
+                        </router-link>
+                        <div class= 'bottom-border'>
+                        <router-link class="w3-bar-item w3-button" to='/dashboard'>
+                            <div class='dropdown-item'>
+                                <img src='./../assets/math-integral.png'>
+                                <div>Optimise My Savings</div>
+                            </div>
+                        </router-link>
+                        </div>
+                        <a class="w3-bar-item w3-button" v-on:click='logout'>
+                            <div class='dropdown-item'>
+                                <img src='./../assets/logout-variant.png'>
+                                <div >Sign Out</div> 
+                            </div>
+                         </a>
+                    </div>
+                </div>
+            <div class='space'></div>
         </div>
-        <!-- <a
-          href="javascript:void(0)"
-          class="w3-padding-large w3-hover-red w3-hide-small w3-right"
-          ><i class="fa fa-search"></i
-        ></a> -->
       </div>
     </div>
 </template>
@@ -44,13 +65,18 @@
 
 <script>
 import firebase from 'firebase';
+import white from './../assets/account-circle-white.png';
+import black from './../assets/account-circle-black.png';
 
 export default {
     data() {
         return {
             searchKeyword: "",
             isLoggedIn: false,
-            currentUser: false
+            currentUser: false,
+            accountCircle: white,
+            accountCircleWhite: white,
+            accountCircleBlack: black
         }
     },
 
@@ -75,6 +101,14 @@ export default {
                 this.$router.go({path: this.$router.path});
             })
 
+        },
+
+        toggleAccountCircle: function() {
+            if (this.accountCircle == this.accountCircleWhite) {
+                this.accountCircle = this.accountCircleBlack
+            } else {
+                this.accountCircle = this.accountCircleWhite
+            }
         }
     }
 
@@ -172,5 +206,34 @@ input {
     color: black;
     text-decoration: none;
 }
+
+.space {
+    width: 15px;
+}
+
+router-link {
+   display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.dropdown-item {
+    display: flex;
+}
+
+.dropdown-item img {
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.bottom-border {
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.account-circle {
+    margin-bottom: 0.5px;
+}
+
 
 </style>
