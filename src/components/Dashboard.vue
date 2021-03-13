@@ -24,6 +24,7 @@
 import EditGoals from "./EditGoals.vue";
 import MyPlansRect from "./MyPlansRect.vue";
 import database from "../firebase.js";
+import BarChart from "./../charts/barchart.js";
 
 export default{
   data() {
@@ -34,6 +35,7 @@ export default{
   },
 
   components: {
+    BarChart,
     EditGoals: EditGoals,
     MyPlansRect: MyPlansRect,
   },
@@ -55,14 +57,6 @@ export default{
   }
 }
 
-import BarChart from "./../charts/barchart.js";
-
-
-export default {
-  components: {
-    BarChart
-  }
-};
 
 </script>
 
