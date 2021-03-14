@@ -53,8 +53,9 @@ export default {};
 }
 
 .socialIcon {
-  max-width: 25px;
+  max-width: 30px;
   margin: 0 7px;
+  height: 30px;
 }
 
 #companyLogo {
