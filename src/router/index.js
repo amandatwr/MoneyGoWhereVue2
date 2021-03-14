@@ -4,6 +4,8 @@ import AboutPage from "./../components/AboutPage.vue";
 import Login from "./../components/Login.vue";
 import Register from "./../components/Register.vue";
 import Dashboard from "./../components/Dashboard.vue";
+import Listings from "./../components/Listings.vue";
+import IndivListings from "./../components/IndivListings.vue";
 import VueRouter from "vue-router";
 import firebase from "firebase";
 
@@ -20,6 +22,16 @@ let router = new VueRouter({
     {
       path: "/about",
       component: AboutPage,
+    },
+    {
+      path: '/listings', 
+      component: Listings
+    },
+    { 
+      path: '/IndivListing/:id', 
+      name: "IndivListing", 
+      component: IndivListings, 
+      props: true 
     },
     {
       path: "/register",
