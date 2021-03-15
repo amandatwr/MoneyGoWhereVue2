@@ -23,11 +23,12 @@
             <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/faqs'>FAQs</router-link>
             <router-link v-if='!isLoggedIn' class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/login' exact>LOGIN</router-link>
             
-            <div v-on:mouseleave='accountCircle=accountCircleWhite' v-on:mouseover='accountCircle = accountCircleBlack' v-if='isLoggedIn' class="w3-dropdown-hover w3-hide-small">
-                <a class="w3-padding-large w3-button dropdown-item">
+            <a v-on:mouseleave='accountCircle=accountCircleWhite' v-on:mouseover='accountCircle = accountCircleBlack' 
+            v-if='isLoggedIn' class="w3-bar-item w3-button w3-dropdown-hover w3-hide-small w3-padding-large dropdown-item">
+                <span>
                     <img class='account-circle' :src="accountCircle">
-                    <div>MY ACC</div>
-                </a>
+                    <span>MY ACC</span>
+                </span>
                     <div class="w3-dropdown-content w3-bar-block w3-card-4">
                         <router-link class="w3-bar-item w3-button" to='/dashboard'>
                             <div class='dropdown-item'>
@@ -56,7 +57,7 @@
                             </div>
                          </a>
                     </div>
-                </div>
+                </a>
             <div class='space'></div>
         </div>
       </div>
@@ -131,6 +132,7 @@ export default {
     justify-content: center;
     align-content: center;
 }
+
 
 .w3-bar .w3-bar-left,
 .w3-bar .w3-bar-right {
@@ -235,6 +237,5 @@ router-link {
 .account-circle {
     margin-bottom: 0.5px;
 }
-
 
 </style>
