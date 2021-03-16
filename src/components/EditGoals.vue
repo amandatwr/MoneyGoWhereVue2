@@ -10,7 +10,7 @@
     </div>
     <br /><br />
     <div id="myProgress">
-      <div id="myBar">10%</div>
+      <div id="myBar"></div>
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
           endVal: 0,
           i : 0,
           id: 0,
+          currVal: 0,
 
       };
     
@@ -43,7 +44,7 @@ export default {
         var elem = document.getElementById("myBar");
         var width = 10;
         
-          if (width >= 100) {
+          if (width >= this.currVal) {
             clearInterval(this.id);
             this.i = 0;
           } else {
