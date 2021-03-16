@@ -19,7 +19,6 @@
       </div>
     </div>
     <br><br><br>
-      <SaverPage></SaverPage>
       <br><br><br>
       <SellerDashboard></SellerDashboard>
       <br><br><br>
