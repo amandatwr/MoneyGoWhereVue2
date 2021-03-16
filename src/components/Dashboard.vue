@@ -11,12 +11,11 @@
                     <div id='price'>{{"$"+item.price}}</div>  
                     <br>
 <MyPlansRect v-bind:item = "item" vue: v-on:counter="onCounter"/>
-                  
                 </li>
             </ul>
         </div>
     <div class="chart-title"><h1>Bar Chart</h1></div>
-    <bar-chart></bar-chart>
+    <market-performance></market-performance>
   </div>
 </template>
 
@@ -24,7 +23,7 @@
 import EditGoals from "./EditGoals.vue";
 import MyPlansRect from "./MyPlansRect.vue";
 import database from "../firebase.js";
-import BarChart from "./../charts/barchart.js";
+import MarketPerformance from "../charts/marketperformance.js";
 
 export default{
   data() {
@@ -35,7 +34,7 @@ export default{
   },
 
   components: {
-    BarChart,
+    MarketPerformance,
     EditGoals: EditGoals,
     MyPlansRect: MyPlansRect,
   },
@@ -68,6 +67,7 @@ export default{
 
 .chart-title {
     text-align: center;
+    margin-top: 200px; 
 }
 </style>
 
