@@ -20,7 +20,6 @@
     </div>
     <br><br><br>
       <br><br><br>
-      <SellerDashboard></SellerDashboard>
       <br><br><br>
       <FindOutMorePlans></FindOutMorePlans>
   </body>
