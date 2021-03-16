@@ -30,7 +30,7 @@
                     <span>MY ACC</span>
                 </span>
                     <div class="w3-dropdown-content w3-bar-block w3-card-4">
-                        <router-link class="w3-bar-item w3-button" to='/dashboard'>
+                        <router-link class="w3-button" to='/dashboard'>
                             <div class='dropdown-item'>
                                 <img src='./../assets/chart-line.png'>
                                 <div>My Savings</div>
@@ -222,6 +222,7 @@ router-link {
 
 .dropdown-item {
     display: flex;
+    color: black;
 }
 
 .dropdown-item img {
