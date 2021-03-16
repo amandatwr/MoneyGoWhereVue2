@@ -15,7 +15,10 @@
             </ul>
         </div>
     <div class="chart-title"><h1>Bar Chart</h1></div>
-    <market-performance></market-performance>
+    <div id='dashboard-row-1' class='dashboard-row'>
+    <v-card class='sti'><market-performance></market-performance></v-card>
+    <v-card>Some other nonsense</v-card>
+    </div>
   </div>
 </template>
 
@@ -68,6 +71,21 @@ export default{
 .chart-title {
     text-align: center;
     margin-top: 200px; 
+}
+
+.sti {
+  width: 100%;
+  height: 500px;
+}
+
+.dashboard-row {
+  margin:2%;
+  padding: 25px;
+}
+
+#dashboard-row-1 {
+  display: flex;
+  width: 95%;
 }
 </style>
 
