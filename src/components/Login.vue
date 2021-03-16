@@ -5,7 +5,7 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form">
 					<span class="login100-form-title p-b-26">
-						Welcome
+						Welcome!
 					</span>
 					<span class="login100-form-title p-b-48">
 						<i class="zmdi zmdi-font"></i>
@@ -33,8 +33,9 @@
 							</button>
 						</div>
 					</div>
+					<div v-if='error'><p class='alert'>{{this.errorMessage}}</p></div>
 
-					<div class="text-center p-t-115">
+					<div class="text-center p-t-75">
 						<span class="txt1">
 							Don’t have an account?
 						</span>
@@ -63,7 +64,9 @@ export default {
             psasword: '',
             passwordVisible: false,
             eyeIconVisible: false,
-            type: "password"
+            type: "password",
+			error: false,
+			errorMessage: 'Invalid email or password.'
         }
     },
 
@@ -76,7 +79,8 @@ export default {
                 this.$router.go({path: this.$router.path});
             },
             err => {
-                alert(err.message)
+                console.log(err);
+				this.error =true;
             });
             e.preventDefault();
         },
@@ -115,6 +119,11 @@ export default {
 .input100:-moz-placeholder { color: transparent;}
 .input100::-moz-placeholder { color: transparent;}
 .input100:-ms-input-placeholder { color: transparent;}
+
+.alert {
+	margin-top: 10px;
+	color: red;
+}
 
 
 </style>

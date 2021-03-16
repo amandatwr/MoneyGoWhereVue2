@@ -73,6 +73,7 @@ export default {};
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-right: 35px;;
 }
 
 .copyright {
