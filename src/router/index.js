@@ -8,6 +8,7 @@ import Listings from "./../components/Listings.vue";
 import IndivListings from "./../components/IndivListings.vue";
 import VueRouter from "vue-router";
 import firebase from "firebase";
+import FAQ from "./../components/FAQ.vue";
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,10 @@ let router = new VueRouter({
         requiresAuth: true,
       },
     },
+    {
+      path: "/FAQ",
+      component: FAQ,
+    }
   ],
 });
 

@@ -27,8 +27,8 @@
 
 
 <script>
-import SaverPage from "./SaverPage.vue";
-import SellerDashboard from "./SellerDashboard.vue"
+// import SaverPage from "./SaverPage.vue";
+// import SellerDashboard from "./SellerDashboard.vue"
 import FindOutMorePlans from "./FindOutMorePlans.vue"
 import database from "../firebase.js"; 
 
@@ -58,8 +58,8 @@ export default {
   },
 
   components: {
-    SaverPage: SaverPage,
-    SellerDashboard: SellerDashboard,
+    // SaverPage: SaverPage,
+    // SellerDashboard: SellerDashboard,
     FindOutMorePlans: FindOutMorePlans,
   },
 

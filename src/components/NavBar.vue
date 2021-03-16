@@ -20,7 +20,7 @@
             <router-link class='w3-bar-item w3-button w3-padding-large w3-hide-small"' to='/' exact>HOME</router-link>
             <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/about' exact>ABOUT</router-link>
             <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/listings' exact>LISTINGS</router-link>
-            <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/faqs'>FAQs</router-link>
+            <router-link class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/FAQ'>FAQs</router-link>
             <router-link v-if='!isLoggedIn' class="w3-bar-item w3-button w3-padding-large w3-hide-small" to='/login' exact>LOGIN</router-link>
             
             <a v-on:mouseleave='accountCircle=accountCircleWhite' v-on:mouseover='accountCircle = accountCircleBlack' 
