@@ -11,7 +11,7 @@
                     <br>
                     <p>{{plan.Desc}}</p>
                     <br>
-                    <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                    <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
                 </div>
             </li>
         </ul>
@@ -92,6 +92,10 @@ export default {
 .photo {
     height: 220px;
     width: 370px;
+}
+
+.learnMore {
+    color: #545454
 }
 
 button {
