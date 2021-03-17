@@ -90,8 +90,8 @@ export default {
 }
 
 .photo {
-    height: 200px;
-    width: 350px;
+    height: 220px;
+    width: 370px;
 }
 
 button {
@@ -99,16 +99,18 @@ button {
     color: #2F6EA2;
     border: 1px solid grey;
     align-items: center;
-    display: inline-block
+    display: inline-block;
 }
 
 #header {
     font-size: 50px;
     text-align: center;
+    font-family: Optima;
 }
 
 #subheader {
     font-size: 30px;
     text-align: center;
+    font-family: Optima;
 }
 </style>
