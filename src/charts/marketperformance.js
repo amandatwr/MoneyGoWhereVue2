@@ -20,9 +20,8 @@ export default {
       options: {
         title: {
           display: true,
-          text: "Monthly STI Index Across the Years",
-          fontSize: 30,
-          fontColor: "#000000",
+          text: "Monthly STI Index",
+          fontSize: 20,
         },
         legend: {
           display: false,

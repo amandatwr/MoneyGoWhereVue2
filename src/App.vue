@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <div id="app">
-    <NavBar></NavBar>
+    <NavBar class='navbar'></NavBar>
     <router-view></router-view>
     <Footer></Footer>
     <v-card></v-card>
@@ -24,4 +24,10 @@ export default {
 #app {
   color: black;
 }
+
+.navbar {
+  /* position: absolute; */
+  z-index: 1;
+}
 </style>
+

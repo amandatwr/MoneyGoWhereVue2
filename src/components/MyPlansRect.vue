@@ -1,5 +1,6 @@
 <template>
-<div class="tooltip" v-for="plan in planRect" v-bind:key = "plan">Plan Name: {{planRect.key}}
+<div class="tooltip" v-bind:key = "plan">Plan Name: {{planRect.key}}
+<!-- v-for="plan in planRect" -->
     <input v-model="textValue" placeholder="input amount">
   <span class="tooltiptext">Provider: {fetch this}<br> Interest Rate: {fetch this}<br>Capital Guaranteed: {T/F}<br> Min. years:{fetch this}</span>
 </div>
@@ -7,6 +8,10 @@
 
 
 <script>
+import firebase from 'firebase';
+import database from '../router/index.js'
+
+
 export default {
     name: 'MyPlan',
   props: {

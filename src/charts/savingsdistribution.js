@@ -1,31 +1,47 @@
 import database from "../firebase.js";
 import firebase from "firebase";
-import { Pie } from "vue-chartjs";
+import { Doughnut } from "vue-chartjs";
 
 export default {
-  extends: Pie,
+  extends: Doughnut,
   data: function() {
     return {
       datacollection: {
-        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+        labels: [],
         datasets: [
           {
             label: "Population (millions)",
             backgroundColor: [
-              "#3e95cd",
-              "#8e5ea2",
-              "#3cba9f",
-              "#e8c3b9",
-              "#c45850",
+              "#0074D9",
+              "#FF4136",
+              "#2ECC40",
+              "#FF851B",
+              "#7FDBFF",
+              "#B10DC9",
+              "#FFDC00",
+              "#001f3f",
+              "#39CCCC",
+              "#01FF70",
+              "#85144b",
+              "#F012BE",
+              "#3D9970",
+              "#111111",
+              "#AAAAAA",
             ],
-            data: [2478, 5267, 734, 784, 433],
+            data: [],
           },
         ],
       },
       options: {
         title: {
           display: true,
-          text: "Predicted world population (millions) in 2050",
+          text: "Savings Distribution (%)",
+          fontSize: 20,
+        },
+        layout: {
+          padding: {
+            top: -10,
+          },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -40,29 +56,29 @@ export default {
         .doc(this.user)
         .get()
         .then((doc) => {
-          console.log(doc.data());
+          let plans = doc.data().plans;
+          Object.entries(plans).forEach(([key, value]) => {
+            // console.log(key);
+            // console.log(value.amount);
+            this.datacollection.labels.push(key);
+            this.datacollection.datasets[0].data.push(value.amount);
+          });
+        })
+        .then(() => {
+          this.renderChart(this.datacollection, this.options);
         });
-      this.renderChart(this.datacollection, this.options);
     },
   },
   created() {
-    // Log user account creation date
-    var user = firebase.auth().currentUser;
-    var signupDate = new Date(user.metadata.creationTime);
-    var currDate = new Date();
-    console.log(user);
-    console.log(signupDate);
-    console.log(currDate);
-    console.log(user.uid);
     firebase.auth().onAuthStateChanged((userAuth) => {
       if (userAuth) {
         firebase
           .auth()
           .currentUser.getIdTokenResult()
           .then((token) => {
-            this.user = token.claims.sub;
-            console.log(token);
-          })
+                             this.user = token.claims.sub;
+                             // console.log(token);
+                           })
           .then(() => {
             this.fetchItems();
           });
