@@ -9,6 +9,7 @@ import IndivListings from "./../components/IndivListings.vue";
 import VueRouter from "vue-router";
 import firebase from "firebase";
 import FAQ from "./../components/FAQ.vue";
+import Recommender from "./../components/Recommender.vue"
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,10 @@ let router = new VueRouter({
     {
       path: "/FAQ",
       component: FAQ,
+    },
+    {
+      path: "/recommender",
+      component: Recommender,
     }
   ],
 });
