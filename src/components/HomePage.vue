@@ -9,19 +9,19 @@
            <transition name="fade" mode="out-in">
             <p key="1" class="tagline" v-if="generalText">Your one stop platform for all things Savings.</p>
             <p key="2" class="tagline" v-else-if="isUser">Maximise your savings with one click.</p>
-            <p key="3" class="tagline" v-else-if="isSeller">Get matched with leads today.</p>
+            <!-- <p key="3" class="tagline" v-else-if="isSeller">Get matched with leads today.</p> -->
           </transition>
-          <div class="banner-buttons">
+          <!-- <div class="banner-buttons">
           <button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">SAVER</button>
             <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
     <br><br><br>
       <br><br><br>
       <br><br><br>
-      <FindOutMorePlans></FindOutMorePlans>
+      <!-- <FindOutMorePlans></FindOutMorePlans> -->
   </body>
 </template>
 
@@ -29,7 +29,7 @@
 <script>
 // import SaverPage from "./SaverPage.vue";
 // import SellerDashboard from "./SellerDashboard.vue"
-import FindOutMorePlans from "./FindOutMorePlans.vue"
+// import FindOutMorePlans from "./FindOutMorePlans.vue"
 import database from "../firebase.js"; 
 
 export default {
@@ -60,7 +60,7 @@ export default {
   components: {
     // SaverPage: SaverPage,
     // SellerDashboard: SellerDashboard,
-    FindOutMorePlans: FindOutMorePlans,
+    // FindOutMorePlans: FindOutMorePlans,
   },
 
   created() {

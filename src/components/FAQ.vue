@@ -1,39 +1,6 @@
 <template>
     <div style="text-align: center; padding-top:100px">
-        <h6 v-for="description in savingPlan" v-bind:key="description">
-            <p id="name">{{doc_id}}</p>
-            <img v-bind:src="description.Image" alt="logo">
-            <br><br>
-            <table style="width:80%">
-                <tr>
-                    <th>Provider</th>
-                    <td>{{description.Provider}}</td>
-                </tr>
-                <tr>
-                    <th>Interest Per Annum</th>
-                    <td>{{description.InterestPA}}</td>
-                </tr>
-                <tr>
-                    <th>Capital Guaranteed</th>
-                    <td>{{description.CapitalGuaranteed}}</td>
-                </tr>
-                <tr>
-                    <th>Minimum Number of Years</th>
-                    <td>{{description.MinNumOfYears}}</td>
-                </tr>
-                <tr>
-                    <th>Returns</th>
-                    <td>{{description.Returns}}</td>
-                </tr>
-                <tr>
-                    <th>Returns Guaranteed</th>
-                    <td>{{description.ReturnsGuaranteed}}</td>
-                </tr>
-            </table>
-            <br><br>
-            <a id="site" v-bind:href="description.Link">VISIT OFFICIAL SITE</a>
-            <br><br>
-        </h6>
+        TEST
     </div>
 </template>
 
