@@ -49,8 +49,6 @@
         <img class="aboutUsImage" src="./../assets/our-story.jpg" />
       </div>
     </div>
-
-
   </div>
 </template>
 
