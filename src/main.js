@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router/index.js";
 import firebase from "firebase";
 import "./firebase.js";
+import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false;
 
@@ -12,7 +13,8 @@ firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
       render: (h) => h(App),
-      router: router,
+      vuetify,
+      router: router
     }).$mount("#app");
   }
 });

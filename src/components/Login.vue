@@ -125,6 +125,9 @@ export default {
 	color: red;
 }
 
+router-link {
+	color: #080808;
+}
 
 </style>
 
