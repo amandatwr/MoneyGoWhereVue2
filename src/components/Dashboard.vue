@@ -18,32 +18,54 @@
     <div class="dashboard">
       <div class="dashboard-row">
         <v-card class="card first-row">
-          Total Savings 
-          ${{ totalSavings }}
+          <div class="icon total-savings-icon">
+            <img class="icon-image" src="./../assets/summation.png" />
+          </div>
+          <div class="content">
+            <div class="heading">
+              <h2>{{ this.formatter().format(totalSavings) }}</h2>
+            </div>
+            <div class="subheading"><p>Total Savings</p></div>
+          </div>
         </v-card>
-        <v-card class="card first-row"> Total Earnings
-        ${{ totalEarnings }}</v-card>
         <v-card class="card first-row">
-        ${{Math.round(totalEarnings / days * 100) / 100}} </v-card>
+          <div class="icon total-earnings-icon">
+            <img class="icon-image" src="./../assets/dollar.png" />
+          </div>
+          <div class="content">
+            <div class="heading">
+              <h2>{{ this.formatter().format(totalEarnings) }}</h2>
+            </div>
+            <div class="subheading"><p>Total Earnings Per Annum</p></div>
+          </div>
+        </v-card>
+        <v-card class="card first-row">
+          <div class="icon average-earnings-icon">
+            <img class="icon-image" src="./../assets/slash.png" />
+          </div>
+          <div class="content">
+            <div class="heading">
+              <h2>{{ this.formatter().format(totalEarnings / days) }}</h2>
+            </div>
+            <div class="subheading"><p>Average Earnings Per Day</p></div>
+          </div>
+        </v-card>
       </div>
 
       <div class="dashboard-row">
-        <v-card class="card savings-distribution-card">
-          Since your account creation on {{ accCreationDate }}
-          {{ totalSavings }}
-          {{ totalEarnings }}
-          {{ days }}
+        <v-card class="card market-performance-card">
+          <v-data-table
+            :items="plans"
+            :headers="headers"
+            :disable-items-per-page="true"
+            :items-per-page="1"
+            height="200px"
+            :footer-props="{
+              disableItemsPerPage: true
+            }"
+          ></v-data-table>
         </v-card>
-        <v-card class="card savings-distribution-card"
-          ><savings-distribution
-            class="savings-distribution-canvas"
-          ></savings-distribution
-        ></v-card>
-        <v-card class="card savings-distribution-card"
-          ><savings-distribution
-            class="savings-distribution-canvas"
-          ></savings-distribution
-        ></v-card>
+        <v-card class="card savings-distribution-card"></v-card>
       </div>
 
       <div class="dashboard-row last-row">
@@ -59,6 +81,7 @@
         ></v-card>
       </div>
     </div>
+    <v-data-table></v-data-table>
   </div>
 </template>
 
@@ -77,8 +100,15 @@ export default {
       totalEarnings: 0,
       accCreationDate: null,
       days: null,
+      loaded: false,
       items: [],
       itemsSelected: [],
+      headers: [
+        { text: "Plan Name", value: "name" },
+        { text: "Plan Provider", value: "provider" },
+        { text: "Amount Saved", value: "amount" },
+      ],
+      plans: [],
     };
   },
 
@@ -107,16 +137,27 @@ export default {
           Object.entries(plans).forEach(([key, value]) => {
             console.log(key);
             console.log(value.amount);
+            var plans = Object.assign({}, value);
             database
               .collection("Listings")
               .doc(key)
               .get()
               .then((listing) => {
-                this.totalSavings += Math.round((listing.data().InterestPA * value.amount + value.amount) * 100) / 100
-                this.totalEarnings += Math.round(listing.data().InterestPA * value.amount * 100) / 100
-                });
+                var listingDetails = listing.data();
+                plans["name"] = listingDetails.name;
+                plans["provider"] = listingDetails.Provider;
+                plans["amount"] = this.formatter().format(value.amount);
+                this.plans.push(plans);
+
+                this.totalSavings +=
+                  listing.data().InterestPA * value.amount + value.amount;
+                this.totalEarnings += listing.data().InterestPA * value.amount;
               });
           });
+        })
+        .then(() => {
+          console.log(this.plans);
+        });
     },
 
     getAccCreationDate: function (dateObj) {
@@ -131,7 +172,26 @@ export default {
       console.log(from, to);
       return Math.floor((from - to) / 86400000);
     },
+
+    formatter: function () {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+      });
+    },
   },
+
+  // computed: {
+  //   headers: function() {
+  //     return [
+  //       {text: 'Plan Name', value: 'plans'},
+  //       {text: 'Plan Provider', value: 'providers'},
+  //       {text: 'Amount Saved', value: 'amount'}
+  //     ]
+  //   }
+
+  // },
 
   created() {
     this.fetchItems();
@@ -187,10 +247,73 @@ export default {
 }
 
 .first-row {
-  height: 150px;
-  background-color: #424242 !important;
+  height: 100px;
+  /* background-color: # !important; */
   width: 30%;
   color: white !important;
+  padding: 0;
+  display: flex;
 }
+
+.heading {
+  text-align: center;
+  padding: 0;
+  margin: -5px 0;
+}
+
+.heading > h2 {
+  font-size: 40px !important;
+  font-style: bold;
+}
+
+.subheading {
+  text-align: center;
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.icon {
+  width: 110px;
+  border-bottom-left-radius: 4px !important;
+  border-top-right-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 5px; */
+}
+
+.total-savings-icon {
+  background-color: #f78888;
+}
+
+.total-earnings-icon {
+  background-color: #5da2d5;
+}
+
+.average-earnings-icon {
+  background-color: #f3d250;
+}
+
+.content {
+  color: black;
+  padding: 15px;
+}
+
+.icon > img {
+  max-height: 60%;
+}
+
+/* .v-data-footer {
+  display: inline-flex !important;
+  flex-direction: row !important; 
+flex-flow: row nowrap;
+  height: 50px;
+  overflow: hidden;
+} */
+
+/* .v-data-footer__select {
+  visibility: hidden;
+} */
 </style>
 

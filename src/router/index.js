@@ -10,6 +10,7 @@ import VueRouter from "vue-router";
 import firebase from "firebase";
 import FAQ from "./../components/FAQ.vue";
 import Recommender from "./../components/Recommender.vue"
+import test from "./../components/test.vue";
 
 Vue.use(VueRouter);
 
@@ -26,14 +27,14 @@ let router = new VueRouter({
       component: AboutPage,
     },
     {
-      path: '/listings', 
-      component: Listings
+      path: "/listings",
+      component: Listings,
     },
-    { 
-      path: '/IndivListing/:id', 
-      name: "IndivListing", 
-      component: IndivListings, 
-      props: true 
+    {
+      path: "/IndivListing/:id",
+      name: "IndivListing",
+      component: IndivListings,
+      props: true,
     },
     {
       path: "/register",
@@ -63,7 +64,11 @@ let router = new VueRouter({
     {
       path: "/recommender",
       component: Recommender,
-    }
+    },
+    {
+      path: "/test",
+      component: test,
+    },
   ],
 });
 
