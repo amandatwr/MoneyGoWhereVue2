@@ -9,18 +9,18 @@
         <div id="list1" class="dropdown-check-list" tabindex="100">
             <span class="anchor" @click="displayBox()">Select Preferred Financial Institution</span>
             <ul class="items" style="text-align:left">
-                <li><input type="checkbox" />Select All</li>
+                <li><input type="checkbox" id="allPlans" @click="selectAll()" />Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
-                <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans"/>{{plan.Provider}}
+                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.Provider}}
                 </li>
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true">Next</button>
+        <button id="btn" type="button" @click="show_form = true; findPlans()">Next</button>
         <br><br>
-        <div v-if="show_form">
+        <div v-if="show_form" style="text-align:center">
             <ul id="withBorders">
-                <li id="withBorders2" class="column" v-for="plan in selectedPlans" v-bind:key="plan">
+                <li id="withBorders2" class="column" v-for="plan in recommendedPlans" v-bind:key="plan">
                     <div class="card">
                         <img class="photo" v-bind:src="plan.Image" alt="logo">
                         <br><br>
@@ -44,9 +44,12 @@ export default {
         return {
             selectedPlans: [],
             listOfPlans: [],
+            recommendedPlans: [],
             show_form: false,
             expanded: false,
-            checkList: document.getElementById('list1')
+            checkList: document.getElementById('list1'),
+            amount: null,
+            years: null,
         }
     },
     methods: {
@@ -62,20 +65,37 @@ export default {
         },
         displayBox: function() {
             var checkList = document.getElementById('list1');
-            if (checkList.classList.contains('visible'))
+            if (checkList.classList.contains('visible')) {
                 checkList.classList.remove('visible');
-            else
+            } else {
                 checkList.classList.add('visible');
-        },
-        checkedPlans: function() {
-            document.getElementById('btn').onclick = function() {
-                var markedCheckbox = document.getElementsByName('provider');
-                for (var checkbox of markedCheckbox) {
-                    if (checkbox.checked)
-                        this.selectedPlans.push(checkbox.value);
-                }
             }
         },
+        findPlans: function() {
+            this.recommendedPlans = []
+            for (let i = 0; i < this.selectedPlans.length; i++) {
+                // if (this.selectedPlans[i].MinNumOfYears <= this.years && (this.selectedPlans[i].MinAmount <= this.amount)) {
+                if (this.selectedPlans[i].MinNumOfYears <= this.years) {
+                    this.recommendedPlans.push(this.selectedPlans[i]);
+                } 
+            }
+        },
+        selectAll: function() {
+            var selected = document.getElementById("allPlans")
+            if (selected.checked) {
+                this.selectedPlans = this.listOfPlans;
+            } else {
+                this.selectedPlans = [];
+            }
+
+        },
+        route: function(event) {
+            let doc_id = event.target.getAttribute("id");
+            this.$router.push({
+                name: 'IndivListing',
+                params: { id: doc_id }
+            })
+        }
     },
     created() {
         this.fetchItems()
@@ -129,7 +149,7 @@ export default {
 }
 
 .dropdown-check-list.visible .anchor {
-    color: #0094ff;
+    color: black;
 }
 
 .dropdown-check-list.visible .items {
