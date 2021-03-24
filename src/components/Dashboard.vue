@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Dashboard</h1>
+    <MyPlansRect/>
     <EditGoals></EditGoals>
     <div id="itemsList">
       <ul>
@@ -10,7 +11,7 @@
           <br />
           <div id="price">{{ "$" + item.price }}</div>
           <br />
-          <MyPlansRect v-bind:item = "item" vue: v-on:counter="onCounter"/>
+          
         </li>
       </ul>
     </div>
@@ -54,16 +55,22 @@
 
       <div class="dashboard-row">
         <v-card class="card market-performance-card">
+        <h1 class="heading">Summary</h1>
           <v-data-table
             :items="plans"
             :headers="headers"
-            :disable-items-per-page="true"
-            :items-per-page="1"
-            height="200px"
-            :footer-props="{
-              disableItemsPerPage: true
-            }"
+            hide-default-footer
+            :items-per-page="5"
+            :page.sync="page"
+            @page-count="pageCount = $event"
+            
           ></v-data-table>
+           <div class="text-center pt-2">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+      ></v-pagination>
+    </div>
         </v-card>
         <v-card class="card savings-distribution-card"></v-card>
       </div>
@@ -81,7 +88,6 @@
         ></v-card>
       </div>
     </div>
-    <v-data-table></v-data-table>
   </div>
 </template>
 
@@ -103,6 +109,8 @@ export default {
       loaded: false,
       items: [],
       itemsSelected: [],
+      page: 1,
+        pageCount: 0,
       headers: [
         { text: "Plan Name", value: "name" },
         { text: "Plan Provider", value: "provider" },
@@ -150,8 +158,8 @@ export default {
                 this.plans.push(plans);
 
                 this.totalSavings +=
-                  listing.data().InterestPA * value.amount + value.amount;
-                this.totalEarnings += listing.data().InterestPA * value.amount;
+                  listingDetails.InterestPA * value.amount + value.amount;
+                this.totalEarnings += listingDetails.InterestPA * value.amount;
               });
           });
         })
@@ -181,17 +189,6 @@ export default {
       });
     },
   },
-
-  // computed: {
-  //   headers: function() {
-  //     return [
-  //       {text: 'Plan Name', value: 'plans'},
-  //       {text: 'Plan Provider', value: 'providers'},
-  //       {text: 'Amount Saved', value: 'amount'}
-  //     ]
-  //   }
-
-  // },
 
   created() {
     this.fetchItems();
@@ -226,11 +223,12 @@ export default {
 }
 
 .market-performance-card {
-  width: 180%;
+  width: 60%;
+  padding-top: 35px;
 }
 
 .market-performance-canvas {
-  height: 300px;
+  height: 275px;
   width: 100%;
 }
 
@@ -304,16 +302,17 @@ export default {
   max-height: 60%;
 }
 
-/* .v-data-footer {
-  display: inline-flex !important;
+.v-data-footer {
+  display: flex !important;
+  justify-items: center;
   flex-direction: row !important; 
-flex-flow: row nowrap;
-  height: 50px;
-  overflow: hidden;
-} */
+  /* height: 50px;
+  overflow: hidden; */
+}
 
-/* .v-data-footer__select {
-  visibility: hidden;
-} */
+.v-data-footer__select {
+  display: none;  width: 100% !important;
+}
+
 </style>
 
