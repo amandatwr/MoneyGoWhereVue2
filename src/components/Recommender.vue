@@ -2,16 +2,16 @@
     <div style="text-align:center; padding-top:100px">
         <h1 id="text"><b> Get your optimal savings plan in seconds </b></h1>
         <h2 id="text">I want to invest $
-            <input id="cond" type="number" v-model="amount" size="10"> and hold it for a maximum of
+            <input id="cond" type="number" v-model="amount" size="10"> and hold it for
             <input id="cond" type="number" v-model="years" size="5"> years.
         </h2>
         <br><br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
             <span class="anchor" @click="displayBox()">Select Preferred Financial Institution</span>
             <ul class="items" style="text-align:left">
-                <li><input type="checkbox" id="allPlans" @click="selectAll()" />Select All</li>
+                <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
-                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.Provider}}
+                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.provider}}
                 </li>
             </ul>
         </div>
@@ -22,11 +22,11 @@
             <ul id="withBorders">
                 <li id="withBorders2" class="column" v-for="plan in recommendedPlans" v-bind:key="plan">
                     <div class="card">
-                        <img class="photo" v-bind:src="plan.Image" alt="logo">
+                        <img class="photo" v-bind:src="plan.image" alt="logo">
                         <br><br>
-                        <p id="name">{{plan.id}}</p>
+                        <p id="name">{{plan.name}}</p>
                         <br>
-                        <p>{{plan.Desc}}</p>
+                        <p>{{plan.description}}</p>
                         <br>
                         <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
                     </div>
@@ -74,8 +74,7 @@ export default {
         findPlans: function() {
             this.recommendedPlans = []
             for (let i = 0; i < this.selectedPlans.length; i++) {
-                // if (this.selectedPlans[i].MinNumOfYears <= this.years && (this.selectedPlans[i].MinAmount <= this.amount)) {
-                if (this.selectedPlans[i].MinNumOfYears <= this.years) {
+                if (this.selectedPlans[i].min_years <= this.years && (this.selectedPlans[i].min_amount <= this.amount)) {
                     this.recommendedPlans.push(this.selectedPlans[i]);
                 } 
             }

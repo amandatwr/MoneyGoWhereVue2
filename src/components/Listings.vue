@@ -5,11 +5,11 @@
         <ul id="withBorders">
             <li id="withBorders2" class="column" v-for="plan in listOfPlans" v-bind:key="plan">
                 <div class="card">
-                    <img class="photo" v-bind:src="plan.Image" alt="logo">
+                    <img class="photo" v-bind:src="plan.image" alt="logo">
                     <br><br>
-                    <p id="name">{{plan.id}}</p>
+                    <p id="name">{{plan.name}}</p>
                     <br>
-                    <p>{{plan.Desc}}</p>
+                    <p>{{plan.description}}</p>
                     <br>
                     <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
                 </div>
