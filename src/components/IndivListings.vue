@@ -23,28 +23,26 @@
             <br><br>
         </h6>
         <h6 v-for="description in savingPlan" v-bind:key="description">
-            <p id="name">{{doc_id}}</p>
-            <img v-bind:src="description.Image" alt="logo">
+            <p id="name">{{description.name}}</p>
+            <img v-bind:src="description.image" alt="logo">
             <br><br>
             <div class="row" style="width:80%; text-align:center; display: inline-block;">
                 <div class="column">
-                    <h2 id="text">{{description.InterestPA}}</h2>
+                    <h2 id="text">{{description.interest_pa}}%</h2>
                     <p>Annual Interest Rate</p>
                 </div>
                 <div class="column" id="borderLine">
-                    <h2 id="text">{{description.MinNumOfYears}}</h2>
+                    <h2 id="text">{{description.min_years}}</h2>
                     <p>Minimum Number of Years Required</p>
                 </div>
                 <div class="column" id="borderLine">
-                    <h2 id="text">${{description.MinPremium}}</h2>
+                    <h2 id="text">${{description.min_amount}}</h2>
                     <p>Minimum Premium Amount</p>
                 </div>
             </div>
             <h2 id="text">Features:</h2>
             <ul>
-                <li>Testing1</li>
-                <li>Testing2</li>
-                <li>Testing3</li>
+                <li id="feature" v-for="feature in description.features" v-bind:key="feature">{{feature}}</li>
             </ul>
             <br><br>
             <a id="site" v-bind:href="description.Link">VISIT OFFICIAL SITE</a>
@@ -169,5 +167,8 @@ td {
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+#feature {
 }
 </style>
