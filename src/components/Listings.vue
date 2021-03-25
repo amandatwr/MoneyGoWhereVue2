@@ -2,6 +2,19 @@
     <div id="listings">
         <h2 id="header">Savings Plans</h2>
         <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
+
+        <div id="list1" class="dropdown-check-list" tabindex="100">
+            <span class="anchor" @click="displayBox()">Select Preferred Financial Institution</span>
+            <ul class="items" style="text-align:left">
+                <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
+                <li v-for="plan in listOfPlans" v-bind:key="plan">
+                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.provider}}
+                </li>
+            </ul>
+        </div>
+        <br><br>
+        <button id="btn" type="button" @click="show_form = true; findPlans()">Next</button>
+
         <ul id="withBorders">
             <li id="withBorders2" class="column" v-for="plan in listOfPlans" v-bind:key="plan">
                 <div class="card">
@@ -23,7 +36,8 @@ import database from '../firebase.js'
 export default {
     data() {
         return {
-            listOfPlans: []
+            listOfPlans: [],
+            selectedPlans: []
         }
     },
     methods: {
@@ -117,4 +131,33 @@ button {
     text-align: center;
     font-family: Optima;
 }
+
+.dropdown-check-list {
+    display: inline-block;
+}
+
+.dropdown-check-list .anchor {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 50px 5px 10px;
+    border: 1px solid #ccc;
+}
+
+.dropdown-check-list .anchor:after {
+    position: absolute;
+    content: "";
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    padding: 5px;
+    right: 10px;
+    top: 20%;
+    -moz-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+}
+
+
 </style>
