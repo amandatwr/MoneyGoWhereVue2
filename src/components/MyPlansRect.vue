@@ -1,6 +1,5 @@
 <template>
-<div class="tooltip" v-bind:key = "plan">Plan Name: {{planRect.key}}
-<!-- v-for="plan in planRect" -->
+<div class="tooltip">Plan Name: {fetch this}
     <input v-model="textValue" placeholder="input amount">
   <span class="tooltiptext">Provider: {fetch this}<br> Interest Rate: {fetch this}<br>Capital Guaranteed: {T/F}<br> Min. years:{fetch this}</span>
 </div>
@@ -8,10 +7,6 @@
 
 
 <script>
-import firebase from 'firebase';
-import database from '../router/index.js'
-
-
 export default {
     name: 'MyPlan',
   props: {
@@ -22,8 +17,6 @@ export default {
       title: 'Plan',
       amount: 0,
       textValue: "",
-      planRect: [],
-      doc_id: this.$route.params.id,
       
     }
   }, 
@@ -31,29 +24,7 @@ export default {
     editAmount() {
       this.amount = this.textValue;
       
-    },
-    
-    fetchUser: function() {
-      var user = firebase.auth().currentUser;
-      var signupDate = new Date(user.metadata.creationTime);
-      var currDate = new Date();
-      console.log(user);
-      console.log(signupDate);
-      console.log(currDate);
-      console.log(user.uid);
-    },
-
-    fetchPlan: function() {
-      let doc_id = this.$route.params.id;
-      database.collection('TestUsers').doc(doc_id).get().then((querySnapShot) => {
-                this.planRect.push(querySnapShot.data())
-            })
-      Object.entries(this.planRect).forEach(([key, value]) => console.log(`${key}: ${value}`)); 
-    },
-    created() {
-      this.fetchUser()
-      this.fetchItems()
-    },
+    }, 
     }
 }
 </script>
