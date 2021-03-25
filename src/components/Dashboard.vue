@@ -1,22 +1,7 @@
 <template>
   <div>
-    <h1>Dashboard</h1>
-    <MyPlansRect/>
-    <EditGoals></EditGoals>
-    <div id="itemsList">
-      <ul>
-        <li v-bind:key="item" v-for="item in items">
-          <h1 id="itemName">{{ item.name }}</h1>
-          <img :src="item.imageURL" />
-          <br />
-          <div id="price">{{ "$" + item.price }}</div>
-          <br />
-          
-        </li>
-      </ul>
-    </div>
-    <div class="chart-title"><h1>Bar Chart</h1></div>
     <div class="dashboard">
+    <div class="chart-title"><h1>My Dashboard</h1></div>
       <div class="dashboard-row">
         <v-card class="card first-row">
           <div class="icon total-savings-icon">
@@ -55,12 +40,12 @@
 
       <div class="dashboard-row">
         <v-card class="card market-performance-card">
-        <h1 class="heading">Summary</h1>
+        <h2 class="heading">Summary</h2>
           <v-data-table
             :items="plans"
             :headers="headers"
             hide-default-footer
-            :items-per-page="5"
+            :items-per-page="4"
             :page.sync="page"
             @page-count="pageCount = $event"
             
@@ -92,8 +77,6 @@
 </template>
 
 <script>
-import EditGoals from "./EditGoals.vue";
-import MyPlansRect from "./MyPlansRect.vue";
 import database from "../firebase.js";
 import firebase from "firebase";
 import MarketPerformance from "../charts/marketperformance.js";
@@ -115,6 +98,7 @@ export default {
         { text: "Plan Name", value: "name" },
         { text: "Plan Provider", value: "provider" },
         { text: "Amount Saved", value: "amount" },
+        {text: 'Date Saved', value: 'dateSaved'}
       ],
       plans: [],
     };
@@ -123,8 +107,6 @@ export default {
   components: {
     MarketPerformance,
     SavingsDistribution,
-    EditGoals: EditGoals,
-    MyPlansRect: MyPlansRect,
   },
 
   methods: {
@@ -134,7 +116,6 @@ export default {
       var signupDate = new Date(user.metadata.creationTime);
       var currDate = new Date();
       this.days = this.getDateDiff(currDate, signupDate);
-      this.accCreationDate = this.getAccCreationDate(signupDate);
 
       database
         .collection("TestUsers")
@@ -143,41 +124,29 @@ export default {
         .then((doc) => {
           let plans = doc.data().plans;
           Object.entries(plans).forEach(([key, value]) => {
-            console.log(key);
-            console.log(value.amount);
-            var plans = Object.assign({}, value);
+            // console.log(key);
+            // console.log(value.amount);
+            var copy = Object.assign({}, value);
             database
               .collection("Listings")
               .doc(key)
               .get()
               .then((listing) => {
                 var listingDetails = listing.data();
-                plans["name"] = listingDetails.name;
-                plans["provider"] = listingDetails.Provider;
-                plans["amount"] = this.formatter().format(value.amount);
-                this.plans.push(plans);
-
-                this.totalSavings +=
-                  listingDetails.InterestPA * value.amount + value.amount;
-                this.totalEarnings += listingDetails.InterestPA * value.amount;
+                // console.log(listingDetails)
+                copy["name"] = listingDetails.name;
+                copy["provider"] = listingDetails.provider;
+                copy["amount"] = this.formatter().format(value.amount);
+                // console.log(value.dateSaved.toDate())
+                copy['dateSaved'] = value.dateSaved.toDate().toLocaleDateString()
+                this.plans.push(copy);
               });
           });
         })
-        .then(() => {
-          console.log(this.plans);
-        });
-    },
-
-    getAccCreationDate: function (dateObj) {
-      var month = dateObj.getUTCMonth() + 1;
-      var day = dateObj.getUTCDate();
-      var year = dateObj.getUTCFullYear();
-      console.log(day, month, year);
-      return day.toString() + "/" + month.toString() + "/" + year.toString();
     },
 
     getDateDiff: function (from, to) {
-      console.log(from, to);
+      // console.log(from, to);
       return Math.floor((from - to) / 86400000);
     },
 
@@ -197,15 +166,9 @@ export default {
 </script>
 
 <style>
-#dashboard {
-  margin-top: 65px;
+.dashboard {
+  margin: 65px 65px 0px 65px;
   text-align: center;
-  width: 100%;
-}
-
-.chart-title {
-  text-align: center;
-  margin-top: 200px;
 }
 
 .dashboard-row {
