@@ -4,7 +4,7 @@
         <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
 
         <div id="list1" class="dropdown-check-list" tabindex="100">
-            <span class="anchor" @click="displayBox()">Select Preferred Financial Institution</span>
+            <span class="anchor" @click="displayBox()">Filter By Financial Institution</span>
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
@@ -23,8 +23,8 @@
                             <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
                             <br><br>
                             <p id="name"><b>{{plan.name}}</b></p>
-                            <p id="name">{{plan.descriptionn}}</p>
-                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                            <p id="description">{{plan.description}}</p>
+                            <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
                         </div>
                     </li>
                 </ul>
@@ -39,8 +39,8 @@
                             <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
                             <br><br>
                             <p id="name"><b>{{plan.name}}</b></p>
-                            <p id="name">{{plan.descriptionn}}</p>
-                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                            <p id="description">{{plan.description}}</p>
+                            <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
                         </div>
                     </li>
                 </ul>
@@ -115,10 +115,15 @@ export default {
 <style scoped>
 #listings {
     padding-top: 100px;
+    text-align:center;
 }
 
 #name {
-    font-size: 18px;
+    font-size: 20px;
+}
+
+#description {
+    font-size: 15px;
 }
 
 #withBorders {
@@ -154,13 +159,9 @@ export default {
     width: 370px;
 }
 
-.learnMore {
-    color: #545454
-}
-
 button {
     background-color: white;
-    color: #2F6EA2;
+    color: #545454;
     border: 1px solid grey;
     align-items: center;
     display: inline-block;
