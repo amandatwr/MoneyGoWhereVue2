@@ -50,7 +50,16 @@ export default {
   },
 
   methods: {
-    fetchItems: function() {
+    fetchItems: async function() {
+      var listings = null;
+      await database
+        .collection("Listings")
+        .get()
+        .then((querySnapshot) => {
+          listings = querySnapshot.docs;
+          // console.log(listings);
+        });
+
       database
         .collection("TestUsers")
         .doc(this.user)
@@ -58,20 +67,13 @@ export default {
         .then((doc) => {
           let plans = doc.data().plans;
           Object.entries(plans).forEach(([key, value]) => {
-            database
-              .collection("Listings")
-              .doc(key)
-              .get()
-              .then((listing) => {
-                var listingDetails = listing.data();
-                        this.datacollection.labels.push(listingDetails.name);
-                        this.datacollection.datasets[0].data.push(value.amount);
-              });
+            var match = listings.find((x) => x.id == key);
+            // console.log(match.data());
+            this.datacollection.labels.push(match.data().name);
+            this.datacollection.datasets[0].data.push(value.amount);
           });
         })
         .then(() => {
-          console.log(this.datacollection.labels);
-          console.log(this.datacollection.datasets[0].data);
           this.renderChart(this.datacollection, this.options);
         });
     },
