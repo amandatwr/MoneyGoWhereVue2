@@ -13,9 +13,10 @@
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true; findPlans()">Next</button>
+        <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Next</button>
 
-        <div class="w3-row" style="padding:20px 50px 50px 50px">
+        <div v-if="show_original">
+            <div class="w3-row" style="padding:20px 50px 50px 50px">
                 <ul style="padding:0px">
                     <li v-for="plan in listOfPlans" v-bind:key="plan">
                         <div class="w3-col s4 w3-center" style="padding:30px">
@@ -28,6 +29,23 @@
                     </li>
                 </ul>
             </div>
+        </div>
+
+        <div v-if="show_form">
+            <div class="w3-row" style="padding:20px 50px 50px 50px">
+                <ul style="padding:0px">
+                    <li v-for="plan in recommendedPlans" v-bind:key="plan">
+                        <div class="w3-col s4 w3-center" style="padding:30px">
+                            <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
+                            <br><br>
+                            <p id="name"><b>{{plan.name}}</b></p>
+                            <p id="name">{{plan.descriptionn}}</p>
+                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
             
     </div>
 </template>
@@ -38,7 +56,11 @@ export default {
     data() {
         return {
             listOfPlans: [],
-            selectedPlans: []
+            selectedPlans: [],
+            recommendedPlans: [],
+            show_form: false,
+            show_original: true,
+            checkList: document.getElementById('list1')
         }
     },
     methods: {
@@ -51,6 +73,29 @@ export default {
                     this.listOfPlans.push(list)
                 })
             })
+        }, 
+        displayBox: function() {
+            var checkList = document.getElementById('list1');
+            if (checkList.classList.contains('visible')) {
+                checkList.classList.remove('visible');
+            } else {
+                checkList.classList.add('visible');
+            }
+        },
+        findPlans: function() {
+            this.recommendedPlans = []
+            for (let i = 0; i < this.selectedPlans.length; i++) {
+                this.recommendedPlans.push(this.selectedPlans[i]);
+            }
+        },
+        selectAll: function() {
+            var selected = document.getElementById("allPlans")
+            if (selected.checked) {
+                this.selectedPlans = this.listOfPlans;
+            } else {
+                this.selectedPlans = [];
+            }
+
         },
         route: function(event) {
             let doc_id = event.target.getAttribute("id");
@@ -160,5 +205,24 @@ button {
     transform: rotate(-135deg);
 }
 
+.dropdown-check-list ul.items {
+    padding: 2px;
+    display: none;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.dropdown-check-list ul.items li {
+    list-style: none;
+}
+
+.dropdown-check-list.visible .anchor {
+    color: black;
+}
+
+.dropdown-check-list.visible .items {
+    display: block;
+}
 
 </style>
