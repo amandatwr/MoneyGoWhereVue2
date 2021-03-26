@@ -2,19 +2,51 @@
     <div id="listings">
         <h2 id="header">Savings Plans</h2>
         <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
-        <ul id="withBorders">
-            <li id="withBorders2" class="column" v-for="plan in listOfPlans" v-bind:key="plan">
-                <div class="card">
-                    <img class="photo" v-bind:src="plan.image" alt="logo">
-                    <br><br>
-                    <p id="name">{{plan.name}}</p>
-                    <br>
-                    <p>{{plan.description}}</p>
-                    <br>
-                    <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
-                </div>
-            </li>
-        </ul>
+
+        <div id="list1" class="dropdown-check-list" tabindex="100">
+            <span class="anchor" @click="displayBox()">Filter By Financial Institution</span>
+            <ul class="items" style="text-align:left">
+                <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
+                <li v-for="plan in listOfPlans" v-bind:key="plan">
+                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.provider}}
+                </li>
+            </ul>
+        </div>
+        <br><br>
+        <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Next</button>
+
+        <div v-if="show_original">
+            <div class="w3-row" style="padding:20px 50px 50px 50px">
+                <ul style="padding:0px">
+                    <li v-for="plan in listOfPlans" v-bind:key="plan">
+                        <div class="w3-col s4 w3-center" style="padding:30px">
+                            <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
+                            <br><br>
+                            <p id="name"><b>{{plan.name}}</b></p>
+                            <p id="description">{{plan.description}}</p>
+                            <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div v-if="show_form">
+            <div class="w3-row" style="padding:20px 50px 50px 50px">
+                <ul style="padding:0px">
+                    <li v-for="plan in recommendedPlans" v-bind:key="plan">
+                        <div class="w3-col s4 w3-center" style="padding:30px">
+                            <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
+                            <br><br>
+                            <p id="name"><b>{{plan.name}}</b></p>
+                            <p id="description">{{plan.description}}</p>
+                            <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+            
     </div>
 </template>
 
@@ -23,7 +55,12 @@ import database from '../firebase.js'
 export default {
     data() {
         return {
-            listOfPlans: []
+            listOfPlans: [],
+            selectedPlans: [],
+            recommendedPlans: [],
+            show_form: false,
+            show_original: true,
+            checkList: document.getElementById('list1')
         }
     },
     methods: {
@@ -36,6 +73,29 @@ export default {
                     this.listOfPlans.push(list)
                 })
             })
+        }, 
+        displayBox: function() {
+            var checkList = document.getElementById('list1');
+            if (checkList.classList.contains('visible')) {
+                checkList.classList.remove('visible');
+            } else {
+                checkList.classList.add('visible');
+            }
+        },
+        findPlans: function() {
+            this.recommendedPlans = []
+            for (let i = 0; i < this.selectedPlans.length; i++) {
+                this.recommendedPlans.push(this.selectedPlans[i]);
+            }
+        },
+        selectAll: function() {
+            var selected = document.getElementById("allPlans")
+            if (selected.checked) {
+                this.selectedPlans = this.listOfPlans;
+            } else {
+                this.selectedPlans = [];
+            }
+
         },
         route: function(event) {
             let doc_id = event.target.getAttribute("id");
@@ -55,10 +115,15 @@ export default {
 <style scoped>
 #listings {
     padding-top: 100px;
+    text-align:center;
 }
 
 #name {
-    font-size: 18px;
+    font-size: 20px;
+}
+
+#description {
+    font-size: 15px;
 }
 
 #withBorders {
@@ -94,13 +159,9 @@ export default {
     width: 370px;
 }
 
-.learnMore {
-    color: #545454
-}
-
 button {
     background-color: white;
-    color: #2F6EA2;
+    color: #545454;
     border: 1px solid grey;
     align-items: center;
     display: inline-block;
@@ -117,4 +178,52 @@ button {
     text-align: center;
     font-family: Optima;
 }
+
+.dropdown-check-list {
+    display: inline-block;
+}
+
+.dropdown-check-list .anchor {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 50px 5px 10px;
+    border: 1px solid #ccc;
+}
+
+.dropdown-check-list .anchor:after {
+    position: absolute;
+    content: "";
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    padding: 5px;
+    right: 10px;
+    top: 20%;
+    -moz-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+}
+
+.dropdown-check-list ul.items {
+    padding: 2px;
+    display: none;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.dropdown-check-list ul.items li {
+    list-style: none;
+}
+
+.dropdown-check-list.visible .anchor {
+    color: black;
+}
+
+.dropdown-check-list.visible .items {
+    display: block;
+}
+
 </style>

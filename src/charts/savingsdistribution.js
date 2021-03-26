@@ -58,13 +58,20 @@ export default {
         .then((doc) => {
           let plans = doc.data().plans;
           Object.entries(plans).forEach(([key, value]) => {
-            // console.log(key);
-            // console.log(value.amount);
-            this.datacollection.labels.push(key);
-            this.datacollection.datasets[0].data.push(value.amount);
+            database
+              .collection("Listings")
+              .doc(key)
+              .get()
+              .then((listing) => {
+                var listingDetails = listing.data();
+                        this.datacollection.labels.push(listingDetails.name);
+                        this.datacollection.datasets[0].data.push(value.amount);
+              });
           });
         })
         .then(() => {
+          console.log(this.datacollection.labels);
+          console.log(this.datacollection.datasets[0].data);
           this.renderChart(this.datacollection, this.options);
         });
     },
@@ -76,9 +83,8 @@ export default {
           .auth()
           .currentUser.getIdTokenResult()
           .then((token) => {
-                             this.user = token.claims.sub;
-                             // console.log(token);
-                           })
+            this.user = token.claims.sub;
+          })
           .then(() => {
             this.fetchItems();
           });
