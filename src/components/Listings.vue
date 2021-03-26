@@ -15,19 +15,20 @@
         <br><br>
         <button id="btn" type="button" @click="show_form = true; findPlans()">Next</button>
 
-        <ul id="withBorders">
-            <li id="withBorders2" class="column" v-for="plan in listOfPlans" v-bind:key="plan">
-                <div class="card">
-                    <img class="photo" v-bind:src="plan.image" alt="logo">
-                    <br><br>
-                    <p id="name">{{plan.name}}</p>
-                    <br>
-                    <p>{{plan.description}}</p>
-                    <br>
-                    <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
-                </div>
-            </li>
-        </ul>
+        <div class="w3-row" style="padding:20px 50px 50px 50px">
+                <ul style="padding:0px">
+                    <li v-for="plan in listOfPlans" v-bind:key="plan">
+                        <div class="w3-col s4 w3-center" style="padding:30px">
+                            <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
+                            <br><br>
+                            <p id="name"><b>{{plan.name}}</b></p>
+                            <p id="name">{{plan.descriptionn}}</p>
+                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
     </div>
 </template>
 
