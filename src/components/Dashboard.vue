@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h1>Dashboard</h1>
+    
+    <div class="chart-title"><h1>Bar Chart</h1></div>
     <div class="dashboard">
     <div class="chart-title"><h1>My Dashboard</h1></div>
       <div class="dashboard-row">
