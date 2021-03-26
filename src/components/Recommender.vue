@@ -11,29 +11,45 @@
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
-                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.provider}}
+                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" /> {{plan.provider}}
                 </li>
             </ul>
         </div>
         <br><br>
         <button id="btn" type="button" @click="show_form = true; findPlans()">Next</button>
         <br><br>
-        <div v-if="show_form" style="text-align:center">
-            <ul id="withBorders">
-                <li id="withBorders2" class="column" v-for="plan in recommendedPlans" v-bind:key="plan">
-                    <div class="card">
-                        <img class="photo" v-bind:src="plan.image" alt="logo">
-                        <br><br>
-                        <p id="name">{{plan.name}}</p>
-                        <br>
-                        <p>{{plan.description}}</p>
-                        <br>
-                        <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
-                    </div>
-                </li>
-            </ul>
+        <div v-if="show_form">
+            <h2 id="text">Your Curated Savings Plan:</h2>
+            <p id="text">Show plan which gives the highest return</p>
+            <br>
+            <div class="w3-row" style="padding:20px 50px 50px 50px">
+                <div class="w3-col s6 w3-center" style="padding-left:100px">
+                    <h5 id="text">New Design of Plan:<br>Plan Name<br>Provider Logo<br>Interest Rate<br>Find Out More</h5>
+                </div>
+                <div class="w3-col s6 w3-center" style="padding-right:100px">
+                    <h3 id="text">Your Projected Returns:</h3>
+                    <br><br>
+                    <h5 id="text">Display Returns Here</h5>
+                </div>
+            </div>
+            <br><br>
+            <h2 id="text">You may also like...</h2>
+            <p id="text">Show next 3 plans with the highest returns</p>
+            <div class="w3-row" style="padding:20px 50px 50px 50px">
+                <ul style="padding:0px">
+                    <li v-for="plan in recommendedPlans" v-bind:key="plan">
+                        <div class="w3-col s4 w3-center" style="padding:30px">
+                            <img style="width:100%; height:180px" v-bind:src="plan.logo" alt="logo">
+                            <br><br>
+                            <p id="name"><b>{{plan.name}}</b></p>
+                            <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
+                            <p id="name">Projected Returns:</p>
+                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <br><br>
     </div>
 </template>
 
@@ -45,6 +61,7 @@ export default {
             selectedPlans: [],
             listOfPlans: [],
             recommendedPlans: [],
+            topPlan: [],
             show_form: false,
             expanded: false,
             checkList: document.getElementById('list1'),
@@ -76,7 +93,7 @@ export default {
             for (let i = 0; i < this.selectedPlans.length; i++) {
                 if (this.selectedPlans[i].min_years <= this.years && (this.selectedPlans[i].min_amount <= this.amount)) {
                     this.recommendedPlans.push(this.selectedPlans[i]);
-                } 
+                }
             }
         },
         selectAll: function() {
@@ -186,6 +203,8 @@ export default {
 
 #cond {
     font-size: 18px;
+    border: 1px solid black;
+    text-align: center
 }
 
 .column {
@@ -199,13 +218,13 @@ export default {
     padding: 10px;
 }
 
-.photo {
-    height: 220px;
-    width: 370px;
-}
-
 .learnMore {
     color: #545454
+}
+
+.photo {
+    height: 220px;
+    width: 100%;
 }
 
 button {
