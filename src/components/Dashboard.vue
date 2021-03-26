@@ -1,20 +1,7 @@
 <template>
   <div>
     <h1>Dashboard</h1>
-    <MyPlansRect/>
-    <EditGoals></EditGoals>
-    <div id="itemsList">
-      <ul>
-        <li v-bind:key="item" v-for="item in items">
-          <h1 id="itemName">{{ item.name }}</h1>
-          <img :src="item.imageURL" />
-          <br />
-          <div id="price">{{ "$" + item.price }}</div>
-          <br />
-          
-        </li>
-      </ul>
-    </div>
+    
     <div class="chart-title"><h1>Bar Chart</h1></div>
     <div class="dashboard">
       <div class="dashboard-row">
@@ -92,8 +79,6 @@
 </template>
 
 <script>
-import EditGoals from "./EditGoals.vue";
-import MyPlansRect from "./MyPlansRect.vue";
 import database from "../firebase.js";
 import firebase from "firebase";
 import MarketPerformance from "../charts/marketperformance.js";
@@ -123,8 +108,6 @@ export default {
   components: {
     MarketPerformance,
     SavingsDistribution,
-    EditGoals: EditGoals,
-    MyPlansRect: MyPlansRect,
   },
 
   methods: {

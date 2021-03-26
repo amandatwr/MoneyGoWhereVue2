@@ -1,12 +1,18 @@
 <template>
+
 <div class="tooltip">Plan Name: {fetch this}
+  <br><br>
     <input v-model="textValue" placeholder="input amount">
   <span class="tooltiptext">Provider: {fetch this}<br> Interest Rate: {fetch this}<br>Capital Guaranteed: {T/F}<br> Min. years:{fetch this}</span>
+<br><br>
 </div>
 </template>
 
 
 <script>
+import database from "../firebase.js";
+import firebase from "firebase";
+
 export default {
     name: 'MyPlan',
   props: {
@@ -14,18 +20,54 @@ export default {
   },
   data() {
     return {
-      title: 'Plan',
-      amount: 0,
-      textValue: "",
+      myPlans:[],
+      // title: 'Plan',
+      // amount: 0,
+      // textValue: "",
       
     }
   }, 
   methods: {
-    editAmount() {
-      this.amount = this.textValue;
-      
-    }, 
-    }
+    fetchItems: function () {
+      // Log user account creation date
+      var user = firebase.auth().currentUser;
+      var signupDate = new Date(user.metadata.creationTime);
+      var currDate = new Date();
+      this.days = this.getDateDiff(currDate, signupDate);
+      this.accCreationDate = this.getAccCreationDate(signupDate);
+
+      database
+        .collection("TestUsers")
+        .doc(user.uid)
+        .get()
+        .then((doc) => {
+          let plans = doc.data().plans;
+          Object.entries(plans).forEach(([key, value]) => {
+            console.log(key);
+            console.log(value.amount);
+            var plans = Object.assign({}, value);
+            database
+              .collection("Listings")
+              .doc(key)
+              .get()
+              .then((listing) => {
+                var listingDetails = listing.data();
+                plans["name"] = listingDetails.name;
+                plans["provider"] = listingDetails.Provider;
+                plans["amount"] = this.formatter().format(value.amount);
+                this.plans.push(plans);
+              });
+          });
+        })
+        .then(() => {
+          console.log(this.plans);
+        });
+    },
+  },
+    created() {
+    this.fetchItems();
+  },
+       
 }
 </script>
 
