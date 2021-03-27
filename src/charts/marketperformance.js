@@ -12,7 +12,7 @@ export default {
           {
             data: [],
             label: "STI Index",
-            borderColor: "#192841",
+            borderColor: "#282726",
             fill: false,
           },
         ],

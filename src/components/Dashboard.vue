@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class='outline'>
     <div class="dashboard">
-    <div class="chart-title"><h1>My Dashboard</h1></div>
+    <div class="chart-title"><h1>Analytics Overview</h1></div>
       <div class="dashboard-row first-row-alignment">
         <v-card class="card first-row">
           <!-- <div class="icon total-savings-icon">
@@ -31,7 +31,7 @@
         <v-card class="card first-row">
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(totalEarnings) }}</h2>
+              <h2>{{ this.formatter().format(projectedReturns) }}</h2>
             </div>
             <div class="subheading"><p>Total Projected Returns (PR)</p></div>
           </div>
@@ -40,7 +40,7 @@
         <v-card class="card first-row">
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(totalEarnings / days) }}</h2>
+              <h2>{{ this.formatter().format(returnsGuaranteed) }}</h2>
             </div>
             <div class="subheading"><p>PR Guaranteed</p></div>
           </div>
@@ -97,12 +97,9 @@ export default {
     return {
       totalEndowment: 0,
       capitalGuaranteed: 0,
-      totalEarnings: 0,
-      accCreationDate: null,
-      days: null,
-      loaded: false,
-      items: [],
-      itemsSelected: [],
+      projectedReturns: 0,
+      returnsGuaranteed: 0,
+
       page: 1,
         pageCount: 0,
       headers: [
@@ -154,6 +151,10 @@ export default {
                 this.plans.push(planDetails);
 
                 this.totalEndowment += plans[i].amount;
+                this.projectedReturns += plans[i].amount * listingDetails.interest_pa;
+                if (listingDetails.returns_guaranteed) {
+                  this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa;
+                }
                 if (listingDetails.capital_guaranteed) {
                   this.capitalGuaranteed += plans[i].amount
                 }
