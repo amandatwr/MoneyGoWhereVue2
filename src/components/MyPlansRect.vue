@@ -44,21 +44,25 @@ export default {
         .then((doc) => {
           let plans = doc.data().plans;
           Object.entries(plans).forEach(([key, value]) => {
-            console.log(key);
-            console.log(value.amount);
-            var plans = Object.assign({}, value);
+            // console.log(key);
+            // console.log(value.amount);
+            var copy = Object.assign({}, value);
             database
               .collection("Listings")
               .doc(key)
               .get()
-              .then((querySnapShot) => {
-                this.myPlans.push(querySnapShot.data())
-            })
+              .then((listing) => {
+                var listingDetails = listing.data();
+                // console.log(listingDetails)
+                copy["name"] = listingDetails.name;
+                copy["provider"] = listingDetails.provider;
+                copy["amount"] = this.formatter().format(value.amount);
+                // console.log(value.dateSaved.toDate())
+                copy['dateSaved'] = value.dateSaved.toDate().toLocaleDateString()
+                this.plans.push(copy);
+              });
           });
         })
-        .then(() => {
-          console.log(this.plans);
-        });
     },
   },
     created() {
