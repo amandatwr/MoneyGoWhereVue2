@@ -2,38 +2,45 @@
   <div>
     <div class="dashboard">
     <div class="chart-title"><h1>My Dashboard</h1></div>
-      <div class="dashboard-row">
+      <div class="dashboard-row first-row-alignment">
+        <v-card class="card first-row">
+          <!-- <div class="icon total-savings-icon">
+            <img class="icon-image" src="./../assets/summation.png" />
+          </div> -->
+          <div class="content">
+            <div class="heading">
+              <h2>{{ this.formatter().format(totalSavings) }}</h2>
+            </div>
+            <div class="subheading"><p>Total Endowment</p></div>
+            
+          </div>
+          <div class='color-strip'></div>
+          
+        </v-card>
         <v-card class="card first-row">
           <div class="icon total-savings-icon">
-            <img class="icon-image" src="./../assets/summation.png" />
           </div>
           <div class="content">
             <div class="heading">
               <h2>{{ this.formatter().format(totalSavings) }}</h2>
             </div>
-            <div class="subheading"><p>Total Savings</p></div>
+            <div class="subheading"><p>Capital Guaranteed</p></div>
           </div>
         </v-card>
         <v-card class="card first-row">
-          <div class="icon total-earnings-icon">
-            <img class="icon-image" src="./../assets/dollar.png" />
-          </div>
           <div class="content">
             <div class="heading">
               <h2>{{ this.formatter().format(totalEarnings) }}</h2>
             </div>
-            <div class="subheading"><p>Total Earnings Per Annum</p></div>
+            <div class="subheading"><p>Total Projected Returns (PR)</p></div>
           </div>
         </v-card>
         <v-card class="card first-row">
-          <div class="icon average-earnings-icon">
-            <img class="icon-image" src="./../assets/slash.png" />
-          </div>
           <div class="content">
             <div class="heading">
               <h2>{{ this.formatter().format(totalEarnings / days) }}</h2>
             </div>
-            <div class="subheading"><p>Average Earnings Per Day</p></div>
+            <div class="subheading"><p>PR Guaranteed</p></div>
           </div>
         </v-card>
       </div>
@@ -208,13 +215,16 @@ export default {
 }
 
 .first-row {
-  height: 100px;
-  /* background-color: # !important; */
-  width: 30%;
-  color: white !important;
+  height: 110px;
+  width: 20% !important;
+
   padding: 0;
-  display: flex;
 }
+
+/* .first-row-alignment {
+  padding-left: 35px;
+  padding-right: 35px;
+} */
 
 .heading {
   text-align: center;
@@ -227,7 +237,7 @@ export default {
   font-style: bold;
 }
 
-.subheading {
+.subheading > p{
   text-align: center;
   font-size: 12px;
   padding: 0;
@@ -235,13 +245,21 @@ export default {
 }
 
 .icon {
-  width: 110px;
+  width: 100px;
   border-bottom-left-radius: 4px !important;
   border-top-right-radius: 0 !important;
   display: flex;
   align-items: center;
   justify-content: center;
   /* margin: 5px; */
+}
+
+.color-strip {
+  background-color: chocolate !important;
+  height: 15px;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .total-savings-icon {
@@ -258,7 +276,7 @@ export default {
 
 .content {
   color: black;
-  padding: 15px;
+  padding: 12.5px;
 }
 
 .icon > img {
