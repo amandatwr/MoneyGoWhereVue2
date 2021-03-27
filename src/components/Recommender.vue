@@ -263,7 +263,7 @@ button {
 }
 
 img {
-    padding-top: 20px;
+    padding-top: 0px;
     padding-bottom: 20px;
     padding-left: 40px;
     padding-right: 40px;
