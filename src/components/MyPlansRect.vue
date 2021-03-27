@@ -1,6 +1,9 @@
 <template>
 
-<div class="tooltip">Plan Name: {fetch this}
+<div class="tooltip">
+  <h6 v-for="description in myPlans" v-bind:key="description">
+            <p id="name">Plan Name:{{doc_id}}</p>
+  </h6>
   <br><br>
     <input v-model="textValue" placeholder="input amount">
   <span class="tooltiptext">Provider: {fetch this}<br> Interest Rate: {fetch this}<br>Capital Guaranteed: {T/F}<br> Min. years:{fetch this}</span>
@@ -21,9 +24,7 @@ export default {
   data() {
     return {
       myPlans:[],
-      // title: 'Plan',
-      // amount: 0,
-      // textValue: "",
+      
       
     }
   }, 
@@ -50,13 +51,9 @@ export default {
               .collection("Listings")
               .doc(key)
               .get()
-              .then((listing) => {
-                var listingDetails = listing.data();
-                plans["name"] = listingDetails.name;
-                plans["provider"] = listingDetails.Provider;
-                plans["amount"] = this.formatter().format(value.amount);
-                this.plans.push(plans);
-              });
+              .then((querySnapShot) => {
+                this.myPlans.push(querySnapShot.data())
+            })
           });
         })
         .then(() => {
