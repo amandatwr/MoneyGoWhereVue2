@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h1>Dashboard</h1>
-    
-    <div class="chart-title"><h1>Bar Chart</h1></div>
     <div class="dashboard">
     <div class="chart-title"><h1>My Dashboard</h1></div>
       <div class="dashboard-row first-row-alignment">
@@ -12,12 +9,12 @@
           </div> -->
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(totalSavings) }}</h2>
+              <h2>{{ this.formatter().format(totalEndowment) }}</h2>
             </div>
             <div class="subheading"><p>Total Endowment</p></div>
             
           </div>
-          <div class='color-strip'></div>
+          <div class='color-strip color1'></div>
           
         </v-card>
         <v-card class="card first-row">
@@ -25,10 +22,11 @@
           </div>
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(totalSavings) }}</h2>
+              <h2>{{ this.formatter().format(capitalGuaranteed) }}</h2>
             </div>
             <div class="subheading"><p>Capital Guaranteed</p></div>
           </div>
+          <div class='color-strip color2'></div>
         </v-card>
         <v-card class="card first-row">
           <div class="content">
@@ -37,6 +35,7 @@
             </div>
             <div class="subheading"><p>Total Projected Returns (PR)</p></div>
           </div>
+          <div class='color-strip color3'></div>
         </v-card>
         <v-card class="card first-row">
           <div class="content">
@@ -45,6 +44,7 @@
             </div>
             <div class="subheading"><p>PR Guaranteed</p></div>
           </div>
+          <div class='color-strip color4'></div>
         </v-card>
       </div>
 
@@ -95,7 +95,8 @@ import SavingsDistribution from "../charts/savingsdistribution.js";
 export default {
   data() {
     return {
-      totalSavings: 0,
+      totalEndowment: 0,
+      capitalGuaranteed: 0,
       totalEarnings: 0,
       accCreationDate: null,
       days: null,
@@ -108,7 +109,8 @@ export default {
         { text: "Plan Name", value: "name" },
         { text: "Plan Provider", value: "provider" },
         { text: "Amount Saved", value: "amount" },
-        {text: 'Date Saved', value: 'dateSaved'}
+        {text: 'Date Saved', value: 'dateSaved'},
+        { text: 'Earliest Withdrawal', value: 'dateWithdraw'}
       ],
       plans: [],
     };
@@ -126,34 +128,50 @@ export default {
       var signupDate = new Date(user.metadata.creationTime);
       var currDate = new Date();
       this.days = this.getDateDiff(currDate, signupDate);
+      
 
-      database
+
+       database
         .collection("TestUsers")
         .doc(user.uid)
         .get()
-        .then((doc) => {
-          let plans = doc.data().plans;
-          Object.entries(plans).forEach(([key, value]) => {
-            // console.log(key);
-            // console.log(value.amount);
-            var copy = Object.assign({}, value);
+        .then((querySnapShot) => {
+          var plans = querySnapShot.data().plans
+          for ( let i = 0 ; i < plans.length ; i++ ) {
+            var planID = plans[i].planID
             database
               .collection("Listings")
-              .doc(key)
+              .doc(planID)
               .get()
               .then((listing) => {
                 var listingDetails = listing.data();
-                // console.log(listingDetails)
-                copy["name"] = listingDetails.name;
-                copy["provider"] = listingDetails.provider;
-                copy["amount"] = this.formatter().format(value.amount);
-                // console.log(value.dateSaved.toDate())
-                copy['dateSaved'] = value.dateSaved.toDate().toLocaleDateString()
-                this.plans.push(copy);
-              });
-          });
-        })
+                var planDetails = {}
+                planDetails["name"] = listingDetails.name;
+                planDetails["provider"] = listingDetails.provider;
+                planDetails["amount"] = this.formatter().format(plans[i].amount);
+                planDetails['dateSaved'] = plans[i].dateSaved.toDate().toLocaleDateString();
+                planDetails['dateWithdraw'] = this.getReturnsDate(plans[i].dateSaved.toDate(), listingDetails.min_years).toLocaleDateString();
+                this.plans.push(planDetails);
+
+                this.totalEndowment += plans[i].amount;
+                if (listingDetails.capital_guaranteed) {
+                  this.capitalGuaranteed += plans[i].amount
+                }
+              })}
+        });
+        
+        
+
+          
+          
     },
+
+       getReturnsDate: function (dateSaved, numYears) {
+                return (new Date(
+                  dateSaved.setFullYear(new Date().getFullYear() + numYears)
+                ))
+    },
+
 
     getDateDiff: function (from, to) {
       // console.log(from, to);
@@ -177,8 +195,8 @@ export default {
 
 <style>
 .dashboard {
-  margin: 65px 65px 0px 65px;
   text-align: center;
+  margin-top: 85px;
 }
 
 .dashboard-row {
@@ -258,23 +276,26 @@ export default {
 }
 
 .color-strip {
-  background-color: chocolate !important;
   height: 15px;
   padding: 0;
   margin: 0;
   width: 100%;
 }
 
-.total-savings-icon {
-  background-color: #f78888;
+.color1 {
+  background-color: #282726 !important;
 }
 
-.total-earnings-icon {
-  background-color: #5da2d5;
+.color2 {
+  background-color: #a7414a !important;
 }
 
-.average-earnings-icon {
-  background-color: #f3d250;
+.color3 {
+  background-color: #6a8a82 !important;
+}
+
+.color4 {
+  background-color: #a37c27 !important;
 }
 
 .content {

@@ -57,7 +57,6 @@ export default {
         .get()
         .then((querySnapshot) => {
           listings = querySnapshot.docs;
-          // console.log(listings);
         });
 
       database
@@ -66,12 +65,18 @@ export default {
         .get()
         .then((doc) => {
           let plans = doc.data().plans;
-          Object.entries(plans).forEach(([key, value]) => {
-            var match = listings.find((x) => x.id == key);
+          for (let i = 0; i < plans.length; i++) {
+            // var totalSum = 0;
+            var match = listings.find((x) => x.id == plans[i].planID);
             // console.log(match.data());
-            this.datacollection.labels.push(match.data().name);
-            this.datacollection.datasets[0].data.push(value.amount);
-          });
+            if (this.datacollection.labels.includes(match.data().name)) {
+              var index = this.datacollection.labels.indexOf(match.data().name);
+              this.datacollection.datasets[0].data[index] += plans[i].amount;
+            } else {
+              this.datacollection.labels.push(match.data().name);
+              this.datacollection.datasets[0].data.push(plans[i].amount);
+            }
+          }
         })
         .then(() => {
           this.renderChart(this.datacollection, this.options);

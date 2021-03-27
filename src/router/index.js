@@ -13,77 +13,82 @@ import VueRouter from "vue-router";
 import firebase from "firebase";
 import FAQ from "./../components/FAQ.vue";
 import Recommender from "./../components/Recommender.vue"
-import test from "./../components/test.vue";
 
 Vue.use(VueRouter);
 
 
 let router = new VueRouter({
-    mode: "history",
-    routes: [{
-            path: "/",
-            component: HomePage,
-        },
-        {
-            path: "/about",
-            component: AboutPage,
-        },
-        {
-            path: "/listings",
-            component: Listings,
-        },
-        {
-            path: "/IndivListing/:id",
-            name: "IndivListing",
-            component: IndivListings,
-            props: true,
-        },
-        {
-            path: "/register",
-            component: Register,
-            meta: {
-                requiresGuest: true,
-            },
-        },
-        {
-            path: "/login",
-            component: Login,
-            meta: {
-                requiresGuest: true,
-            },
-        },
-        {
-            path: "/dashboard",
-            component: Dashboard,
-            meta: {
+  mode: "history",
+  routes: [
+    {
+      path: "/",
+      component: HomePage,
+    },
+    {
+      path: "/about",
+      component: AboutPage,
+    },
+    {
+      path: "/listings",
+      component: Listings,
+    },
+    {
+      path: "/IndivListing/:id",
+      name: "IndivListing",
+      component: IndivListings,
+      props: true,
+    },
+    {
+      path: "/register",
+      component: Register,
+      meta: {
+        requiresGuest: true,
+      },
+    },
+    {
+      path: "/login",
+      component: Login,
+      meta: {
+        requiresGuest: true,
+      },
+    },
+    {
+      path: "/dashboard",
+      component: Dashboard,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/FAQ",
+      component: FAQ,
+    },
+    {
+      path: "/recommender",
+      component: Recommender,
+    },
+    {
+      path: "/mysavings",
+      component: MySavings,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: "/editgoals",
+      component: EditGoals,
+       meta: {
                 requiresAuth: true,
             },
-        },
-        {
-            path: "/FAQ",
-            component: FAQ,
-        },
-        {
-            path: "/recommender",
-            component: Recommender,
-        },
-        {
-            path: "/test",
-            component: test,
-        },
-        {
-            path: "/mysavings",
-            component: MySavings,
-        },
-        {
-            path: "/editgoals",
-            component: EditGoals,
-        },
-        {
-            path: "/myplansrect",
-            component: MyPlansRect,
-        },
-    ],
+    },
+    {
+      path: "/myplansrect",
+      component: MyPlansRect,
+       meta: {
+                requiresAuth: true,
+            },
+    },
+  ],
 });
 
 // Nav Guards
