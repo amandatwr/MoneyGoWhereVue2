@@ -29,8 +29,8 @@
                     <img class='account-circle' :src="accountCircle">
                     <span>MY ACC</span>
                 </span>
-                    <div class="w3-dropdown-content w3-bar-block w3-card-4">
-                        <router-link class="w3-button" to='/dashboard'>
+                    <div id='dropdown' class="w3-dropdown-content w3-bar-block w3-card-4">
+                        <router-link class="w3-button" to='/mysavings'>
                             <div class='dropdown-item'>
                                 <img src='./../assets/chart-line.png'>
                                 <div>My Savings</div>
@@ -43,7 +43,7 @@
                             </div>
                         </router-link>
                         <div class= 'bottom-border'>
-                        <router-link class="w3-bar-item w3-button" to='/dashboard'>
+                        <router-link class="w3-bar-item w3-button" to='/recommender'>
                             <div class='dropdown-item'>
                                 <img src='./../assets/math-integral.png'>
                                 <div>Optimise My Savings</div>
@@ -122,7 +122,7 @@ export default {
 @import "./../css/style.css";
 
 .w3-bar{
-    opacity: 85%;
+    background-color: #1b1b1b !important;
     height: 65px;
 }
 .w3-bar-search-bar {
@@ -238,5 +238,6 @@ router-link {
 .account-circle {
     margin-bottom: 0.5px;
 }
+
 
 </style>

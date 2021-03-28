@@ -1,43 +1,50 @@
 <template>
-  <div>
-    <h1>Dashboard</h1>
-    
-    <div class="chart-title"><h1>Bar Chart</h1></div>
+  <div class='outline'>
     <div class="dashboard">
-    <div class="chart-title"><h1>My Dashboard</h1></div>
-      <div class="dashboard-row">
+    <div class="chart-title"><h1>Analytics Overview</h1></div>
+      <div class="dashboard-row first-row-alignment">
+        <v-card class="card first-row">
+          <!-- <div class="icon total-savings-icon">
+            <img class="icon-image" src="./../assets/summation.png" />
+          </div> -->
+          <div class="content">
+            <div class="heading">
+              <h2>{{ this.formatter().format(totalEndowment) }}</h2>
+            </div>
+            <div class="subheading"><p>Total Endowment</p></div>
+            
+          </div>
+          <div class='color-strip color1'></div>
+          
+        </v-card>
         <v-card class="card first-row">
           <div class="icon total-savings-icon">
-            <img class="icon-image" src="./../assets/summation.png" />
           </div>
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(totalSavings) }}</h2>
+              <h2>{{ this.formatter().format(capitalGuaranteed) }}</h2>
             </div>
-            <div class="subheading"><p>Total Savings</p></div>
+            <div class="subheading"><p>Capital Guaranteed</p></div>
           </div>
+          <div class='color-strip color2'></div>
         </v-card>
         <v-card class="card first-row">
-          <div class="icon total-earnings-icon">
-            <img class="icon-image" src="./../assets/dollar.png" />
-          </div>
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(totalEarnings) }}</h2>
+              <h2>{{ this.formatter().format(projectedReturns) }}</h2>
             </div>
-            <div class="subheading"><p>Total Earnings Per Annum</p></div>
+            <div class="subheading"><p>Total Projected Returns (PR)</p></div>
           </div>
+          <div class='color-strip color3'></div>
         </v-card>
         <v-card class="card first-row">
-          <div class="icon average-earnings-icon">
-            <img class="icon-image" src="./../assets/slash.png" />
-          </div>
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(totalEarnings / days) }}</h2>
+              <h2>{{ this.formatter().format(returnsGuaranteed) }}</h2>
             </div>
-            <div class="subheading"><p>Average Earnings Per Day</p></div>
+            <div class="subheading"><p>PR Guaranteed</p></div>
           </div>
+          <div class='color-strip color4'></div>
         </v-card>
       </div>
 
@@ -88,20 +95,19 @@ import SavingsDistribution from "../charts/savingsdistribution.js";
 export default {
   data() {
     return {
-      totalSavings: 0,
-      totalEarnings: 0,
-      accCreationDate: null,
-      days: null,
-      loaded: false,
-      items: [],
-      itemsSelected: [],
+      totalEndowment: 0,
+      capitalGuaranteed: 0,
+      projectedReturns: 0,
+      returnsGuaranteed: 0,
+
       page: 1,
         pageCount: 0,
       headers: [
         { text: "Plan Name", value: "name" },
         { text: "Plan Provider", value: "provider" },
         { text: "Amount Saved", value: "amount" },
-        {text: 'Date Saved', value: 'dateSaved'}
+        {text: 'Date Saved', value: 'dateSaved'},
+        { text: 'Earliest Withdrawal', value: 'dateWithdraw'}
       ],
       plans: [],
     };
@@ -119,34 +125,54 @@ export default {
       var signupDate = new Date(user.metadata.creationTime);
       var currDate = new Date();
       this.days = this.getDateDiff(currDate, signupDate);
+      
 
-      database
+
+       database
         .collection("TestUsers")
         .doc(user.uid)
         .get()
-        .then((doc) => {
-          let plans = doc.data().plans;
-          Object.entries(plans).forEach(([key, value]) => {
-            // console.log(key);
-            // console.log(value.amount);
-            var copy = Object.assign({}, value);
+        .then((querySnapShot) => {
+          var plans = querySnapShot.data().plans
+          for ( let i = 0 ; i < plans.length ; i++ ) {
+            var planID = plans[i].planID
             database
               .collection("Listings")
-              .doc(key)
+              .doc(planID)
               .get()
               .then((listing) => {
                 var listingDetails = listing.data();
-                // console.log(listingDetails)
-                copy["name"] = listingDetails.name;
-                copy["provider"] = listingDetails.provider;
-                copy["amount"] = this.formatter().format(value.amount);
-                // console.log(value.dateSaved.toDate())
-                copy['dateSaved'] = value.dateSaved.toDate().toLocaleDateString()
-                this.plans.push(copy);
-              });
-          });
-        })
+                var planDetails = {}
+                planDetails["name"] = listingDetails.name;
+                planDetails["provider"] = listingDetails.provider;
+                planDetails["amount"] = this.formatter().format(plans[i].amount);
+                planDetails['dateSaved'] = plans[i].dateSaved.toDate().toLocaleDateString();
+                planDetails['dateWithdraw'] = this.getReturnsDate(plans[i].dateSaved.toDate(), listingDetails.min_years).toLocaleDateString();
+                this.plans.push(planDetails);
+
+                this.totalEndowment += plans[i].amount;
+                this.projectedReturns += plans[i].amount * listingDetails.interest_pa;
+                if (listingDetails.returns_guaranteed) {
+                  this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa;
+                }
+                if (listingDetails.capital_guaranteed) {
+                  this.capitalGuaranteed += plans[i].amount
+                }
+              })}
+        });
+        
+        
+
+          
+          
     },
+
+       getReturnsDate: function (dateSaved, numYears) {
+                return (new Date(
+                  dateSaved.setFullYear(new Date().getFullYear() + numYears)
+                ))
+    },
+
 
     getDateDiff: function (from, to) {
       // console.log(from, to);
@@ -170,8 +196,8 @@ export default {
 
 <style>
 .dashboard {
-  margin: 65px 65px 0px 65px;
   text-align: center;
+  margin-top: 85px;
 }
 
 .dashboard-row {
@@ -211,13 +237,16 @@ export default {
 }
 
 .first-row {
-  height: 100px;
-  /* background-color: # !important; */
-  width: 30%;
-  color: white !important;
+  height: 110px;
+  width: 20% !important;
+
   padding: 0;
-  display: flex;
 }
+
+/* .first-row-alignment {
+  padding-left: 35px;
+  padding-right: 35px;
+} */
 
 .heading {
   text-align: center;
@@ -230,7 +259,7 @@ export default {
   font-style: bold;
 }
 
-.subheading {
+.subheading > p{
   text-align: center;
   font-size: 12px;
   padding: 0;
@@ -238,7 +267,7 @@ export default {
 }
 
 .icon {
-  width: 110px;
+  width: 100px;
   border-bottom-left-radius: 4px !important;
   border-top-right-radius: 0 !important;
   display: flex;
@@ -247,21 +276,32 @@ export default {
   /* margin: 5px; */
 }
 
-.total-savings-icon {
-  background-color: #f78888;
+.color-strip {
+  height: 15px;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
-.total-earnings-icon {
-  background-color: #5da2d5;
+.color1 {
+  background-color: #282726 !important;
 }
 
-.average-earnings-icon {
-  background-color: #f3d250;
+.color2 {
+  background-color: #a7414a !important;
+}
+
+.color3 {
+  background-color: #6a8a82 !important;
+}
+
+.color4 {
+  background-color: #a37c27 !important;
 }
 
 .content {
   color: black;
-  padding: 15px;
+  padding: 12.5px;
 }
 
 .icon > img {

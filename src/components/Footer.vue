@@ -31,7 +31,7 @@ export default {};
   margin: 0;
   padding: 25px;
   height: 110px;
-  background-color: #212121;
+  background-color: #1b1b1b ;
 }
 
 #footerLeft, 

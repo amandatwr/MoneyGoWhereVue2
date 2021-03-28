@@ -12,21 +12,15 @@ export default {
           {
             label: "Population (millions)",
             backgroundColor: [
-              "#0074D9",
-              "#FF4136",
-              "#2ECC40",
-              "#FF851B",
-              "#7FDBFF",
-              "#B10DC9",
-              "#FFDC00",
-              "#001f3f",
-              "#39CCCC",
-              "#01FF70",
-              "#85144b",
-              "#F012BE",
-              "#3D9970",
-              "#111111",
-              "#AAAAAA",
+              "#a7414a",
+              "#FF8962",
+              "#C28422",
+              "#6a8a82",
+              "#3A4B6A",
+              "#4B4051",
+              "#574141",
+              "#F3EED9",
+              "282726",
             ],
             data: [],
           },
@@ -57,7 +51,6 @@ export default {
         .get()
         .then((querySnapshot) => {
           listings = querySnapshot.docs;
-          // console.log(listings);
         });
 
       database
@@ -66,12 +59,18 @@ export default {
         .get()
         .then((doc) => {
           let plans = doc.data().plans;
-          Object.entries(plans).forEach(([key, value]) => {
-            var match = listings.find((x) => x.id == key);
+          for (let i = 0; i < plans.length; i++) {
+            // var totalSum = 0;
+            var match = listings.find((x) => x.id == plans[i].planID);
             // console.log(match.data());
-            this.datacollection.labels.push(match.data().name);
-            this.datacollection.datasets[0].data.push(value.amount);
-          });
+            if (this.datacollection.labels.includes(match.data().name)) {
+              var index = this.datacollection.labels.indexOf(match.data().name);
+              this.datacollection.datasets[0].data[index] += plans[i].amount;
+            } else {
+              this.datacollection.labels.push(match.data().name);
+              this.datacollection.datasets[0].data.push(plans[i].amount);
+            }
+          }
         })
         .then(() => {
           this.renderChart(this.datacollection, this.options);
