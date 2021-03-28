@@ -48,7 +48,7 @@
         </div>
 
         <p>Can't decide which plan to choose? Login to let our recommender choose for you!</p>
-            
+        <p>Can't decide which plan to choose? Let our recommender do it for you!</p>
     </div>
 </template>
 
