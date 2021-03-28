@@ -15,7 +15,7 @@
                     <p id="points">Minimum Years Required</p>
                 </div>
                 <div class="column" id="borderLine">
-                    <h2 id="text">${{description.min_amount}}</h2>
+                    <h2 id="text">${{(description.min_amount).toLocaleString()}}</h2>
                     <p id="points">Minimum Premium Amount</p>
                 </div>
             </div>
