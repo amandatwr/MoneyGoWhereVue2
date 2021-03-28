@@ -2,17 +2,17 @@
 <div id="listings">
   <div class="w3-row" style="padding:20px 50px 50px 50px">
   
-   
+      
       <ul style="padding:0px">
           <li v-for="plan in plans" v-bind:key="plan">
-            <span><div class="tooltip">
+            <div class="tooltip">
               <div class="w3-col s4 w3-center" style="padding:30px">
                   <p id="name"><b>{{plan.name}}</b></p>
                   <p id="provider">{{plan.provider}}</p>
-                  <h3 id = "amount"> {{plan.amount}}</h3>
+                  <h3 text-align:center id = "amount"> {{plan.amount}}</h3>
                   <span class="tooltiptext"> Interest Rate: {{plan.interest}}<br>Capital Guaranteed: {{plan.capital_guaranteed}}<br> Min. no. of Years: {{plan.min_years}}</span>
               </div>
-            </div></span>
+            </div>
           </li>
       </ul>
   
@@ -62,7 +62,7 @@ export default {
                 var planDetails = {}
                 planDetails["name"] = listingDetails.name;
                 planDetails["provider"] = listingDetails.provider;
-                planDetails["interest"] = Math.round(100 * (listingDetails.interest_pa)).toFixed(3);
+                planDetails["interest"] = this.round((100 * (listingDetails.interest_pa)), 2);
                 planDetails["capital_guaranteed"] = listingDetails.capital_guaranteed;
                 planDetails["min_years"] = listingDetails.min_years;
                 planDetails["amount"] = this.formatter().format(plans[i].amount);
@@ -75,7 +75,11 @@ export default {
     });
 
     },
+    
 
+    round: function (value, decimals) {
+        return Number(Math.round(value +'e'+ decimals) +'e-'+ decimals).toFixed(decimals);
+    },
      getReturnsDate: function (dateSaved, numYears) {
                 return (new Date(
                   dateSaved.setFullYear(new Date().getFullYear() + numYears)
@@ -107,7 +111,7 @@ export default {
   position: relative;
   display: inline-block;
   height: 200px;
-  width: 250px;
+  width: 20em;
   border: solid;
   border-color: #e1c9c5;
 }
@@ -122,7 +126,7 @@ export default {
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  top: 120%;
+  top: 100%;
   left: 50%;
   margin-left: -100px;
 }
@@ -156,11 +160,42 @@ h6 {
 
 #name {
     font-size: 18px;
+    white-space: nowrap;
+    text-align:center;
 }
 
 #provider {
     font-size: 14px;
     white-space: nowrap;
+    text-align:center;
 }
 
+ul{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+}
+
+li {
+  flex: 1 0 21%;
+  margin: 15px;
+}
+
+/* #flex-container {
+  display:flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+}
+
+#flex-item{
+  padding: 5px;
+  margin-top: 10px;
+  line-height: 150px;
+  color: white;
+} */
 </style>

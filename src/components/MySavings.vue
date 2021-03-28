@@ -2,7 +2,6 @@
   <div>
     <br><br><br>
     <h1>My Savings</h1>
-    <br><br><br>
     <MyPlansRect/>
     <br><br><br>
     <EditGoals></EditGoals>
