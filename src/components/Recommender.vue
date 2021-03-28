@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align:center; padding-top:100px">
+    <div style="text-align:center; padding-top:100px; padding-bottom:50px">
         <h1 id="text"><b> Get your optimal savings plan in seconds </b></h1>
         <h2 id="text">I want to invest $
             <input id="cond" type="number" v-model="amount" size="10"> and hold it for
@@ -18,14 +18,14 @@
         <br><br>
         <button id="btn" type="button" @click="show_form = true; findPlans(); calculateReturns()">Next</button>
         <br><br>
-        <div v-if="show_form">
+        <div v-if="show_form && recommendedPlans.length > 0">
             <h1 id="text">Your Curated Savings Plan:</h1>
             <p id="text">Show plan which gives the highest return</p>
             <br>
             <div class="w3-row" style="padding:0px 50px 50px 50px">
                 <ul style="padding:0px">
                     <li v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan">
-                        <div class="w3-col s6 w3-center" style="padding:0px 80px 80px 80px">
+                        <div class="w3-col s6 w3-center" style="padding:0px 0px 80px 150px">
                             <img style="width:100%; height:300px" v-bind:src="plan.logo" alt="logo">
                             <p id="name"><b>{{plan.name}}</b></p>
                             <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
@@ -33,29 +33,36 @@
                         </div>
                     </li>
                 </ul>
-                <div class="w3-col s6 w3-center" style="display:inline; padding-right:100px; padding-top:200px; justify-content: center">
+                <div class="w3-col s6 w3-center" v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan" id="projectedReturns">
                     <h3 id="text">Your Projected Returns:</h3>
                     <br><br>
-                    <h5 id="text">Display Returns Here</h5>
+                    <h1 id="returns">${{(plan.returns).toLocaleString()}}</h1>
                 </div>
             </div>
             <br><br>
-            <h1 id="text">You may also like...</h1>
-            <p id="text">Show next 3 plans with the highest returns</p>
-            <div class="w3-row" style="padding:20px 70px 70px 70px">
-                <ul style="padding:0px">
-                    <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
-                        <div class="w3-col s4 w3-center" style="padding:30px">
-                            <img style="width:100%; height:180px" v-bind:src="plan.logo" alt="logo">
-                            <br><br>
-                            <p id="name"><b>{{plan.name}}</b></p>
-                            <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
-                            <p id="name">Projected Returns: ${{plan.returns}}</p>
-                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
-                        </div>
-                    </li>
-                </ul>
+            <div v-if="recommendedPlans.length > 1">
+                <h1 id="text">You may also like...</h1>
+                <p id="text">Show next 3 plans with the highest returns</p>
+                <div class="w3-row" style="padding:20px 70px 70px 70px">
+                    <ul style="padding:0px">
+                        <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
+                            <div class="w3-col s4 w3-center" style="padding:30px">
+                                <img style="width:100%; height:180px" v-bind:src="plan.logo" alt="logo">
+                                <br><br>
+                                <p id="name"><b>{{plan.name}}</b></p>
+                                <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
+                                <p id="name">Projected Returns: ${{(plan.returns).toLocaleString()}}</p>
+                                <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </div>
+        <div v-if="show_form && recommendedPlans.length === 0">
+            <h1 id="text">Your Curated Savings Plan:</h1>
+            <br>
+            <h4 id="text" style="color:#545454">No suitable savings plan found. Please try again.</h4>
         </div>
     </div>
 </template>
@@ -70,7 +77,7 @@ export default {
             recommendedPlans: [],
             topPlan: [],
             show_form: false,
-            expanded: false,
+            exceeded: false,
             checkList: document.getElementById('list1'),
             amount: null,
             years: null,
@@ -106,8 +113,8 @@ export default {
         calculateReturns: function() {
             for (let i = 0; i < this.recommendedPlans.length; i++) {
                 var interest = this.recommendedPlans[i].interest_pa;
-                var projectedReturns = (1+interest) * this.amount;
-                this.recommendedPlans[i].returns = projectedReturns;
+                var projectedReturns = Math.pow((1 + interest), this.years) * this.amount;
+                this.recommendedPlans[i].returns = Math.round(projectedReturns);
             }
             this.recommendedPlans.sort(function(a, b) { return b.returns - a.returns });
         },
@@ -118,7 +125,6 @@ export default {
             } else {
                 this.selectedPlans = [];
             }
-
         },
         route: function(event) {
             let doc_id = event.target.getAttribute("id");
@@ -220,6 +226,18 @@ export default {
     font-size: 18px;
     border: 1px solid black;
     text-align: center
+}
+
+#projectedReturns {
+    display: inline;
+    padding-right: 120px;
+    padding-top: 200px;
+    justify-content: center
+}
+
+#returns {
+    font-family: Optima;
+    color: #405D93;
 }
 
 .column {
