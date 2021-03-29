@@ -2,19 +2,24 @@
 <div id="listings">
   <div class="w3-row" style="padding:20px 50px 50px 50px">
   
-      
+    
       <ul style="padding:0px">
+        <div class = "classul"> 
           <li v-for="plan in plans" v-bind:key="plan">
+            <div class = "classli">
             <div class="tooltip">
-              <div class="w3-col s4 w3-center" style="padding:30px">
+              <v-card class="myplan-card">
                   <p id="name"><b>{{plan.name}}</b></p>
                   <p id="provider">{{plan.provider}}</p>
                   <h3 text-align:center id = "amount"> {{plan.amount}}</h3>
                   <span class="tooltiptext"> Interest Rate: {{plan.interest}}<br>Capital Guaranteed: {{plan.capital_guaranteed}}<br> Min. no. of Years: {{plan.min_years}}</span>
-              </div>
+              </v-card>
+            </div>
             </div>
           </li>
+      </div>
       </ul>
+      
   
   </div>
     <!--<input v-model="textValue" placeholder="input amount">-->
@@ -112,8 +117,8 @@ export default {
   display: inline-block;
   height: 200px;
   width: 20em;
-  border: solid;
-  border-color: #e1c9c5;
+  /* border: solid;
+  border-color: #e1c9c5; */
 }
 
 .tooltip .tooltiptext {
@@ -170,17 +175,17 @@ h6 {
     text-align:center;
 }
 
-ul{
+#classul{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: row wrap;
   justify-content: space-around;
 
 }
 
-li {
-  flex: 1 0 21%;
+#classli {
+  flex: 1 0 25%;
   margin: 15px;
-}
+} 
 
 /* #flex-container {
   display:flex;
@@ -198,4 +203,11 @@ li {
   line-height: 150px;
   color: white;
 } */
+
+.myplan-card {
+  margin: 0 25px;
+  height: 200px;
+  width: 130% !important;
+  padding-top: 35px;
+}
 </style>

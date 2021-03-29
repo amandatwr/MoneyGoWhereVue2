@@ -4,13 +4,13 @@
     <h1>My Savings</h1>
     <MyPlansRect/>
     <br><br><br>
-    <EditGoals></EditGoals>
-    <br><br><br><br><br><br>
+    <!-- <EditGoals></EditGoals> -->
+    <!-- <br><br><br><br><br><br> -->
     </div>
 </template>
 
 <script>
-import EditGoals from "./EditGoals.vue";
+// import EditGoals from "./EditGoals.vue";
 import MyPlansRect from "./MyPlansRect.vue";
 // import database from "../firebase.js";
 // import firebase from "firebase";
@@ -23,7 +23,7 @@ export default {
   },
 
 components: {
-    EditGoals: EditGoals,
+    // EditGoals: EditGoals,
     MyPlansRect: MyPlansRect,
   },
 

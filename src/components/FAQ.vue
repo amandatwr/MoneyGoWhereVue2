@@ -82,10 +82,10 @@ for (i = 0; i < acc.length; i++) {
 
 .page-title {
   font-family: "Open Sans", sans-serif;
-  font-size: 90px;
+  font-size: 75px;
   color: white;
   margin: 0;
-  height: 120px;
+  height: 90px;
 }
 
 .body {
