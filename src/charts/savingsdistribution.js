@@ -1,9 +1,9 @@
 import database from "../firebase.js";
 import firebase from "firebase";
-import { Doughnut } from "vue-chartjs";
+import { Pie } from "vue-chartjs";
 
 export default {
-  extends: Doughnut,
+  extends: Pie,
   data: function() {
     return {
       datacollection: {
@@ -29,7 +29,7 @@ export default {
       options: {
         title: {
           display: true,
-          text: "Savings Distribution (%)",
+          text: "Savings Distribution",
           fontSize: 20,
         },
         layout: {
