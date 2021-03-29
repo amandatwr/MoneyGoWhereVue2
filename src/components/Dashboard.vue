@@ -67,7 +67,20 @@
       ></v-pagination>
     </div>
         </v-card>
-        <v-card class="card savings-distribution-card"></v-card>
+        <v-card class="card savings-distribution-card">
+        <h2>My Goal</h2>
+        <v-progress-circular class='progress-bar'
+      :rotate="90"
+      :size="225"
+      :width="12.5"
+      :value="value"
+      color="#282726"
+    ><h2>Progress<br>{{ Math.round(value * 100) / 100}}%</h2>
+   
+      
+    </v-progress-circular>
+     <p>You are at {{this.formatter().format(projectedReturns)}} of {{this.formatter().format(goal)}}</p>
+</v-card>
       </div>
 
       <div class="dashboard-row last-row">
@@ -110,6 +123,7 @@ export default {
         { text: 'Earliest Withdrawal', value: 'dateWithdraw'}
       ],
       plans: [],
+      value: null,
     };
   },
 
@@ -133,6 +147,7 @@ export default {
         .doc(user.uid)
         .get()
         .then((querySnapShot) => {
+          this.goal = querySnapShot.data().goal
           var plans = querySnapShot.data().plans
           for ( let i = 0 ; i < plans.length ; i++ ) {
             var planID = plans[i].planID
@@ -152,6 +167,8 @@ export default {
 
                 this.totalEndowment += plans[i].amount;
                 this.projectedReturns += plans[i].amount * listingDetails.interest_pa;
+                this.value += plans[i].amount * listingDetails.interest_pa / this.goal * 100
+                
                 if (listingDetails.returns_guaranteed) {
                   this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa;
                 }
@@ -159,9 +176,7 @@ export default {
                   this.capitalGuaranteed += plans[i].amount
                 }
               })}
-        });
-           
-          
+        });          
     },
 
        getReturnsDate: function (dateSaved, numYears) {
@@ -209,6 +224,7 @@ export default {
   margin: 0 25px;
   padding: 3%;
   height: 375px;
+  padding-top: 0;
 }
 
 .market-performance-card {
@@ -221,12 +237,21 @@ export default {
   width: 100%;
 }
 
+.progress-bar-card {
+  width: 30%;
+  padding: 0;
+  margin: 0;
+}
+
 .savings-distribution-card {
   width: 30%;
+  padding-top: 30px;
 }
 
 .savings-distribution-canvas {
   height: 300px;
+  padding: 0;
+  margin-top: 0;
 }
 
 .last-row {
@@ -317,5 +342,12 @@ export default {
   display: none;  width: 100% !important;
 }
 
+.text-centre {
+  font-size: 50px;
+}
+
+.progress-bar {
+  margin: 10px 0 20px 0;
+}
 </style>
 
