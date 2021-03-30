@@ -143,6 +143,7 @@ export default {
 <style scoped>
 .dropdown-check-list {
     display: inline-block;
+    width: auto;
 }
 
 .dropdown-check-list .anchor {

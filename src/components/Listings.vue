@@ -8,7 +8,7 @@
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
-                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.provider}}
+                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" /> {{plan.provider}}
                 </li>
             </ul>
         </div>
@@ -16,11 +16,11 @@
         <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Next</button>
 
         <div v-if="show_original">
-            <div class="w3-row" style="padding:20px 50px 50px 50px">
+            <div class="w3-row" style="padding:20px 70px 70px 70px">
                 <ul style="padding:0px">
                     <li v-for="plan in listOfPlans" v-bind:key="plan">
                         <div class="w3-col s4 w3-center" style="padding:30px">
-                            <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
+                            <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo">
                             <br><br>
                             <p id="name"><b>{{plan.name}}</b></p>
                             <p id="description">{{plan.description}}</p>
@@ -32,11 +32,11 @@
         </div>
 
         <div v-if="show_form">
-            <div class="w3-row" style="padding:20px 50px 50px 50px">
+            <div class="w3-row" style="padding:20px 70px 70px 70px">
                 <ul style="padding:0px">
                     <li v-for="plan in recommendedPlans" v-bind:key="plan">
                         <div class="w3-col s4 w3-center" style="padding:30px">
-                            <img style="width:100%; height:180px" v-bind:src="plan.image" alt="logo">
+                            <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo">
                             <br><br>
                             <p id="name"><b>{{plan.name}}</b></p>
                             <p id="description">{{plan.description}}</p>
@@ -46,7 +46,6 @@
                 </ul>
             </div>
         </div>
-
         <p>Can't decide which plan to choose? Login to let our recommender choose for you!</p>
         <p>Can't decide which plan to choose? Let our recommender do it for you!</p>
     </div>
@@ -128,23 +127,6 @@ export default {
     font-size: 15px;
 }
 
-#withBorders {
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;
-}
-
-#withBorders2 {
-    flex-grow: 1;
-    flex-basis: 300px;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid white;
-    margin: 10px;
-    width: 100%;
-}
-
 .column {
     column-width: 333px;
     column-gap: 20px;
@@ -183,6 +165,7 @@ button {
 
 .dropdown-check-list {
     display: inline-block;
+    width: auto;
 }
 
 .dropdown-check-list .anchor {
