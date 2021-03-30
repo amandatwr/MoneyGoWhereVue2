@@ -26,7 +26,8 @@
         <h1 class="aboutUsTitle">Our Services.</h1>
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
-          For Savers: Our novel optimisation algorithm will recommend optimal amounts to be allocated to each savings plan. Be matched with a sales representative if you would like to find out more!<br><br>
+          Our novel recommender will recommend savings plans catered to your needs. <br><br>
+          Be matched with a sales representative if you would like to find out more!<br><br>
           For Financial Institutions: List your savings plan on our centralised database and be matched with interested savers here. Our analytics dashboard provides a consolidated view of your performance
 
         </p>
