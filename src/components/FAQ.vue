@@ -1,121 +1,110 @@
 <template>
-    <div style="text-align: center; padding-top:100px">
-        <h6 v-for="description in savingPlan" v-bind:key="description">
-            <p id="name">{{doc_id}}</p>
-            <img v-bind:src="description.Image" alt="logo">
-            <br><br>
-            <table style="width:80%">
-                <tr>
-                    <th>Provider</th>
-                    <td>{{description.Provider}}</td>
-                </tr>
-                <tr>
-                    <th>Interest Per Annum</th>
-                    <td>{{description.InterestPA}}</td>
-                </tr>
-                <tr>
-                    <th>Capital Guaranteed</th>
-                    <td>{{description.CapitalGuaranteed}}</td>
-                </tr>
-                <tr>
-                    <th>Minimum Number of Years</th>
-                    <td>{{description.MinNumOfYears}}</td>
-                </tr>
-                <tr>
-                    <th>Returns</th>
-                    <td>{{description.Returns}}</td>
-                </tr>
-                <tr>
-                    <th>Returns Guaranteed</th>
-                    <td>{{description.ReturnsGuaranteed}}</td>
-                </tr>
-            </table>
-            <br><br>
-            <a id="site" v-bind:href="description.Link">VISIT OFFICIAL SITE</a>
-            <br><br>
-        </h6>
+    <div>
+        <div class="banner">
+            <div class="banner-text">
+                <h1 class="page-title">Frequently Asked Questions</h1>
+            </div>
+        </div>
+
+        <div class="body">
+            <input type="checkbox" id="title1" />
+            <label for="title1">What is MoneyGoWhere?</label>
+
+            <div class="content">
+            <p>Your content goes here.</p>
+            </div>
+
+        </div>
     </div>
 </template>
 
 <script>
-import database from '../firebase.js'
 export default {
-    components: {},
-    data() {
-        return {
-            savingPlan: [],
-            doc_id: this.$route.params.id
-        }
-    },
-    methods: {
-        fetchItems: function() {
-            let doc_id = this.$route.params.id;
-            database.collection('Listings').doc(doc_id).get().then((querySnapShot) => {
-                this.savingPlan.push(querySnapShot.data())
-            })
-        }
-    },
-    created() {
-        this.fetchItems()
-    }
+
 }
 </script>
 
 <style scoped>
-#listing {
-    padding-top: 200px;
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("./../assets/office.jpg"); /* Need to change picture */
+  background-size: cover;
+  height: 400px;
+}
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 90px;
+  color: white;
+  margin: 0;
+  height: 120px;
+}
+.body {
+    padding: 100px;
+    justify-content: center;
+    align-items: center;
 }
 
-h6 {
-    font-weight: normal
+/* Styling the accordions */
+
+label {
+    display: block;    
+    padding: 8px 22px;
+    margin: 0 0 1px 0;
+    cursor: pointer;
+    background: #eee;
+    border-radius: 3px;
+    color: #444;
+    transition: ease .5s;
+    font-size: 20px;
+    position: relative;
 }
 
-#name {
-    font-size: 50px;
-    font-family: 'Optima'
+label:hover {
+    background: #ccc;
 }
 
-img {
-    width: 80%;
+label::after {
+    content: '+';
+    position: absolute;
+    right: 14px;
+    top: 7px;
+    font-size: 25px;
 }
 
-#site {
-    display: inline-block;
-    border: 1px solid black;
-    color: black;
-    font-size: 18px;
-    padding: 10px;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: 'Optima', monospace;
+input:checked + label::after {
+    content: '-';
+    right: 14px;
+    top: 7px;
 }
 
-table,
-th,
-td {
-    border: none;
-    border-collapse: collapse;
-    font-size: 22px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Optima';
+
+input {
+    display: none;
 }
 
-th,
-td {
-    padding: 15px;
+input + label + .content {
+    display: none;
+}
+
+input:checked + label + .content {
+    display: block;
+}
+
+.content {
+    background: #fff;
+    padding: 10px 25px;
+    margin: 0 0 1px 0;
+    border-radius: 3px;
     text-align: left;
 }
 
-th {
-    width: 40%;
-}
-
-td {
-    width: 60%
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
 </style>
