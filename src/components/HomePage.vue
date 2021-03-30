@@ -11,10 +11,10 @@
             <p key="2" class="tagline" v-else-if="isUser">Maximise your savings with one click.</p>
             <p key="3" class="tagline" v-else-if="isSeller">Get matched with leads today.</p>
           </transition>
-          <div class="banner-buttons">
+          <!-- <div class="banner-buttons">
           <button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">SAVER</button>
             <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
