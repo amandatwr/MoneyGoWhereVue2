@@ -1,10 +1,14 @@
 <template>
     <div id="listings">
-        <h2 id="header">Savings Plans</h2>
-        <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
+        <div class="banner">
+            <div class="banner-text">
+                <h1 class="page-title">Savings Plans</h1>
+            </div>
+        </div>
 
+        <br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
-            <span class="anchor" @click="displayBox()">Financial Institution</span>
+            <span class="anchor" @click="displayBox()">Filter By Financial Institution</span>
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
@@ -113,8 +117,30 @@ export default {
 </script>
 
 <style scoped>
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("./../assets/office.jpg"); /* Need to change picture */
+  background-size: cover;
+  height: 400px;
+}
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 75px;
+  color: white;
+  margin: 0;
+  height: 90px;
+}
+
 #listings {
-    padding-top: 100px;
     text-align:center;
 }
 
