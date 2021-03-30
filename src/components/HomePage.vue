@@ -21,7 +21,6 @@
     <br><br><br>
       <br><br><br>
       <br><br><br>
-      <FindOutMorePlans></FindOutMorePlans>
   </body>
 </template>
 
@@ -29,7 +28,7 @@
 <script>
 // import SaverPage from "./SaverPage.vue";
 // import SellerDashboard from "./SellerDashboard.vue"
-import FindOutMorePlans from "./FindOutMorePlans.vue"
+// import FindOutMorePlans from "./FindOutMorePlans.vue"
 import database from "../firebase.js"; 
 
 export default {
@@ -60,7 +59,7 @@ export default {
   components: {
     // SaverPage: SaverPage,
     // SellerDashboard: SellerDashboard,
-    FindOutMorePlans: FindOutMorePlans,
+    // FindOutMorePlans: FindOutMorePlans,
   },
 
   created() {
