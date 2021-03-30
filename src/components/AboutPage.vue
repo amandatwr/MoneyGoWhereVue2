@@ -1,6 +1,12 @@
 <template>
-  <div id="aboutUsContainer">
-    <!-- <hr/> -->
+  <div>
+   <div class="banner">
+            <div class="banner-text">
+                <h1 class="page-title">About Us</h1>
+            </div>
+        </div>
+
+    <div id="aboutUsContainer">
     <div class="aboutUsBlock">
       <div class="aboutUsItem">
         <div class="aboutUsLeft">
@@ -51,8 +57,7 @@
         <img class="aboutUsImage" src="./../assets/our-story.jpg" />
       </div>
     </div>
-
-
+  </div>
   </div>
 </template>
 
@@ -64,6 +69,31 @@ export default {};
 @import "./../css/style.css";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("./../assets/office.jpg"); /* Need to change picture */
+  background-size: cover;
+  height: 400px;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 75px;
+  color: white;
+  margin: 0;
+  height: 90px;
+}
 
 h1 {
   font-family: "Open Sans", sans-serif;
@@ -78,6 +108,7 @@ h1 {
 .aboutUsBlock {
   text-align: center;
   display: flex;
+
 }
 
 .aboutUsItem {
@@ -85,8 +116,13 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 7%;
+  /* padding: 0 7%; */
 }
+
+.aboutUsLeft {
+    padding: 0 15%;
+}
+
 
 .aboutUsRight {
     max-width: 50%;

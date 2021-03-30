@@ -1,54 +1,33 @@
 <template>
-    <div style="text-align: center; padding-top:100px">
+    <div class="listings">
         <h6 v-for="description in savingPlan" v-bind:key="description">
-            <p id="name">{{doc_id}}</p>
-            <img v-bind:src="description.Image" alt="logo">
+            <p id="name">{{description.name}}</p>
+            <p id="provider">by {{description.provider}}</p>
+            <img v-bind:src="description.image" alt="logo">
             <br><br>
-            <table style="width:80%">
-                <tr>
-                    <th>Provider</th>
-                    <td>{{description.Provider}}</td>
-                </tr>
-                <tr>
-                    <th>Minimum Number of Years</th>
-                    <td>{{description.MinNumOfYears}}</td>
-                </tr>
-                <tr>
-                    <th>Returns</th>
-                    <td>{{description.Returns}}</td>
-                </tr>
-            </table>
-            <br><br>
-            <a id="site" v-bind:href="description.Link">VISIT OFFICIAL SITE</a>
-            <br><br>
-        </h6>
-        <h6 v-for="description in savingPlan" v-bind:key="description">
-            <p id="name">{{doc_id}}</p>
-            <img v-bind:src="description.Image" alt="logo">
-            <br><br>
-            <div class="row" style="width:80%; text-align:center; display: inline-block;">
+            <div class="row" style="width:70%; text-align:center; display: inline-block;">
                 <div class="column">
-                    <h2 id="text">{{description.InterestPA}}</h2>
-                    <p>Annual Interest Rate</p>
+                    <h2 id="text">{{(description.interest_pa*100).toFixed(2)}}%</h2>
+                    <p id="points">Annual Interest Rate</p>
                 </div>
                 <div class="column" id="borderLine">
-                    <h2 id="text">{{description.MinNumOfYears}}</h2>
-                    <p>Minimum Number of Years Required</p>
+                    <h2 id="text">{{description.min_years}}</h2>
+                    <p id="points">Minimum Years Required</p>
                 </div>
                 <div class="column" id="borderLine">
-                    <h2 id="text">${{description.MinPremium}}</h2>
-                    <p>Minimum Premium Amount</p>
+                    <h2 id="text">${{(description.min_amount).toLocaleString()}}</h2>
+                    <p id="points">Minimum Premium Amount</p>
                 </div>
             </div>
-            <h2 id="text">Features:</h2>
-            <ul>
-                <li>Testing1</li>
-                <li>Testing2</li>
-                <li>Testing3</li>
-            </ul>
-            <br><br>
-            <a id="site" v-bind:href="description.Link">VISIT OFFICIAL SITE</a>
-            <br><br>
+            <div class="row" style="width:65%; text-align:center; display: inline-block;">
+                <h2 id="feature">Features:</h2>
+                <ul>
+                    <li id="content" v-for="feature in description.features" v-bind:key="feature">{{feature}}</li>
+                </ul>
+                <br>
+                <a id="site" v-bind:href="description.link">Visit Official Site</a>
+                <br><br>
+            </div>
         </h6>
     </div>
 </template>
@@ -78,8 +57,9 @@ export default {
 </script>
 
 <style scoped>
-#listing {
-    padding-top: 200px;
+.listings {
+    text-align: center;
+    padding-top: 100px;
 }
 
 h6 {
@@ -88,7 +68,6 @@ h6 {
 
 ul {
     display: list-item;
-    list-style-type: circle;
     font-family: Optima;
 }
 
@@ -97,14 +76,19 @@ ul li::before {
     color: black;
     font-weight: bold;
     display: inline-block;
-    width: 2em;
-    margin-left: -1em;
+    width: 1.5em;
+    margin-left: -1.5em;
 }
 
 #name {
-    font-size: 50px;
+    font-size: 45px;
     font-family: 'Optima';
     color: black;
+}
+
+#provider {
+    font-size: 30px;
+    font-family: Optima;
 }
 
 #text {
@@ -112,7 +96,7 @@ ul li::before {
 }
 
 img {
-    width: 80%;
+    width: 70%;
 }
 
 #site {
@@ -142,32 +126,18 @@ img {
     clear: both;
 }
 
-table,
-th,
-td {
-    border: none;
-    border-collapse: collapse;
-    font-size: 22px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Optima';
-}
-
-th,
-td {
-    padding: 15px;
+#feature {
     text-align: left;
+    font-family: Optima;
 }
 
-th {
-    width: 40%;
+#content {
+    text-align: left;
+    font-family: Optima;
+    font-size: 20px;
 }
 
-td {
-    width: 60%
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+#points {
+    font-size: 15px;
 }
 </style>

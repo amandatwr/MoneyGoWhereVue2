@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align:center; padding-top:100px; padding-bottom:50px">
+    <div style="text-align:center; padding-top:100px">
         <h1 id="text"><b> Get your optimal savings plan in seconds </b></h1>
         <h2 id="text">I want to invest $
             <input id="cond" type="number" v-model="amount" size="10"> and hold it for
@@ -8,62 +8,32 @@
         <br><br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
             <span class="anchor" @click="displayBox()">Select Preferred Financial Institution</span>
-            <ul class="items" style="text-align:left;">
+            <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
-                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" /> {{plan.provider}}
+                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" />{{plan.provider}}
                 </li>
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true; findPlans(); calculateReturns()">Next</button>
+        <button id="btn" type="button" @click="show_form = true; findPlans()">Next</button>
         <br><br>
-        <div v-if="show_form && recommendedPlans.length > 0">
-            <h1 id="text">Your Curated Savings Plan:</h1>
-            <p id="text">Show plan which gives the highest return</p>
-            <br>
-            <div class="w3-row" style="padding:0px 50px 50px 50px">
-                <ul style="padding:0px">
-                    <li v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan">
-                        <div class="w3-col s6 w3-center" style="padding:0px 0px 80px 150px">
-                            <img style="width:100%; height:300px" v-bind:src="plan.logo" alt="logo">
-                            <p id="name"><b>{{plan.name}}</b></p>
-                            <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
-                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
-                        </div>
-                    </li>
-                </ul>
-                <div class="w3-col s6 w3-center" v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan" id="projectedReturns">
-                    <h3 id="text">Your Projected Returns:</h3>
-                    <br><br>
-                    <h1 id="returns">${{(plan.returns).toLocaleString()}}</h1>
-                </div>
-            </div>
-            <br><br>
-            <div v-if="recommendedPlans.length > 1">
-                <h1 id="text">You may also like...</h1>
-                <p id="text">Show next 3 plans with the highest returns</p>
-                <div class="w3-row" style="padding:20px 70px 70px 70px">
-                    <ul style="padding:0px">
-                        <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
-                            <div class="w3-col s4 w3-center" style="padding:30px">
-                                <img style="width:100%; height:180px" v-bind:src="plan.logo" alt="logo">
-                                <br><br>
-                                <p id="name"><b>{{plan.name}}</b></p>
-                                <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
-                                <p id="name">Projected Returns: ${{(plan.returns).toLocaleString()}}</p>
-                                <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div v-if="show_form" style="text-align:center">
+            <ul id="withBorders">
+                <li id="withBorders2" class="column" v-for="plan in recommendedPlans" v-bind:key="plan">
+                    <div class="card">
+                        <img class="photo" v-bind:src="plan.image" alt="logo">
+                        <br><br>
+                        <p id="name">{{plan.name}}</p>
+                        <br>
+                        <p>{{plan.description}}</p>
+                        <br>
+                        <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div v-if="show_form && recommendedPlans.length === 0">
-            <h1 id="text">Your Curated Savings Plan:</h1>
-            <br>
-            <h4 id="text" style="color:#545454">No suitable savings plan found. Please try again.</h4>
-        </div>
+        <br><br>
     </div>
 </template>
 
@@ -75,9 +45,8 @@ export default {
             selectedPlans: [],
             listOfPlans: [],
             recommendedPlans: [],
-            topPlan: [],
             show_form: false,
-            exceeded: false,
+            expanded: false,
             checkList: document.getElementById('list1'),
             amount: null,
             years: null,
@@ -107,16 +76,8 @@ export default {
             for (let i = 0; i < this.selectedPlans.length; i++) {
                 if (this.selectedPlans[i].min_years <= this.years && (this.selectedPlans[i].min_amount <= this.amount)) {
                     this.recommendedPlans.push(this.selectedPlans[i]);
-                }
+                } 
             }
-        },
-        calculateReturns: function() {
-            for (let i = 0; i < this.recommendedPlans.length; i++) {
-                var interest = this.recommendedPlans[i].interest_pa;
-                var projectedReturns = Math.pow((1 + interest), this.years) * this.amount;
-                this.recommendedPlans[i].returns = Math.round(projectedReturns);
-            }
-            this.recommendedPlans.sort(function(a, b) { return b.returns - a.returns });
         },
         selectAll: function() {
             var selected = document.getElementById("allPlans")
@@ -125,6 +86,7 @@ export default {
             } else {
                 this.selectedPlans = [];
             }
+
         },
         route: function(event) {
             let doc_id = event.target.getAttribute("id");
@@ -143,7 +105,6 @@ export default {
 <style scoped>
 .dropdown-check-list {
     display: inline-block;
-    width: auto;
 }
 
 .dropdown-check-list .anchor {
@@ -225,20 +186,6 @@ export default {
 
 #cond {
     font-size: 18px;
-    border: 1px solid black;
-    text-align: center
-}
-
-#projectedReturns {
-    display: inline;
-    padding-right: 120px;
-    padding-top: 200px;
-    justify-content: center
-}
-
-#returns {
-    font-family: Optima;
-    color: #405D93;
 }
 
 .column {
@@ -252,13 +199,13 @@ export default {
     padding: 10px;
 }
 
-.learnMore {
-    color: #545454
-}
-
 .photo {
     height: 220px;
-    width: 100%;
+    width: 370px;
+}
+
+.learnMore {
+    color: #545454
 }
 
 button {
@@ -279,12 +226,5 @@ button {
     font-size: 30px;
     text-align: center;
     font-family: Optima;
-}
-
-img {
-    padding-top: 0px;
-    padding-bottom: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
 }
 </style>

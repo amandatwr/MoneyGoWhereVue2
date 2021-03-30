@@ -56,10 +56,10 @@ export default {
 }
 .page-title {
   font-family: "Open Sans", sans-serif;
-  font-size: 90px;
+  font-size: 75px;
   color: white;
-  margin: 0px;
-  height: 120px;
+  margin: 0;
+  height: 90px;
 }
 .body {
     padding: 100px;

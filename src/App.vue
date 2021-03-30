@@ -29,5 +29,11 @@ export default {
   /* position: absolute; */
   z-index: 1;
 }
+
+#view {
+  width: 90%;
+  margin-left: 5%;
+  justify-content: center;
+}
 </style>
 
