@@ -11,7 +11,7 @@
             <label for="title1">What is MoneyGoWhere?</label>
 
             <div class="content">
-            <p>Your content goes here.</p>
+            Your content goes here.
             </div>
 
         </div>
@@ -44,16 +44,18 @@ export default {
   font-family: "Open Sans", sans-serif;
   font-size: 90px;
   color: white;
-  margin: 0;
+  margin: 0px;
   height: 120px;
 }
 .body {
     padding: 100px;
+    padding-left: 200px;
+    padding-right: 200px;
     justify-content: center;
     align-items: center;
 }
 
-/* Styling the accordions */
+/* Styling the accordion */
 
 label {
     display: block;    
@@ -105,6 +107,7 @@ input:checked + label + .content {
     margin: 0 0 1px 0;
     border-radius: 3px;
     text-align: left;
+    font-size: 18px;
 }
 
 </style>
