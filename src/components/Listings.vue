@@ -4,7 +4,7 @@
         <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
 
         <div id="list1" class="dropdown-check-list" tabindex="100">
-            <span class="anchor" @click="displayBox()">Filter By Financial Institution</span>
+            <span class="anchor" @click="displayBox()">Financial Institution</span>
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
                 <li v-for="plan in listOfPlans" v-bind:key="plan">
@@ -13,7 +13,7 @@
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Next</button>
+        <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Filter</button>
 
         <div v-if="show_original">
             <div class="w3-row" style="padding:20px 70px 70px 70px">
