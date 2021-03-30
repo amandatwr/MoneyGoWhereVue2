@@ -6,7 +6,7 @@
       <form>
         <textarea v-model="endVal" rows="1" cols="5"></textarea>
       </form>
-    <button v-on:click="move()">Update</button>
+    <div class ="newbutton" v-on:click="move()">Update</div>
     <div id="myProgress">
       <div id="myBar">{{totalReturns}}</div>
     </div>
@@ -182,7 +182,7 @@ label {
   font-size: 20px;
 }
 
-button {
+#newbutton {
     background-color: white;
     color: #545454;
     border: 1px solid grey;
