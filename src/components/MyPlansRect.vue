@@ -4,9 +4,9 @@
   
     
       <ul style="padding:0px">
-        <div class = "classul"> 
+         
           <li v-for="plan in plans" v-bind:key="plan">
-            <div class = "classli">
+            
             <div class="tooltip">
               <v-card class="myplan-card">
                   <p id="name"><b>{{plan.name}}</b></p>
@@ -15,9 +15,9 @@
                   <span class="tooltiptext"> Interest Rate: {{plan.interest}}<br>Capital Guaranteed: {{plan.capital_guaranteed}}<br> Min. no. of Years: {{plan.min_years}}</span>
               </v-card>
             </div>
-            </div>
+           
           </li>
-      </div>
+     
       </ul>
       
   
@@ -111,7 +111,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .tooltip {
   position: relative;
   display: inline-block;
@@ -175,14 +175,14 @@ h6 {
     text-align:center;
 }
 
-#classul{
+ul{
   display: flex;
-  flex-wrap: row wrap;
+  flex-wrap: wrap;
   justify-content: space-around;
 
 }
 
-#classli {
+li {
   flex: 1 0 25%;
   margin: 15px;
 } 

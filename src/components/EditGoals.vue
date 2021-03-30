@@ -137,7 +137,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #goals {
   width: 300px;
   height: 100px;
