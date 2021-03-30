@@ -28,7 +28,7 @@
         <p class="aboutUsText">
           Our novel recommender will recommend savings plans catered to your needs. <br><br>
           Be matched with a sales representative if you would like to find out more!<br><br>
-          For Financial Institutions: List your savings plan on our centralised database and be matched with interested savers here. Our analytics dashboard provides a consolidated view of your performance
+          To update: Our analytics dashboard provides a consolidated view of your performance. <br><br>
 
         </p>
       </div>
@@ -42,7 +42,8 @@
         <h1 class="aboutUsTitle">Our Values</h1>
         <p class="aboutUsSubtitle">Customer-Centric | Innovation | Trust </p>
         <p class="aboutUsText">
-         We are commited to providing reliable and trustworthy suggestions using our innovative recommender algorithm and ensuring a seamless and safe process of saving for our savers.
+         We are commited to providing reliable and trustworthy suggestions using our innovative recommender algorithm. <br><br>
+        To update: ensuring a seamless and safe process of saving for our savers.<br><br>
         </p>
       </div>
       </div>
