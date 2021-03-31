@@ -23,14 +23,17 @@
             <p id="text">Show plan which gives the highest return</p>
             <br>
             <div class="w3-row" style="padding:0px 50px 50px 50px">
+                
                 <ul style="padding:0px">
                     <li v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan">
+                        <v-card>
                         <div class="w3-col s6 w3-center" style="padding:0px 0px 80px 150px">
                             <img style="width:100%; height:300px" v-bind:src="plan.logo" alt="logo">
                             <p id="name"><b>{{plan.name}}</b></p>
                             <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
                             <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
                         </div>
+                        </v-card>
                     </li>
                 </ul>
                 <div class="w3-col s6 w3-center" v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan" id="projectedReturns">
@@ -141,6 +144,12 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  margin: 0 25px;
+  padding: 3%;
+  height: 500px;
+}
+
 .dropdown-check-list {
     display: inline-block;
     width: auto;

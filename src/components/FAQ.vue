@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="banner">
+        <div class="banners">
             <div class="banner-text">
                 <h1 class="page-title">Frequently Asked Questions</h1>
             </div>
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style scoped>
-.banner {
+.banners {
   display: flex;
   justify-content: center;
   align-items: center;
