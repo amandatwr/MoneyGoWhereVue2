@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align:center; padding-top:100px; padding-bottom:50px">
+    <div style="text-align:center; padding-top:275px; padding-bottom:175px">
         <h1 id="text"><b> Get your optimal savings plan in seconds </b></h1>
         <h2 id="text">I want to invest $
             <input id="cond" type="number" v-model="amount" size="10"> and hold it for
@@ -20,15 +20,11 @@
         <br><br>
         <div v-if="show_form && recommendedPlans.length > 0">
             <h1 id="text">Your Curated Savings Plan:</h1>
-            <p id="text">Show plan which gives the highest return</p>
-            <br>
-            <div class="w3-row" style="padding:0px 50px 50px 50px">
-                
+            <div class="w3-row" style="padding:0px 50px 50px 50px;">
                 <ul style="padding:0px">
                     <li v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan">
-                        <v-card>
-                        <div class="w3-col s6 w3-center" style="padding:0px 0px 80px 150px">
-                            <img style="width:100%; height:300px" v-bind:src="plan.logo" alt="logo">
+                        <div class="w3-col s6 w3-center" style="padding:0px 0px 20px 180px">
+                            <img style="width:100%; height:280px" v-bind:src="plan.logo" alt="logo">
                             <p id="name"><b>{{plan.name}}</b></p>
                             <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
                             <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
@@ -42,20 +38,20 @@
                     <h1 id="returns">${{(plan.returns).toLocaleString()}}</h1>
                 </div>
             </div>
-            <br><br>
             <div v-if="recommendedPlans.length > 1">
                 <h1 id="text">You may also like...</h1>
-                <p id="text">Show next 3 plans with the highest returns</p>
                 <div class="w3-row" style="padding:20px 70px 70px 70px">
                     <ul style="padding:0px">
                         <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
-                            <div class="w3-col s4 w3-center" style="padding:30px">
-                                <img style="width:100%; height:180px" v-bind:src="plan.logo" alt="logo">
-                                <br><br>
-                                <p id="name"><b>{{plan.name}}</b></p>
-                                <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
-                                <p id="name">Projected Returns: ${{(plan.returns).toLocaleString()}}</p>
-                                <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
+                            <div class="tooltip">
+                                <v-card class="w3-col w3-center" style="padding:30px; margin:10px; width: 31%">
+                                    <img style="width:100%; height:180px" v-bind:src="plan.logo" alt="logo">
+                                    <br><br>
+                                    <p id="name"><b>{{plan.name}}</b></p>
+                                    <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
+                                    <p id="name">Projected Returns: ${{(plan.returns).toLocaleString()}}</p>
+                                    <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
+                                </v-card>
                             </div>
                         </li>
                     </ul>
@@ -65,7 +61,7 @@
         <div v-if="show_form && recommendedPlans.length === 0">
             <h1 id="text">Your Curated Savings Plan:</h1>
             <br>
-            <h4 id="text" style="color:#545454">No suitable savings plan found. Please try again.</h4>
+            <h4 id="text" style="color:#545454">No suitable savings plan found. Please edit your input values.</h4>
         </div>
     </div>
 </template>
@@ -208,28 +204,11 @@ export default {
 }
 
 #text {
-    font-family: Optima
+
 }
 
 #name {
     font-size: 18px;
-}
-
-#withBorders {
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;
-}
-
-#withBorders2 {
-    flex-grow: 1;
-    flex-basis: 300px;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid white;
-    margin: 10px;
-    width: 100%;
 }
 
 #cond {
@@ -240,8 +219,8 @@ export default {
 
 #projectedReturns {
     display: inline;
-    padding-right: 120px;
-    padding-top: 200px;
+    padding-right: 170px;
+    padding-top: 170px;
     justify-content: center
 }
 
@@ -253,12 +232,6 @@ export default {
 .column {
     column-width: 333px;
     column-gap: 20px;
-}
-
-.card {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    padding: 10px;
 }
 
 .learnMore {
@@ -296,4 +269,5 @@ img {
     padding-left: 40px;
     padding-right: 40px;
 }
+
 </style>
