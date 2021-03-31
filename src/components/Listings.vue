@@ -8,6 +8,7 @@
 
         <br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
+            <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
             <span class="anchor" @click="displayBox()">Filter By Financial Institution</span>
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
