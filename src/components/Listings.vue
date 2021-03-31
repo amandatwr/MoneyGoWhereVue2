@@ -1,8 +1,12 @@
 <template>
     <div id="listings">
-        <h2 id="header">Savings Plans</h2>
-        <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
+        <div class="banner">
+            <div class="banner-text">
+                <h1 class="page-title">Savings Plans</h1>
+            </div>
+        </div>
 
+        <br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
             <span class="anchor" @click="displayBox()">Filter By Financial Institution</span>
             <ul class="items" style="text-align:left">
@@ -13,7 +17,7 @@
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Next</button>
+        <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Filter</button>
 
         <div v-if="show_original">
             <div class="w3-row" style="padding:20px 70px 70px 70px">
@@ -113,8 +117,30 @@ export default {
 </script>
 
 <style scoped>
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("./../assets/office.jpg"); /* Need to change picture */
+  background-size: cover;
+  height: 400px;
+}
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 75px;
+  color: white;
+  margin: 0;
+  height: 90px;
+}
+
 #listings {
-    padding-top: 100px;
     text-align:center;
 }
 
