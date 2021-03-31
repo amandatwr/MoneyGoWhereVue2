@@ -67,7 +67,20 @@
       ></v-pagination>
     </div>
         </v-card>
-        <v-card class="card savings-distribution-card"></v-card>
+        <v-card class="card savings-distribution-card">
+        <h2>My Goal</h2>
+        <v-progress-circular class='progress-bar'
+      :rotate="90"
+      :size="225"
+      :width="12.5"
+      :value="value"
+      color="#282726"
+    ><h2>Progress<br>{{ Math.round(value * 100) / 100}}%</h2>
+   
+      
+    </v-progress-circular>
+     <p>You are at {{this.formatter().format(projectedReturns)}} of {{this.formatter().format(goal)}}</p>
+</v-card>
       </div>
 
       <div class="dashboard-row last-row">
@@ -91,7 +104,6 @@ import database from "../firebase.js";
 import firebase from "firebase";
 import MarketPerformance from "../charts/marketperformance.js";
 import SavingsDistribution from "../charts/savingsdistribution.js";
-
 export default {
   data() {
     return {
@@ -99,7 +111,6 @@ export default {
       capitalGuaranteed: 0,
       projectedReturns: 0,
       returnsGuaranteed: 0,
-
       page: 1,
         pageCount: 0,
       headers: [
@@ -110,14 +121,13 @@ export default {
         { text: 'Earliest Withdrawal', value: 'dateWithdraw'}
       ],
       plans: [],
+      value: null,
     };
   },
-
   components: {
     MarketPerformance,
     SavingsDistribution,
   },
-
   methods: {
     fetchItems: function () {
       // Log user account creation date
@@ -126,13 +136,12 @@ export default {
       var currDate = new Date();
       this.days = this.getDateDiff(currDate, signupDate);
       
-
-
        database
         .collection("TestUsers")
         .doc(user.uid)
         .get()
         .then((querySnapShot) => {
+          this.goal = querySnapShot.data().goal
           var plans = querySnapShot.data().plans
           for ( let i = 0 ; i < plans.length ; i++ ) {
             var planID = plans[i].planID
@@ -149,9 +158,10 @@ export default {
                 planDetails['dateSaved'] = plans[i].dateSaved.toDate().toLocaleDateString();
                 planDetails['dateWithdraw'] = this.getReturnsDate(plans[i].dateSaved.toDate(), listingDetails.min_years).toLocaleDateString();
                 this.plans.push(planDetails);
-
                 this.totalEndowment += plans[i].amount;
                 this.projectedReturns += plans[i].amount * listingDetails.interest_pa;
+                this.value += plans[i].amount * listingDetails.interest_pa / this.goal * 100
+                
                 if (listingDetails.returns_guaranteed) {
                   this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa;
                 }
@@ -159,23 +169,17 @@ export default {
                   this.capitalGuaranteed += plans[i].amount
                 }
               })}
-        });
-           
-          
+        });          
     },
-
        getReturnsDate: function (dateSaved, numYears) {
                 return (new Date(
                   dateSaved.setFullYear(new Date().getFullYear() + numYears)
                 ))
     },
-
-
     getDateDiff: function (from, to) {
       // console.log(from, to);
       return Math.floor((from - to) / 86400000);
     },
-
     formatter: function () {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -184,7 +188,6 @@ export default {
       });
     },
   },
-
   created() {
     this.fetchItems();
   },
@@ -196,7 +199,6 @@ export default {
   text-align: center;
   margin-top: 85px;
 }
-
 .dashboard-row {
   padding: 25px;
   width: 100%;
@@ -204,65 +206,61 @@ export default {
   overflow: hidden;
   justify-content: center;
 }
-
 .card {
   margin: 0 25px;
   padding: 3%;
   height: 375px;
+  padding-top: 0;
 }
-
 .market-performance-card {
   width: 60%;
   padding-top: 35px;
 }
-
 .market-performance-canvas {
   height: 275px;
   width: 100%;
 }
-
+.progress-bar-card {
+  width: 30%;
+  padding: 0;
+  margin: 0;
+}
 .savings-distribution-card {
   width: 30%;
+  padding-top: 30px;
 }
-
 .savings-distribution-canvas {
   height: 300px;
+  padding: 0;
+  margin-top: 0;
 }
-
 .last-row {
   margin-bottom: 25px;
 }
-
 .first-row {
   height: 110px;
   width: 20% !important;
-
   padding: 0;
 }
-
 /* .first-row-alignment {
   padding-left: 35px;
   padding-right: 35px;
 } */
-
 .heading {
   text-align: center;
   padding: 0;
   margin: -5px 0;
 }
-
 .heading > h2 {
   font-size: 40px !important;
   font-style: bold;
 }
-
 .subheading > p{
   text-align: center;
   font-size: 12px;
   padding: 0;
   margin: 0;
 }
-
 .icon {
   width: 100px;
   border-bottom-left-radius: 4px !important;
@@ -272,39 +270,31 @@ export default {
   justify-content: center;
   /* margin: 5px; */
 }
-
 .color-strip {
   height: 15px;
   padding: 0;
   margin: 0;
   width: 100%;
 }
-
 .color1 {
   background-color: #282726 !important;
 }
-
 .color2 {
   background-color: #a7414a !important;
 }
-
 .color3 {
   background-color: #6a8a82 !important;
 }
-
 .color4 {
   background-color: #a37c27 !important;
 }
-
 .content {
   color: black;
   padding: 12.5px;
 }
-
 .icon > img {
   max-height: 60%;
 }
-
 .v-data-footer {
   display: flex !important;
   justify-items: center;
@@ -312,10 +302,13 @@ export default {
   /* height: 50px;
   overflow: hidden; */
 }
-
 .v-data-footer__select {
   display: none;  width: 100% !important;
 }
-
+.text-centre {
+  font-size: 50px;
+}
+.progress-bar {
+  margin: 10px 0 20px 0;
+}
 </style>
-

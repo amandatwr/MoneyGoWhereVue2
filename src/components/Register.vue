@@ -35,11 +35,12 @@
                                 <span class="focus-input100" data-placeholder="Email"></span>
                             </div>
                             <div class="wrap-input100">
-                                <input class="input100" type="text" name="goal" placeholder="Goal" v-model='goal'>
+                                <input class="input100" type="number" name="goal" placeholder="Goal" v-model='goal'>
                                 <span class="focus-input100" data-placeholder="Savings Goal (in $SGD)"></span>
                             </div>
                         </div>
                     </div>
+                    <div v-if='error'><p class='alert'>{{this.errorMessage}}</p></div>
 
 					<div class="container-login100-form-btn padding-top-20">
 						<div class="wrap-login100-form-btn">
@@ -69,7 +70,9 @@ export default {
             goal: 0,
             passwordVisible: false,
             eyeIconVisible: false,
-            type: "password"
+            type: "password",
+            error: false,
+            errorMessage: null
         }
     },
 
@@ -105,11 +108,22 @@ export default {
             console.log(this.password)
             console.log(this.goal)
             console.log(this.name)
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(user => {
-                alert(`Account created for ${user.user.email}`)})
+            if (this.name == '') {
+                this.error = true;
+                this.errorMessage = 'name not here'
+            }
+            else { firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+                
             .then(() => {
-                this.$router.go({path: this.$router.path});});
+                this.$router.go({path: this.$router.path});
+                }, err => {
+                console.log(err.message);
+				this.error =true;
+                this.errorMessage = err.message + '.'
+                }
+            )}
             e.preventDefault();
+           
         },
 
         togglePasswordVisibility() {
@@ -228,6 +242,10 @@ export default {
 
 .padding-top-20 {
     padding-top: 20px;
+}
+
+.alert {
+    text-align: center;
 }
 </style>
 
