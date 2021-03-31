@@ -90,7 +90,10 @@
           ></market-performance
         ></v-card>
         <v-card class="card savings-distribution-card"
-          ><savings-distribution
+          >
+          <h2>Savings Distribution</h2>
+          <div v-if='!hasPlans'><p>No data available</p></div>
+          <savings-distribution v-if='hasPlans'
             class="savings-distribution-canvas"
           ></savings-distribution
         ></v-card>
@@ -111,6 +114,7 @@ export default {
       capitalGuaranteed: 0,
       projectedReturns: 0,
       returnsGuaranteed: 0,
+      goal: 0,
       page: 1,
         pageCount: 0,
       headers: [
@@ -120,8 +124,9 @@ export default {
         {text: 'Date Saved', value: 'dateSaved'},
         { text: 'Earliest Withdrawal', value: 'dateWithdraw'}
       ],
+      hasPlans: false,
       plans: [],
-      value: null,
+      value: 0,
     };
   },
   components: {
@@ -142,8 +147,10 @@ export default {
         .get()
         .then((querySnapShot) => {
           this.goal = querySnapShot.data().goal
+          console.log(this.goal)
           var plans = querySnapShot.data().plans
           for ( let i = 0 ; i < plans.length ; i++ ) {
+            this.hasPlans = true;
             var planID = plans[i].planID
             database
               .collection("Listings")

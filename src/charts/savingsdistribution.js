@@ -28,13 +28,14 @@ export default {
       },
       options: {
         title: {
-          display: true,
+          display: false,
           text: "Savings Distribution",
           fontSize: 20,
         },
         layout: {
           padding: {
-            top: -10,
+            top: 10,
+            bottom: 30,
           },
         },
         responsive: true,
