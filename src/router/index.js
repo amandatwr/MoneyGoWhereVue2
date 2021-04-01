@@ -66,6 +66,9 @@ let router = new VueRouter({
     {
       path: "/recommender",
       component: Recommender,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/mysavings",
@@ -77,16 +80,16 @@ let router = new VueRouter({
     {
       path: "/editgoals",
       component: EditGoals,
-       meta: {
-                requiresAuth: true,
-            },
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/myplansrect",
       component: MyPlansRect,
-       meta: {
-                requiresAuth: true,
-            },
+      meta: {
+        requiresAuth: true,
+      },
     },
   ],
 });

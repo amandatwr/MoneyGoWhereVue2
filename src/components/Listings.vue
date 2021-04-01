@@ -21,7 +21,7 @@
         <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Filter</button>
 
         <div v-if="show_original">
-            <div class="w3-row" style="padding:20px 70px 70px 70px">
+            <div class="w3-row" style="padding:30px 70px 20px 70px">
                 <ul style="padding:0px">
                     <li v-for="plan in listOfPlans" v-bind:key="plan">
                         <div class="w3-col s4 w3-center" style="padding:30px">
@@ -51,7 +51,10 @@
                 </ul>
             </div>
         </div>
-        <p id="note">Can't decide which plan to choose? Let our recommender do it for you!</p>
+        <div class='note'><span >Can't decide which plan to choose? Let our</span><router-link class='note' to=/recommender exact>
+							recommender
+						</router-link> <span>do it for you!</span>
+                        </div>
     </div>
 </template>
 
@@ -153,8 +156,14 @@ export default {
     font-size: 15px;
 }
 
-#note {
+.note {
     font-size: 18px;
+	font-family: Poppins-Regular;
+	/* font-size: 14px; */
+	line-height: 1.7;
+	color: #666666;
+	/* margin: 0px; */
+    margin-bottom: 25px;
 }
 
 .column {

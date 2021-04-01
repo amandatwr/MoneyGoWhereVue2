@@ -41,7 +41,7 @@
 						</span>
 
 						<router-link class="txt2" to=/register exact>
-							Register
+							<span class='txt2'>Register</span>
 						</router-link>
 					</div>
 				</form>
@@ -127,6 +127,13 @@ export default {
 
 router-link {
 	color: #080808;
+}
+
+.txt2 {
+	font-size: 13px;
+	font-family: Poppins-Regular;
+	color: #666666;
+	text-decoration-color: #666666;
 }
 
 </style>
