@@ -9,6 +9,7 @@ import IndivListings from "./../components/IndivListings.vue";
 import EditGoals from "./../components/EditGoals.vue";
 import MyPlansRect from "./../components/MyPlansRect.vue";
 import MySavings from "./../components/MySavings.vue";
+import AddPlan from "./../components/AddPlan.vue";
 import VueRouter from "vue-router";
 import firebase from "firebase";
 import FAQ from "./../components/FAQ.vue";
@@ -18,80 +19,86 @@ Vue.use(VueRouter);
 
 
 let router = new VueRouter({
-  mode: "history",
-  routes: [
-    {
-      path: "/",
-      component: HomePage,
-    },
-    {
-      path: "/about",
-      component: AboutPage,
-    },
-    {
-      path: "/listings",
-      component: Listings,
-    },
-    {
-      path: "/IndivListing/:id",
-      name: "IndivListing",
-      component: IndivListings,
-      props: true,
-    },
-    {
-      path: "/register",
-      component: Register,
-      meta: {
-        requiresGuest: true,
-      },
-    },
-    {
-      path: "/login",
-      component: Login,
-      meta: {
-        requiresGuest: true,
-      },
-    },
-    {
-      path: "/dashboard",
-      component: Dashboard,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: "/FAQ",
-      component: FAQ,
-    },
-    {
-      path: "/recommender",
-      component: Recommender,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: "/mysavings",
-      component: MySavings,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: "/editgoals",
-      component: EditGoals,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: "/myplansrect",
-      component: MyPlansRect,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-  ],
+    mode: "history",
+    routes: [{
+            path: "/",
+            component: HomePage,
+        },
+        {
+            path: "/about",
+            component: AboutPage,
+        },
+        {
+            path: "/listings",
+            component: Listings,
+        },
+        {
+            path: "/IndivListing/:id",
+            name: "IndivListing",
+            component: IndivListings,
+            props: true,
+        },
+        {
+            path: "/register",
+            component: Register,
+            meta: {
+                requiresGuest: true,
+            },
+        },
+        {
+            path: "/login",
+            component: Login,
+            meta: {
+                requiresGuest: true,
+            },
+        },
+        {
+            path: "/dashboard",
+            component: Dashboard,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/FAQ",
+            component: FAQ,
+        },
+        {
+            path: "/recommender",
+            component: Recommender,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/mysavings",
+            component: MySavings,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/editgoals",
+            component: EditGoals,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/myplansrect",
+            component: MyPlansRect,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/addplan",
+            component: AddPlan,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+    ],
 });
 
 // Nav Guards

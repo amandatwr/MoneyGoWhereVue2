@@ -29,7 +29,7 @@
                             <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
                             <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
                         </div>
-                        </v-card>
+                        <!-- </v-card> -->
                     </li>
                 </ul>
                 <div class="w3-col s6 w3-center" v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan" id="projectedReturns">
