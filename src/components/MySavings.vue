@@ -4,6 +4,7 @@
     <h1>My Savings</h1>
     <MyPlansRect/>
     <br><br><br>
+    <AddPlan></AddPlan>
     <!-- <EditGoals></EditGoals> -->
     <!-- <br><br><br><br><br><br> -->
     </div>
@@ -12,6 +13,7 @@
 <script>
 // import EditGoals from "./EditGoals.vue";
 import MyPlansRect from "./MyPlansRect.vue";
+import AddPlan from "./AddPlan.vue";
 // import database from "../firebase.js";
 // import firebase from "firebase";
 
@@ -25,6 +27,7 @@ export default {
 components: {
     // EditGoals: EditGoals,
     MyPlansRect: MyPlansRect,
+    AddPlan: AddPlan,
   },
 
 
