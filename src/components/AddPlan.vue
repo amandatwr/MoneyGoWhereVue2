@@ -10,28 +10,29 @@
 				<!-- Bidirectionally bind planSelect to this select element -->
 				<select v-model="planSelect" class="drawbox">
 					<option v-for="plan in plans" v-bind:key="plan.name" v-bind:value="plan.name">{{plan.name}}</option>
-					<option value="other">Other</option>
+					<!-- <option value="other">Other</option> -->
 				</select>
                 <br><br>
-				<div v-if="planSelect != 'other'">
+
+				<!-- <div v-if="planSelect != 'other'"> -->
 					You are adding {{planSelect}}
-				</div>
-				<div v-else>
+				<!-- </div> -->
+				<!-- <div v-else>
 					<!-- The user wants to add a new plan -->
 					<!-- Bidirectionally bind planName, planInterest, planMinYrs to these input elements -->
-					<input type="text" v-model="planName" placeholder="Enter Plan Name">
+					<!-- <input type="text" v-model="planName" placeholder="Enter Plan Name">
                     <br>
                     <input type="text" v-model="planProvider" placeholder="Enter Plan Provider">
                     <br>
 					<input type="text" v-model="planInterest" placeholder="Enter Interest Rate">
                     <br>
 					<input type="text" v-model="planMinYrs" placeholder="Enter Minimum No. of Years">
-				</div>
+				</div> --> 
 
 				<!-- Bidirectionally bind planAmount -->
 				<input type="text" v-model="planAmount" placeholder="Enter Amount Saved">
 				<br><br>
-                <button class= "submitbutton" type="submit">Add Plan</button>
+                <button class= "submitbutton" type="submit" >Add Plan</button>
 			</form>
             </v-card>
 		</div>
@@ -80,35 +81,35 @@ export default {
 			var user = firebase.auth().currentUser;
             
 
-			if (this.planSelect == 'other') {
-                this.planID = this.camelize(this.planName) + "_" + this.planProvider;
-                // console.log(this.planID);
-				// Create a new plan before adding the plan to the user
-				db.collection('Listings').doc(this.planID).add({
-					name: this.planName, // planID
-                    provider: this.planProvider,
-					interest_pa: this.planInterest,
-					min_years: this.planMinYrs,
+			// if (this.planSelect == 'other') {
+            //     this.planID = this.camelize(this.planName) + "_" + this.planProvider;
+            //     // console.log(this.planID);
+			// 	// Create a new plan before adding the plan to the user
+			// 	db.collection('Listings').doc(this.planID).add({
+			// 		name: this.planName, // planID
+            //         provider: this.planProvider,
+			// 		interest_pa: this.planInterest,
+			// 		min_years: this.planMinYrs,
 
-				});
+			// 	});
                 
 
-				// Add the plan to the user, with the above created plan
-				db.collection('TestUsers').doc(user.uid).get().then(doc => {
-                    let newPlans = doc.data();
-                    newPlans.push({ planID: this.planID, amount: this.planAmount });
-                    doc(user.uid).update({
-                                plans: newPlans,
-                        });
-                    });
+			// 	// Add the plan to the user, with the above created plan
+			// 	db.collection('TestUsers').doc(user.uid).get().then(doc => {
+            //         let newPlans = doc.data();
+            //         newPlans.push({ planID: this.planID, amount: this.planAmount });
+            //         doc(user.uid).update({
+            //                     plans: newPlans,
+            //             });
+            //         });
 
-			} else {
+			// } else {
 				// Add the plan to the user, with the existing selected plan
 				db.collection('TestUsers').doc(user.uid).add({
 					planID: this.planSelect,
 					amount: this.planAmount,
 				});
-			}
+			//}
 		},
     },
 
