@@ -167,6 +167,11 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(async (cred) => {
+            //   firebase.storage().ref('users/' + cred.user.uid + '/user.png').put('./../assets/user.png').then(() => {
+            //   console.log('profile picture succesfully uploaded')
+            //   }).catch(err => {
+            //       console.log(err.message)
+            //   });
             await database
               .collection("TestUsers")
               .doc(cred.user.uid)
