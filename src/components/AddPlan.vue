@@ -1,124 +1,160 @@
 <template>
-   <div class = "addNew">
-      <button id = "addButton"
-        @click="show_form = true"
-      >
-      </button>
+	<div class="addNew">
+		<button class="addButton" @click="show_form = true"></button>
+		<div v-if="show_form" class="centerimg2">
+			<!-- when the form is submitted, add the plan to the database -->
+			<!-- .prevent prevents the submission event from "reloading" the page -->
+			<v-card class="card"> 
+            <form @submit.prevent="addPlan">
+				<label>Add a Plan: </label>
+				<!-- Bidirectionally bind planSelect to this select element -->
+				<select v-model="planSelect" class="drawbox">
+					<option v-for="plan in plans" v-bind:key="plan.name" v-bind:value="plan.name">{{plan.name}}</option>
+					<option value="other">Other</option>
+				</select>
+                <br><br>
+				<div v-if="planSelect != 'other'">
+					You are adding {{planSelect}}
+				</div>
+				<div v-else>
+					<!-- The user wants to add a new plan -->
+					<!-- Bidirectionally bind planName, planInterest, planMinYrs to these input elements -->
+					<input type="text" v-model="planName" placeholder="Enter Plan Name">
+                    <br>
+					<input type="text" v-model="planInterest" placeholder="Enter Interest Rate">
+                    <br>
+					<input type="text" v-model="planMinYrs" placeholder="Enter Minimum No. of Years">
+				</div>
 
-    <div v-if="show_form" class="centerimg2">
-      <form id="add-plan-form">
-          <label>Add a Plan: </label>
-                <select v-model="planSelect" >
-                    <option v-for="plan in plans"  v-bind:key="plan.name" v-bind:value="plan.name">{{plan.name}}</option>
-                    <option value="other">Other</option>
-                </select>
-                <p v-if="this.planSelect != other">You are adding {{planSelect}}</p>
-                <p v-if="this.planSelect == other">
-                    <input type="text" name="planName" placeholder= "Enter Plan Name">
-                    <input type="text" name="planInterest" placeholder= "Enter Interest Rate">
-                    <input type="text" name="planMinYrs" placeholder= "Enter Minimum No. of Years">
-                </p>
-      
-          
-          <input type ="text" name="amount" placeholder="Enter Amount Saved">
-          <button>Add Plan</button>
-      </form>
-    </div>
-    </div>
-
-       
-
+				<!-- Bidirectionally bind planAmount -->
+				<input type="text" v-model="planAmount" placeholder="Enter Amount Saved">
+				<br><br>
+                <button class= "submitbutton" type="submit">Add Plan</button>
+			</form>
+            </v-card>
+		</div>
+        <br><br><br>
+	</div>
 </template>
 
 <script>
 import db from "../firebase.js";
 import firebase from "firebase";
+
 export default {
     data() {
-        return{
+        return {
             show_form: false,
-            planes:[],
+            plans: [],
+			planSelect: '',
+			planName: '',
+			planInterest: '',
+			planMinYrs: '',
+			planAmount: '',
         };
     },
-
-    components: {
-
-    },
-
     methods: {
         fetchItems: function() {
-            let doc_id = this.$route.params.id;
-            db.collection('Listings').doc(doc_id).get().then((querySnapShot) => {
-                this.plans.push(querySnapShot.data())
+            db.collection('Listings').get().then((querySnapShot) => {
+                let list = {}
+                querySnapShot.forEach(doc => {
+                    list = doc.data()
+                    list.id = doc.id
+                    this.plans.push(list)
+                })
             })
         },
-        setItems: function () {
-        var user = firebase.auth().currentUser;
-        var form = document.querySelector('#add-plan-form');
+		// Event handler for form submission
+		addPlan: function () {
+			var user = firebase.auth().currentUser;
 
-        
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            db.collection('TestUsers').doc(user.uid).add({
-                //here, should add the existing plan using planSelect value instead
-                planID: form.planSelect.value,
-                amount: form.amount.value
+			if (this.planSelect == 'other') {
+				// Create a new plan before adding the plan to the user
+				db.collection('Listings').add({
+					name: this.planName, // planID
+					interest_pa: this.planInterest,
+					min_years: this.planMinYrs,
+				});
 
-            });
-
-            db.collection('Listings').doc(user.uid).add({
-                //here, new plans will be added into our list?? 
-                name: form.planName.value,
-                min_years: form.planMinYrs.value,
-                interest_pa: form.planInterest.value,
-            });
-            
-            form.plans.planName.value= '';
-            form.plans.amount.value='';
-        })
-        }
+				// Add the plan to the user, with the above created plan
+				db.collection('TestUsers').doc(user.uid).add({
+					planID: this.planName,
+					amount: this.planAmount,
+				});
+			} else {
+				// Add the plan to the user, with the existing selected plan
+				db.collection('TestUsers').doc(user.uid).add({
+					planID: this.planSelect,
+					amount: this.planAmount,
+				});
+			}
+		},
     },
 
     created() {
         this.fetchItems();
     }
-
-    
 };
-
 </script>
-
 
 <style scoped>
 
 .banner-buttons {
-  width: 100%;
-  padding: 0px 180px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  text-align: center;
+	width: 100%;
+	padding: 0px 180px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	text-align: center;
 }
 
 .addButton {
-    background-image: "./../assets/add-new(1).png";
-    background-size: 64px 64px;
-    height: 100px;
-    width: 100px;
+	background-image: url("../assets/addnew.png");
+	background-size: 64px 64px;
+	height: 64px;
+	width: 64px;
+    color:black;
+    margin-left: auto;
+	margin-right: auto;
+    margin-bottom: 50px;
 }
 
 .addNew {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+    font-size: 18px;
+    justify-content:center;
+    font-family: Optima;
 }
 
 .centerimg2 {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 60%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 60%;
+}
+
+.card {
+  margin: 0px 20px;
+  padding: 5%;
+  height: 280px;
+
+}
+
+.drawbox {
+    border-bottom: 2px solid grey;
+    width: 100px;
+
+}
+
+.submitbutton {
+    border: 1px solid grey;
+    background-color: white;
+    color: #545454;
+    align-items: center;
+    display: inline-block;
 }
 
 </style>
