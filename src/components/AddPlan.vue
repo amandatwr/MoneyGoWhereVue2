@@ -4,14 +4,15 @@
 		<div v-if="show_form" class="centerimg2">
 			<!-- when the form is submitted, add the plan to the database -->
 			<!-- .prevent prevents the submission event from "reloading" the page -->
-			<form @submit.prevent="addPlan">
+			<v-card class="card"> 
+            <form @submit.prevent="addPlan">
 				<label>Add a Plan: </label>
 				<!-- Bidirectionally bind planSelect to this select element -->
-				<select v-model="planSelect">
+				<select v-model="planSelect" class="drawbox">
 					<option v-for="plan in plans" v-bind:key="plan.name" v-bind:value="plan.name">{{plan.name}}</option>
 					<option value="other">Other</option>
 				</select>
-
+                <br><br>
 				<div v-if="planSelect != 'other'">
 					You are adding {{planSelect}}
 				</div>
@@ -19,15 +20,20 @@
 					<!-- The user wants to add a new plan -->
 					<!-- Bidirectionally bind planName, planInterest, planMinYrs to these input elements -->
 					<input type="text" v-model="planName" placeholder="Enter Plan Name">
+                    <br>
 					<input type="text" v-model="planInterest" placeholder="Enter Interest Rate">
+                    <br>
 					<input type="text" v-model="planMinYrs" placeholder="Enter Minimum No. of Years">
 				</div>
 
 				<!-- Bidirectionally bind planAmount -->
 				<input type="text" v-model="planAmount" placeholder="Enter Amount Saved">
-				<button type="submit">Add Plan</button>
+				<br><br>
+                <button class= "submitbutton" type="submit">Add Plan</button>
 			</form>
+            </v-card>
 		</div>
+        <br><br><br>
 	</div>
 </template>
 
@@ -64,7 +70,7 @@ export default {
 
 			if (this.planSelect == 'other') {
 				// Create a new plan before adding the plan to the user
-				db.collection('Listings').doc(user.uid).add({
+				db.collection('Listings').add({
 					name: this.planName, // planID
 					interest_pa: this.planInterest,
 					min_years: this.planMinYrs,
@@ -117,7 +123,10 @@ export default {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	width: 60%;
+	width: 70%;
+    font-size: 18px;
+    justify-content:center;
+    font-family: Optima;
 }
 
 .centerimg2 {
@@ -125,6 +134,27 @@ export default {
 	margin-left: auto;
 	margin-right: auto;
 	width: 60%;
+}
+
+.card {
+  margin: 0px 20px;
+  padding: 5%;
+  height: 280px;
+
+}
+
+.drawbox {
+    border-bottom: 2px solid grey;
+    width: 100px;
+
+}
+
+.submitbutton {
+    border: 1px solid grey;
+    background-color: white;
+    color: #545454;
+    align-items: center;
+    display: inline-block;
 }
 
 </style>
