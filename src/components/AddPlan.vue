@@ -49,9 +49,13 @@ export default {
     },
     methods: {
         fetchItems: function() {
-            let doc_id = this.$route.params.id;
-            db.collection('Listings').doc(doc_id).get().then((querySnapShot) => {
-                this.plans.push(querySnapShot.data())
+            db.collection('Listings').get().then((querySnapShot) => {
+                let list = {}
+                querySnapShot.forEach(doc => {
+                    list = doc.data()
+                    list.id = doc.id
+                    this.plans.push(list)
+                })
             })
         },
 		// Event handler for form submission
