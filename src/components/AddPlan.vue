@@ -21,6 +21,8 @@
 					<!-- Bidirectionally bind planName, planInterest, planMinYrs to these input elements -->
 					<input type="text" v-model="planName" placeholder="Enter Plan Name">
                     <br>
+                    <input type="text" v-model="planProvider" placeholder="Enter Plan Provider">
+                    <br>
 					<input type="text" v-model="planInterest" placeholder="Enter Interest Rate">
                     <br>
 					<input type="text" v-model="planMinYrs" placeholder="Enter Minimum No. of Years">
@@ -51,9 +53,18 @@ export default {
 			planInterest: '',
 			planMinYrs: '',
 			planAmount: '',
+            planProvider:'',
+            planID:'',
         };
     },
     methods: {
+        camelize: function(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+    return index === 0 ? match.toLowerCase() : match.toUpperCase();
+  });
+},
+
         fetchItems: function() {
             db.collection('Listings').get().then((querySnapShot) => {
                 let list = {}
@@ -67,20 +78,30 @@ export default {
 		// Event handler for form submission
 		addPlan: function () {
 			var user = firebase.auth().currentUser;
+            
 
 			if (this.planSelect == 'other') {
+                this.planID = this.camelize(this.planName) + "_" + this.planProvider;
+                // console.log(this.planID);
 				// Create a new plan before adding the plan to the user
-				db.collection('Listings').add({
+				db.collection('Listings').doc(this.planID).add({
 					name: this.planName, // planID
+                    provider: this.planProvider,
 					interest_pa: this.planInterest,
 					min_years: this.planMinYrs,
+
 				});
+                
 
 				// Add the plan to the user, with the above created plan
-				db.collection('TestUsers').doc(user.uid).add({
-					planID: this.planName,
-					amount: this.planAmount,
-				});
+				db.collection('TestUsers').doc(user.uid).get().then(doc => {
+                    let newPlans = doc.data();
+                    newPlans.push({ planID: this.planID, amount: this.planAmount });
+                    doc(user.uid).update({
+                                plans: newPlans,
+                        });
+                    });
+
 			} else {
 				// Add the plan to the user, with the existing selected plan
 				db.collection('TestUsers').doc(user.uid).add({
@@ -139,7 +160,7 @@ export default {
 .card {
   margin: 0px 20px;
   padding: 5%;
-  height: 280px;
+  height: 300px;
 
 }
 
