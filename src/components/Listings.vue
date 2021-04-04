@@ -9,16 +9,16 @@
         <br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
             <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
-            <span class="anchor" @click="displayBox()">Filter By Financial Institution</span>
+            <span class="anchor" @click="displayBox(); sameProvider()">Filter By Financial Institution</span>
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
-                <li v-for="plan in listOfPlans" v-bind:key="plan">
-                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" /> {{plan.provider}}
+                <li v-for="provider in listOfProviders" v-bind:key="provider">
+                    <input type="checkbox" name="provider" v-bind:value="provider" v-model="selectedProviders" /> {{provider}}
                 </li>
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true; findPlans(); show_original = false">Filter</button>
+        <button id="btn" type="button" @click="show_form = true; selectPlans(); findPlans(); show_original = false">Filter</button>
 
         <div v-if="show_original">
             <div class="w3-row" style="padding:30px 70px 20px 70px">
@@ -66,6 +66,8 @@ export default {
             listOfPlans: [],
             selectedPlans: [],
             recommendedPlans: [],
+            listOfProviders: [],
+            selectedProviders: [],
             show_form: false,
             show_original: true,
             checkList: document.getElementById('list1')
@@ -90,6 +92,16 @@ export default {
                 checkList.classList.add('visible');
             }
         },
+        selectPlans: function() {
+             this.selectedPlans = []
+             for (let i = 0; i < this.selectedProviders.length; i++) {
+                 for (let j = 0; j < this.listOfPlans.length; j++) {
+                     if (this.listOfPlans[j].provider == this.selectedProviders[i]) {
+                         this.selectedPlans.push(this.listOfPlans[j])
+                     }
+                 }
+             }
+         },
         findPlans: function() {
             this.recommendedPlans = []
             for (let i = 0; i < this.selectedPlans.length; i++) {
@@ -99,12 +111,19 @@ export default {
         selectAll: function() {
             var selected = document.getElementById("allPlans")
             if (selected.checked) {
-                this.selectedPlans = this.listOfPlans;
+                this.selectedProviders = this.listOfProviders;
             } else {
-                this.selectedPlans = [];
+                this.selectedProviders = [];
             }
-
         },
+        sameProvider: function() {
+             for (let i = 0; i < this.listOfPlans.length; i++) {
+                 var provider = this.listOfPlans[i].provider;
+                 if (this.listOfProviders.indexOf(provider) == -1) {
+                     this.listOfProviders.push(provider)
+                 }
+             }
+         },
         route: function(event) {
             let doc_id = event.target.getAttribute("id");
             this.$router.push({
