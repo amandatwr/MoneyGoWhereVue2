@@ -7,16 +7,16 @@
         </h2>
         <br><br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
-            <span class="anchor" @click="displayBox()">Select Preferred Financial Institution</span>
+            <span class="anchor" @click="displayBox(); sameProvider()">Select Preferred Financial Institution</span>
             <ul class="items" style="text-align:left;">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
-                <li v-for="plan in listOfPlans" v-bind:key="plan">
-                    <input type="checkbox" name="provider" v-bind:value="plan" v-model="selectedPlans" /> {{plan.provider}}
+                <li v-for="provider in listOfProviders" v-bind:key="provider">
+                    <input type="checkbox" name="provider" v-bind:value="provider" v-model="selectedProviders" /> {{provider}}
                 </li>
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true; findPlans(); calculateReturns()">Next</button>
+        <button id="btn" type="button" @click="show_form = true; selectPlans(); findPlans(); calculateReturns()">Next</button>
         <br><br>
         <div v-if="show_form && recommendedPlans.length > 0">
             <h1 id="text">Your Curated Savings Plan:</h1>
@@ -24,12 +24,11 @@
                 <ul style="padding:0px">
                     <li v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan">
                         <div class="w3-col s6 w3-center" style="padding:0px 0px 20px 180px">
-                            <img style="width:100%; height:280px" v-bind:src="plan.logo" alt="logo">
+                            <img id="curatedPlan" v-bind:src="plan.logo" alt="logo">
                             <p id="name"><b>{{plan.name}}</b></p>
                             <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
                             <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
                         </div>
-                        <!-- </v-card> -->
                     </li>
                 </ul>
                 <div class="w3-col s6 w3-center" v-for="plan in recommendedPlans.slice(0,1)" v-bind:key="plan" id="projectedReturns">
@@ -40,13 +39,12 @@
             </div>
             <div v-if="recommendedPlans.length > 1">
                 <h1 id="text">You may also like...</h1>
-                <div class="w3-row" style="padding:20px 70px 70px 70px">
+                <div class="w3-row" style="padding:20px 70px 70px 70px; text-align:center">
                     <ul style="padding:0px">
                         <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
                             <div class="tooltip">
-                                <v-card class="w3-col w3-center" style="padding:30px; margin:10px; width: 31%">
-                                    <img style="width:100%; height:180px" v-bind:src="plan.logo" alt="logo">
-                                    <br><br>
+                                <v-card class="w3-col w3-center" style="padding:30px; margin:11px; width: 31%; display:inline-block">
+                                    <img id="otherPlans" v-bind:src="plan.logo" alt="logo">
                                     <p id="name"><b>{{plan.name}}</b></p>
                                     <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
                                     <p id="name">Projected Returns: ${{(plan.returns).toLocaleString()}}</p>
@@ -75,6 +73,8 @@ export default {
             listOfPlans: [],
             recommendedPlans: [],
             topPlan: [],
+            listOfProviders: [],
+            selectedProviders: [],
             show_form: false,
             exceeded: false,
             checkList: document.getElementById('list1'),
@@ -101,6 +101,16 @@ export default {
                 checkList.classList.add('visible');
             }
         },
+        selectPlans: function() {
+            this.selectedPlans = []
+            for (let i = 0; i < this.selectedProviders.length; i++) {
+                for (let j = 0; j < this.listOfPlans.length; j++) {
+                    if (this.listOfPlans[j].provider == this.selectedProviders[i]) {
+                        this.selectedPlans.push(this.listOfPlans[j])
+                    }
+                }
+            }
+        },
         findPlans: function() {
             this.recommendedPlans = []
             for (let i = 0; i < this.selectedPlans.length; i++) {
@@ -120,9 +130,17 @@ export default {
         selectAll: function() {
             var selected = document.getElementById("allPlans")
             if (selected.checked) {
-                this.selectedPlans = this.listOfPlans;
+                this.selectedProviders = this.listOfProviders;
             } else {
-                this.selectedPlans = [];
+                this.selectedProviders = [];
+            }
+        },
+        sameProvider: function() {
+            for (let i = 0; i < this.listOfPlans.length; i++) {
+                var provider = this.listOfPlans[i].provider;
+                if (this.listOfProviders.indexOf(provider) == -1) {
+                    this.listOfProviders.push(provider)
+                }
             }
         },
         route: function(event) {
@@ -140,12 +158,6 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  margin: 0 25px;
-  padding: 3%;
-  height: 500px;
-}
-
 .dropdown-check-list {
     display: inline-block;
     width: auto;
@@ -204,7 +216,6 @@ export default {
 }
 
 #text {
-
 }
 
 #name {
@@ -220,7 +231,7 @@ export default {
 #projectedReturns {
     display: inline;
     padding-right: 170px;
-    padding-top: 170px;
+    padding-top: 150px;
     justify-content: center
 }
 
@@ -263,11 +274,22 @@ button {
     font-family: Optima;
 }
 
-img {
+#curatedPlan {
     padding-top: 0px;
-    padding-bottom: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-bottom: 0px;
+    padding-left: 60px;
+    padding-right: 60px;
+    width: 100%; 
+    height: 250px
 }
 
+#otherPlans {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 100%; 
+    height: 180px
+
+}
 </style>
