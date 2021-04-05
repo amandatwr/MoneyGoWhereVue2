@@ -31,15 +31,15 @@
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
           <br>
-          A CONSOLIDATED DATABASE WITH SAVINGS PLANS FROM ALL PROVIDERS<br>
+          <b>A CONSOLIDATED DATABASE WITH SAVINGS PLANS FROM ALL PROVIDERS<br></b>
           Our consolidated database helps streamline your search process. <br>
           <br>
 
-          A SNAPSHOT OF ALL YOUR SAVINGS PLANS<br>
+          <b>A SNAPSHOT OF ALL YOUR SAVINGS PLANS<br></b>
           Our analytics dashboard provides a consolidated view of your performance. <br>
           <br>
 
-          A NOVEL RECOMMENDER TO OPTIMISE YOUR SAVINGS<br>
+          <b>A NOVEL RECOMMENDER TO OPTIMISE YOUR SAVINGS<br></b>
           Our novel recommender will recommend savings plans catered to your needs. <br>
           <br>
         </p>
