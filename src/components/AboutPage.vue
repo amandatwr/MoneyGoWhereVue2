@@ -7,8 +7,8 @@
         <h1 class="aboutUsTitle">About Us</h1>
         <p class="aboutUsSubtitle">Who Are We</p>
         <p class="aboutUsText">
-         At MoneyGoWhere, we help you consolidate all your savings decisions. <br><br>
-         Launched in 2021, MoneyGoWhere helps streamline the search for savings plans for users. <br>
+         At MoneyGoWhere, we help you consolidate all things savings. <br><br>
+         Launched in 2021, MoneyGoWhere helps streamline the search for savings plans for users, and consolidates users's savings . <br>
 
         </p>
       </div>
