@@ -27,11 +27,12 @@
       </div>
       <div class="aboutUsItem">
         <div class="aboutUsLeft">
-        <h1 class="aboutUsTitle">Our Services.</h1>
+        <h1 class="aboutUsTitle">Our Services</h1>
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
           <br>
           A CONSOLIDATED PAGE WITH ALL SAVINGS PLANS<br>
+          Our consolidated database helps streamline your search process. <br>
           <br>
 
           A SNAPSHOT OF ALL YOUR SAVINGS PLANS<br>
@@ -39,11 +40,8 @@
           <br>
 
           A NOVEL RECOMMENDER TO OPTIMISE YOUR SAVINGS<br>
+          Our novel recommender will recommend savings plans catered to your needs. <br>
           <br>
-          Our novel recommender will recommend savings plans catered to your needs. <br><br>
-          Be matched with a sales representative if you would like to find out more!<br><br>
-          To update: <br>
-
         </p>
       </div>
       </div>
@@ -54,7 +52,7 @@
       <div class="aboutUsItem">
         <div class="aboutUsLeft">
         <h1 class="aboutUsTitle">Our Values</h1>
-        <p class="aboutUsSubtitle">Customer-Centric | Innovation | Trust </p>
+        <p class="aboutUsSubtitle">Customer-Centric • Innovation • Trust </p>
         <p class="aboutUsText">
          We are commited to providing reliable and trustworthy suggestions using our innovative recommender algorithm. <br><br>
         To update: ensuring a seamless and safe process of saving for our savers.<br><br>
