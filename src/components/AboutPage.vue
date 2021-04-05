@@ -7,7 +7,9 @@
         <h1 class="aboutUsTitle">About Us</h1>
         <p class="aboutUsSubtitle">Who Are We</p>
         <p class="aboutUsText">
-         As a one-stop platform for all things savings, we seek to streamline the search process for savings plans.
+         At MoneyGoWhere, we help you consolidate all your savings decisions. <br><br>
+         Launched in 2021, MoneyGoWhere helps streamline the search for savings plans for users. <br>
+
         </p>
       </div>
       </div>
