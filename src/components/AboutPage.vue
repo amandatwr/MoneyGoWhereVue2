@@ -7,9 +7,10 @@
         <h1 class="aboutUsTitle">About Us</h1>
         <p class="aboutUsSubtitle">Who Are We</p>
         <p class="aboutUsText">
-         At MoneyGoWhere, we help you consolidate all things savings. <br><br>
-         Launched in 2021, MoneyGoWhere helps streamline users' search for savings plans, <br>
-         and consolidates users' savings decisions in a single application. <br>
+          <br>
+          At MoneyGoWhere, we help you consolidate all things savings. <br><br>
+          Launched in 2021, MoneyGoWhere helps streamline users' search for savings plans, <br>
+          and consolidates users' savings decisions in a single application. <br>
 
         </p>
       </div>
@@ -29,9 +30,19 @@
         <h1 class="aboutUsTitle">Our Services.</h1>
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
+          <br>
+          A CONSOLIDATED PAGE WITH ALL SAVINGS PLANS<br>
+          <br>
+
+          A SNAPSHOT OF ALL YOUR SAVINGS PLANS<br>
+          Our analytics dashboard provides a consolidated view of your performance. <br>
+          <br>
+
+          A NOVEL RECOMMENDER TO OPTIMISE YOUR SAVINGS<br>
+          <br>
           Our novel recommender will recommend savings plans catered to your needs. <br><br>
           Be matched with a sales representative if you would like to find out more!<br><br>
-          To update: Our analytics dashboard provides a consolidated view of your performance. <br><br>
+          To update: <br>
 
         </p>
       </div>
