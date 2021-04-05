@@ -15,8 +15,11 @@
           <button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">SAVER</button>
             <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button>
           </div> -->
+          
         </div>
+        
       </div>
+      <AboutPage></AboutPage>
     </div>
     <br><br><br>
       <br><br><br>
@@ -26,7 +29,7 @@
 
 
 <script>
-// import SaverPage from "./SaverPage.vue";
+import AboutPage from "./AboutPage.vue";
 // import SellerDashboard from "./SellerDashboard.vue"
 // import FindOutMorePlans from "./FindOutMorePlans.vue"
 import database from "../firebase.js"; 
@@ -57,6 +60,7 @@ export default {
   },
 
   components: {
+    AboutPage
     // SaverPage: SaverPage,
     // SellerDashboard: SellerDashboard,
     // FindOutMorePlans: FindOutMorePlans,
