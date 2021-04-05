@@ -37,15 +37,15 @@
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
           <br>
-          A CONSOLIDATED DATABASE WITH SAVINGS PLANS FROM ALL PROVIDERS<br>
+          <b>A CONSOLIDATED DATABASE WITH SAVINGS PLANS FROM ALL PROVIDERS</b><br>
           Our consolidated database helps streamline your search process. <br>
           <br>
 
-          A SNAPSHOT OF ALL YOUR SAVINGS PLANS<br>
+          <b> SNAPSHOT OF ALL YOUR SAVINGS PLANS</b><br>
           Our analytics dashboard provides a consolidated view of your performance. <br>
           <br>
 
-          A NOVEL RECOMMENDER TO OPTIMISE YOUR SAVINGS<br>
+          <b>A NOVEL RECOMMENDER TO OPTIMISE YOUR SAVINGS</b><br>
           Our novel recommender will recommend savings plans catered to your needs. <br>
           <br>
         </p>
@@ -122,7 +122,6 @@ h1 {
 .aboutUsBlock {
   text-align: center;
   display: flex;
-
 }
 
 .aboutUsItem {
@@ -130,7 +129,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 ;
+  padding: 0 15%;
 }
 
 .aboutUsLeft {
