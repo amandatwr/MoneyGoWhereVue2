@@ -4,7 +4,7 @@
     <div class="aboutUsBlock">
       <div class="aboutUsItem">
         <div class="aboutUsLeft">
-        <h1 class="aboutUsTitle">About Us.</h1>
+        <h1 class="aboutUsTitle">About Us</h1>
         <p class="aboutUsSubtitle">Who Are We</p>
         <p class="aboutUsText">
          As a one-stop platform for all things savings, we seek to streamline the search process for savings plans.
@@ -85,7 +85,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 7%;
+  padding: 0 ;
 }
 
 .aboutUsRight {
