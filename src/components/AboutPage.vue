@@ -54,8 +54,10 @@
         <h1 class="aboutUsTitle">Our Values</h1>
         <p class="aboutUsSubtitle">Customer-Centric • Innovation • Trust </p>
         <p class="aboutUsText">
-         We are commited to providing reliable and trustworthy suggestions using our innovative recommender algorithm. <br><br>
-        To update: ensuring a seamless and safe process of saving for our savers.<br><br>
+          <br>
+          A saver's user experience is at the heart of our work. <br><br>
+          We strive to innovate & introduce novel solutions to challenges savers face. <br><br>
+          We are committed to enabling a seamless & safe decision-making process for savers.<br><br>
         </p>
       </div>
       </div>
