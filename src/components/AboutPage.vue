@@ -132,9 +132,6 @@ h1 {
   padding: 0 15%;
 }
 
-.aboutUsLeft {
-    padding: 0 15%;
-}
 
 
 .aboutUsRight {
