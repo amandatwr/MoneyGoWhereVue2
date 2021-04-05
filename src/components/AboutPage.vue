@@ -31,7 +31,7 @@
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
           <br>
-          A CONSOLIDATED PAGE WITH ALL SAVINGS PLANS<br>
+          A CONSOLIDATED DATABASE WITH SAVINGS PLANS FROM ALL PROVIDERS<br>
           Our consolidated database helps streamline your search process. <br>
           <br>
 
