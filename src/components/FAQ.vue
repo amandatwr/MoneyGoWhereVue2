@@ -39,10 +39,12 @@
             </div>
 
             <input type="checkbox" id="title4" />
-            <label for="title4">What is MoneyGoWhere?</label>
+            <label for="title4">Will MoneyGoWhere sell my data?</label>
 
             <div class="content">
-            Your content goes here.
+            MoneyGoWhere will never sell your data.<br>
+            We are committed to driving value for our users, with customer-centric being one of our core values. <br>
+            Your data is encrypted and protected on our servers.<br>
             </div>
 
             <input type="checkbox" id="title5" />
