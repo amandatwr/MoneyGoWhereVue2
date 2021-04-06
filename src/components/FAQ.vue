@@ -43,7 +43,7 @@
 
             <div class="content">
             MoneyGoWhere will never sell your data.<br>
-            We are committed to driving value for our users, with customer-centric being one of our core values. <br>
+            We are committed to driving value for our users, with customer-centric & trust being our core values. <br>
             Your data is encrypted and protected on our servers.<br>
             </div>
 
