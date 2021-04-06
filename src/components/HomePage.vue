@@ -4,12 +4,12 @@
         <div class="banner-text">
           <h1 class="company-name">MoneyGoWhere</h1>
            <transition name="fade" mode="out-in">
-            <p key="1" class="tagline" v-if="generalText">Your one stop platform for all things Savings.</p>
+            <p key="1" class="tagline" v-if="generalText" style='font-family: inherit; font-weight:100;'>Your one stop platform for all things Savings.</p>
             <p key="2" class="tagline" v-else-if="isUser">Start your journey with us today!</p>
             <!-- <p key="3" class="tagline" v-else-if="isSeller">Get matched with leads today.</p> -->
           </transition>
           <div class="banner-buttons">
-          <router-link class="saver-button" to='/register' exact><button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">Get Started</button></router-link>
+          <router-link class="saver-button" to='/register' exact><button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser" style='font-family: inherit;'>Get Started</button></router-link>
             <!-- <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button> -->
           </div>
         </div>

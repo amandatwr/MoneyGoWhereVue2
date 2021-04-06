@@ -1,11 +1,11 @@
 <template>
   <div class='outline'>
-  <AccountBanner></AccountBanner>
+   <div class="banner"><h1>MoneyGoWhere</h1></div>
   <div class='flex'>
   <Profile class='profile'></Profile>
   <v-card class="dashboard-card">
+  <h1 class='header'>Analytics Overview</h1>
     <div class="dashboard">
-    <div class="chart-title"><h1>Analytics Overview</h1></div>
       <div class="dashboard-row first-row-alignment">
         <v-card class="card first-row">
           <!-- <div class="icon total-savings-icon">
@@ -114,7 +114,6 @@ import firebase from "firebase";
 import MarketPerformance from "../charts/marketperformance.js";
 import SavingsDistribution from "../charts/savingsdistribution.js";
 import Profile from './Profile.vue'
-import AccountBanner from './AccountBanner.vue'
 
 export default {
   data() {
@@ -141,7 +140,6 @@ export default {
   components: {
     MarketPerformance,
     SavingsDistribution,
-    AccountBanner,
     Profile
   },
   methods: {
@@ -212,7 +210,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+.header {
+  text-align: center;
+  margin: 20px 0 0 0;
+  padding: 0;
+}
 
 .dashboard-card {
   width: 100%;
@@ -220,7 +224,7 @@ export default {
 
 .dashboard {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 0px;
 }
 .dashboard-row {
   padding: 15px 10px;
@@ -344,4 +348,17 @@ export default {
 .profile {
   margin-right: 25px;
 }
+
+.banner {
+  margin-top: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("./../assets/account-banner.jpeg");
+  background-size: cover;
+  height: 240px;
+  background-position: 0% 50%;
+}
+
 </style>
