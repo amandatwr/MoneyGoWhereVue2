@@ -23,7 +23,7 @@
         <div class="container" v-if="show_original">
             <div class="row" style="padding:30px 120px 30px 120px">
                 <div v-for="plan in listOfPlans" v-bind:key="plan" class="col-sm-4" style="padding:30px">
-                    <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo">
+                    <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo"><br><br>
                     <p id="name"><b>{{plan.name}}</b></p>
                     <p id="description">{{plan.description}}</p>
                     <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
@@ -34,7 +34,7 @@
         <div class="container" v-if="show_form">
             <div class="row" style="padding:30px 120px 30px 120px">
                 <div v-for="plan in selectedPlans" v-bind:key="plan" class="col-sm-4" style="padding:30px">
-                    <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo">
+                    <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo"><br><br>
                     <p id="name"><b>{{plan.name}}</b></p>
                     <p id="description">{{plan.description}}</p>
                     <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
