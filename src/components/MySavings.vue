@@ -40,7 +40,7 @@ components: {
     // EditGoals: EditGoals,
     AddPlan: AddPlan,
     Profile: Profile,
-    AccountBanner: AccountBanner
+    AccountBanner: AccountBanner,
     EditPlan: EditPlan,
   },
 
