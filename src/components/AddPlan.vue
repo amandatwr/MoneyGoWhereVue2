@@ -1,6 +1,6 @@
 <template>
   <div class="addNew">
-    <button class="addButton" @click="show_form = true"></button>
+    <button class="addButton" @click="show_form = !show_form"></button>
     <div v-if="show_form" class="centerimg2">
       <!-- when the form is submitted, add the plan to the database -->
       <!-- .prevent prevents the submission event from "reloading" the page -->
@@ -12,8 +12,8 @@
           <select v-model="planSelect" class="drawbox">
             <option
               v-for="plan in plans"
-              v-bind:key="plan.planID"
-              v-bind:value="plan.name"
+              v-bind:key="plan.name"
+              v-bind:value="plan.id"
             >
               {{ plan.name }}
             </option>
@@ -44,10 +44,8 @@
             placeholder="Enter Amount Saved"
           />
           <br /><br />
-          <button
+          <button type="submit"
             class="submitbutton"
-            v-on:click="submit"
-            @click="show_form = false"
           >
             Add Plan
           </button>
@@ -102,8 +100,8 @@ export default {
 
       // if (this.planSelect == 'other') {
       //this.planID = this.camelize(this.planName) + "_" + this.planProvider;
-      console.log(this.planSelect);
-      //console.log(this.planAmount);
+    //   console.log(this.planSelect);
+    //   console.log(this.planAmount);
       // 	// Create a new plan before adding the plan to the user
       // 	db.collection('Listings').doc(this.planID).add({
       // 		name: this.planName, // planID
@@ -114,22 +112,17 @@ export default {
       // 	});
 
       // 	// Add the plan to the user, with the above created plan
-      // db.collection('TestUsers').doc(user.uid).get().then(doc => {
-      //     let newPlans = doc.data();
-      //     newPlans.push({ planID: this.planID, amount: this.planAmount });
-      //     doc(user.uid).update({
-      //                 plans: newPlans,
-      //         });
-      //     });
-
+      
       // } else {
       // Add the plan to the user, with the existing selected plan
+    var currentDate = new Date();
       db.collection("TestUsers")
         .doc(user.uid)
         .update({
           plans: firebase.firestore.FieldValue.arrayUnion({
-            name: this.planSelect,
             amount: this.planAmount,
+            dateSaved: currentDate,
+            planID: this.planSelect,
           }),
         });
       // db.collection('TestUsers').doc(user.uid).add({
