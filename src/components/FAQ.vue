@@ -56,6 +56,13 @@
             Creating an account will allow you to access our novel features: your very own savings dashboard & our novel plan recommender.<br>
             </div>
 
+            <input type="checkbox" id="title6" />
+            <label for="title6">How can I contact MoneyGoWhere if I have more questions?</label>
+
+            <div class="content">
+            Drop us an email at support@moneygowhere.com and we will get back to you within 3 business days. <br>
+            </div>
+
         </div>
     </div>
 </template>
