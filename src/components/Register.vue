@@ -329,7 +329,7 @@ export default {
 }
 
 .container-register {
-	background-image: url("./../assets/background-login-register.jpg");
+	background-image: url("./../assets/account-banner.jpeg");
 	background-size: cover;
 }
 

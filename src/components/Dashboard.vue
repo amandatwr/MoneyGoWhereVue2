@@ -1,5 +1,9 @@
 <template>
   <div class='outline'>
+  <AccountBanner></AccountBanner>
+  <div class='flex'>
+  <Profile class='profile'></Profile>
+  <v-card class="dashboard-card">
     <div class="dashboard">
     <div class="chart-title"><h1>Analytics Overview</h1></div>
       <div class="dashboard-row first-row-alignment">
@@ -11,7 +15,7 @@
             <div class="heading">
               <h2>{{ this.formatter().format(totalEndowment) }}</h2>
             </div>
-            <div class="subheading"><p>Total Endowment</p></div>
+            <div class="subheading"><p>Total Savings</p></div>
             
           </div>
           <div class='color-strip color1'></div>
@@ -33,7 +37,7 @@
             <div class="heading">
               <h2>{{ this.formatter().format(projectedReturns) }}</h2>
             </div>
-            <div class="subheading"><p>Total Projected Returns (PR)</p></div>
+            <div class="subheading"><p>Projected Returns (PR) Per Annum</p></div>
           </div>
           <div class='color-strip color3'></div>
         </v-card>
@@ -42,7 +46,7 @@
             <div class="heading">
               <h2>{{ this.formatter().format(returnsGuaranteed) }}</h2>
             </div>
-            <div class="subheading"><p>PR Guaranteed</p></div>
+            <div class="subheading"><p>PR Guaranteed Per Annum</p></div>
           </div>
           <div class='color-strip color4'></div>
         </v-card>
@@ -55,7 +59,7 @@
             :items="plans"
             :headers="headers"
             hide-default-footer
-            :items-per-page="4"
+            :items-per-page="3"
             :page.sync="page"
             @page-count="pageCount = $event"
             
@@ -91,7 +95,7 @@
         ></v-card>
         <v-card class="card savings-distribution-card"
           >
-          <h2>Savings Distribution</h2>
+          <h3>Savings Distribution</h3>
           <div v-if='!hasPlans'><p>No data available</p></div>
           <savings-distribution v-if='hasPlans'
             class="savings-distribution-canvas"
@@ -99,6 +103,8 @@
         ></v-card>
       </div>
     </div>
+    </v-card>
+  </div>
   </div>
 </template>
 
@@ -107,6 +113,9 @@ import database from "../firebase.js";
 import firebase from "firebase";
 import MarketPerformance from "../charts/marketperformance.js";
 import SavingsDistribution from "../charts/savingsdistribution.js";
+import Profile from './Profile.vue'
+import AccountBanner from './AccountBanner.vue'
+
 export default {
   data() {
     return {
@@ -132,6 +141,8 @@ export default {
   components: {
     MarketPerformance,
     SavingsDistribution,
+    AccountBanner,
+    Profile
   },
   methods: {
     fetchItems: function () {
@@ -202,12 +213,17 @@ export default {
 </script>
 
 <style>
+
+.dashboard-card {
+  width: 100%;
+}
+
 .dashboard {
   text-align: center;
-  margin-top: 85px;
+  margin-top: 30px;
 }
 .dashboard-row {
-  padding: 25px;
+  padding: 15px 10px;
   width: 100%;
   display: flex;
   overflow: hidden;
@@ -246,8 +262,9 @@ export default {
 }
 .first-row {
   height: 110px;
-  width: 20% !important;
+  width: 22% !important;
   padding: 0;
+  margin: 10px;
 }
 /* .first-row-alignment {
   padding-left: 35px;
@@ -317,5 +334,14 @@ export default {
 }
 .progress-bar {
   margin: 10px 0 20px 0;
+}
+
+.flex {
+  display: flex;
+  padding: 50px 50px;
+}
+
+.profile {
+  margin-right: 25px;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
-    <div style="text-align:center; padding-bottom:175px">
+    <div style="text-align:center; min-height: 92vh">
     <AccountBanner></AccountBanner>
         <h1 id="text" style="padding-top:100px;" ><b> Get your optimal savings plan in seconds </b></h1>
         <h2 id="text">I want to invest $
-            <input id="cond" type="number" v-model="amount" size="10"> and hold it for
-            <input id="cond" type="number" v-model="years" size="5"> years.
+            <input id="cond" type="number" v-model="amount" size="10" min=1> and hold it for
+            <input id="cond" type="number" v-model="years" size="5" min=1> years.
         </h2>
         <br><br>
         <div id="list1" class="dropdown-check-list" tabindex="100">
@@ -163,6 +163,11 @@ export default {
 </script>
 
 <style scoped>
+
+html {
+    height: 100vh;
+}
+
 .dropdown-check-list {
     display: inline-block;
     width: auto;
