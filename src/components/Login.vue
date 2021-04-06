@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class='login'>
 <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -134,6 +134,11 @@ router-link {
 	font-family: Poppins-Regular;
 	color: #666666;
 	text-decoration-color: #666666;
+}
+
+.container-login100 {
+	background-image: url("./../assets/background-login-register.jpg");
+	background-size: cover;
 }
 
 </style>

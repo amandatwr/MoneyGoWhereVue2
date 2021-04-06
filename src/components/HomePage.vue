@@ -1,8 +1,5 @@
 <template>
-  <body>
     <div>
-      <div>
-      </div>
       <div class="banner">
         <div class="banner-text">
           <h1 class="company-name">MoneyGoWhere</h1>
@@ -15,16 +12,11 @@
           <button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">SAVER</button>
             <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button>
           </div> -->
-          
         </div>
-        
       </div>
-      <AboutPage></AboutPage>
+    
+    <AboutPage></AboutPage>
     </div>
-    <br><br><br>
-      <br><br><br>
-      <br><br><br>
-  </body>
 </template>
 
 
@@ -75,13 +67,6 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
-
-body,
-html {
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
 
 .banner {
   display: flex;

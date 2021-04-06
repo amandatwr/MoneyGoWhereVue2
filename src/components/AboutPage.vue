@@ -1,11 +1,5 @@
 <template>
   <div>
-   <div class="banner">
-            <div class="banner-text">
-                <h1 class="page-title">About Us</h1>
-            </div>
-        </div>
-
     <div id="aboutUsContainer">
     <div class="aboutUsBlock">
       <div class="aboutUsItem">
@@ -13,7 +7,6 @@
         <h1 class="aboutUsTitle">About Us</h1>
         <p class="aboutUsSubtitle">Who Are We</p>
         <p class="aboutUsText">
-          <br>
           At MoneyGoWhere, we help you consolidate all things savings. <br><br>
           Launched in 2021, MoneyGoWhere helps streamline users' search for savings plans, <br>
           and consolidates users' savings decisions in a single application. <br>
@@ -36,7 +29,6 @@
         <h1 class="aboutUsTitle">Our Services</h1>
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
-          <br>
           <b>A CONSOLIDATED DATABASE WITH SAVINGS PLANS FROM ALL PROVIDERS</b><br>
           Our consolidated database helps streamline your search process. <br>
           <br>
@@ -60,7 +52,6 @@
         <h1 class="aboutUsTitle">Our Values</h1>
         <p class="aboutUsSubtitle">Customer-Centric • Innovation • Trust </p>
         <p class="aboutUsText">
-          <br>
           A saver's user experience is at the heart of our work. <br><br>
           We strive to innovate & introduce novel solutions to challenges savers face. <br><br>
           We are committed to enabling a seamless & safe decision-making process for savers.<br><br>
@@ -84,22 +75,6 @@ export default {};
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
 
-.banner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-image: url("./../assets/office.jpg"); /* Need to change picture */
-  background-size: cover;
-  height: 400px;
-}
-
-.banner-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .page-title {
   font-family: "Open Sans", sans-serif;

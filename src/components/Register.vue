@@ -327,6 +327,12 @@ export default {
 .alert {
   text-align: center;
 }
+
+.container-register {
+	background-image: url("./../assets/background-login-register.jpg");
+	background-size: cover;
+}
+
 </style>
 
 
