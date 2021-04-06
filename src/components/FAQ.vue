@@ -48,10 +48,12 @@
             </div>
 
             <input type="checkbox" id="title5" />
-            <label for="title5">What is MoneyGoWhere?</label>
+            <label for="title5">How do I register for an account with MoneyGoWhere?</label>
 
             <div class="content">
-            Your content goes here.
+            Simply click on the "Login" button in the navigation bar, and you can click "Register" to create an account online instantaneously. <br>
+            <br>
+            Creating an account will allow you to access our novel features: your very own savings dashboard & our novel plan recommender.<br>
             </div>
 
         </div>
