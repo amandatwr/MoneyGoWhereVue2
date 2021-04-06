@@ -2,22 +2,28 @@
   <div>
     <v-card id="profile">
       <div id="profile-container">
-        <div class="avatar-container">
+        <div class="avatar-container" v-on:click="change = !change">
           <v-avatar
             class="avatar"
             color="grey"
             size="150"
-            v-on:click="toggleChangePicture()"
+           @mouseover="hover=true" @mouseleave="hover=false"
+           
           >
-            <img v-bind:src="imageSource"
-          /></v-avatar>
+            <img v-bind:src="imageSource" />
+           </v-avatar
+          > <div class="hover" v-if='hover'>
+              <img class='change-picture-button' src='./../assets/edit.png' v-on:click='change=!change'/>
+            </div>
         </div>
-        <h2 class="profile-header">{{name}}</h2>
-        <div class='greeting-message'>
-        <p class='intro'>Welcome to MoneyGoWhere! As a registered user, you can:</p>
-        <p class='intro'>1. Add and edit any plans that you have saved under<br>2. View your personalised analytics dashboard<br>3. Find the best plans using our Savings Recommender</p>
-                <p class='intro'>Click on your profile picture to change it!</p>
-
+        <h2 class="profile-header">{{ name }}</h2>
+        <div class="greeting-message">
+        <p class="intro">{{email}}</p>
+          <p class="intro">
+            Welcome to MoneyGoWhere, <br>{{ name }}! <br>
+          </p>
+          <!-- <p class='intro'>1. Add and edit any plans that you have saved under<br>2. View your personalised analytics dashboard<br>3. Find the best plans using our Savings Recommender</p>
+                <p class='intro'>Click on your profile picture to change it!</p> -->
         </div>
         <div v-if="change">
           <input
@@ -43,7 +49,7 @@
 
 <script>
 import firebase from "firebase";
-import database from './../firebase.js';
+import database from "./../firebase.js";
 
 export default {
   data() {
@@ -51,21 +57,24 @@ export default {
       change: false,
       imageSource: null,
       file: null,
-      name: ''
+      name: "",
+      email: '',
+      hover: false,
     };
   },
   components: {},
   methods: {
     fetchItems: async function (user) {
-        database
+      database
         .collection("TestUsers")
         .doc(user.uid)
         .get()
         .then((querySnapShot) => {
-            var data = querySnapShot.data()
-            this.name = data.name
-        })
-        
+          var data = querySnapShot.data();
+          this.name = data.name;
+          this.email = data.email
+        });
+
       await firebase
         .storage()
         .ref("users/" + user.uid + "/user.png")
@@ -118,8 +127,8 @@ export default {
 @import "./../css/main.css";
 
 #profile {
-  width: 275px;
-  height: 700px;
+  width: 250px;
+  height: 530px;
 }
 
 .profile-header {
@@ -130,7 +139,7 @@ export default {
   margin: 20px;
   display: flex;
   justify-content: center;
-  align-content: center;
+
 }
 .avatar {
   color: grey;
@@ -149,11 +158,26 @@ export default {
 }
 
 .greeting-message {
-    margin: 10px 0;
-    padding: 0 10px;
+  margin: 10px 0 35px 0;
+  padding: 0 10px;
 }
 
 .intro {
-    text-align: center;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.avatar > img:hover {
+  filter: brightness(40%)
+}
+
+.hover {
+  position: absolute;
+  margin: 63px  0 0 12px;
+}
+
+.hover > img {
+  height: 25px;
 }
 </style>

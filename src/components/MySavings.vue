@@ -1,10 +1,13 @@
 <template>
   <div>
   <AccountBanner></AccountBanner>
-    <h1>My Savings</h1>
     <div class='flex'>
-    <Profile></Profile>
-    <v-card><div class='savings'>
+    <Profile class='profile'></Profile>
+    <v-card>
+    <div class='header-container'>
+    <h1>My Savings</h1>
+    </div>
+    <div class='savings'>
     <MyPlansRect/>
     <br><br><br>
     <AddPlan></AddPlan>
@@ -56,7 +59,16 @@ components: {
 <style scoped>
 .flex {
   display: flex;
-  padding: 0 50px;
+  padding: 50px 50px;
+}
+
+.profile {
+  margin-right: 25px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
 }
 
 </style>

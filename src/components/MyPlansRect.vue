@@ -221,6 +221,7 @@ ul {
 li {
   flex: 1 0 25%;
   margin: 15px;
+  width: 10%;
 }
 
 p {
@@ -250,7 +251,7 @@ p {
 .myplan-card {
   /* margin: 0 25px; */
   height: 200px;
-  width: 130% !important;
+  width:  110% !important;
   /* padding-top: 35px; */
 }
 </style>
