@@ -19,15 +19,17 @@
                     <p id="points">Minimum Premium Amount</p>
                 </div>
             </div>
+            <br><br>
             <div class="row" style="width:65%; text-align:center; display: inline-block;">
                 <h2 id="feature">Features:</h2>
                 <ul>
                     <li id="content" v-for="feature in description.features" v-bind:key="feature">{{feature}}</li>
                 </ul>
-                <br>
+                <br><br>
                 <a id="site" v-bind:href="description.link">Visit Official Site</a>
                 <br><br>
             </div>
+            <br><br>
         </h6>
     </div>
 </template>
@@ -68,7 +70,7 @@ h6 {
 
 ul {
     display: list-item;
-    font-family: Optima;
+
 }
 
 ul li::before {
@@ -82,17 +84,15 @@ ul li::before {
 
 #name {
     font-size: 45px;
-    font-family: 'Optima';
     color: black;
 }
 
 #provider {
     font-size: 30px;
-    font-family: Optima;
 }
 
 #text {
-    font-family: 'Optima';
+
 }
 
 img {
@@ -107,7 +107,6 @@ img {
     padding: 10px;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Optima', monospace;
 }
 
 #borderLine {
@@ -128,12 +127,10 @@ img {
 
 #feature {
     text-align: left;
-    font-family: Optima;
 }
 
 #content {
     text-align: left;
-    font-family: Optima;
     font-size: 20px;
 }
 
