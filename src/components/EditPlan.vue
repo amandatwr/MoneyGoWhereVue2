@@ -1,61 +1,51 @@
 <template>
-  <div class="tooltip">
-            <v-card class="myplan-card">
-              <button
-                v-bind:id="plan.id"
-                class="editButton"
-                v-on:click="show_form = !show_form"
-    
-              ></button>
-              <p id="name">
-                <b>{{ plan.name }}</b>
-              </p>
-              <p id="provider">{{ plan.provider }}</p>
-              <h3 text-align:center id="amount">{{ plan.amount }}</h3>
-              <span class="tooltiptext">
-                Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
-                {{ plan.capital_guaranteed }}<br />
-                Min. no. of Years: {{ plan.min_years }}</span
-              >
-            </v-card>
-  <div v-if="show_form">
-                <!-- when the form is submitted, edit plan amount to the database -->
-                <!-- .prevent prevents the submission event from "reloading" the page -->
-                <v-card class="editcard">
-                  <form @submit.prevent="MySavings">
-                    <label> Edit Amount: </label>
-                    <input
-                      type="text"
-                      v-model="planAmount"
-                      placeholder="Enter Value"
-                    />
-                  </form>
-                </v-card>
-              </div> 
+  <div id="listings">
+    <div class="w3-row" style="padding: 20px 50px 50px 50px">
+      <ul style="padding: 0px">
+        <li v-for="plan in plans" v-bind:key="plan">
+          <MyPlansRect v-bind:plan="plan" />
+            
+            
+          
+        </li>
+      </ul>
+    </div>
+    <!--<input v-model="textValue" placeholder="input amount">-->
   </div>
+    
 </template>
 
 
 <script>
 import database from "../firebase.js";
 import firebase from "firebase";
+import MyPlansRect from "./MyPlansRect.vue"
 
 export default {
-  name: "MyPlan",
+  name: "EditPlan",
   props: {
     item: Object,
-    plan: Object,
+    
   },
   data() {
     return {
       textValue: "",
       plans: [],
       show_form: false,
- 
     };
   },
+  components: {
+    MyPlansRect: MyPlansRect,
+  },
   methods: {
-    
+    showEditFn() {
+      var x = document.getElementById("editFn");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    },
     fetchItems: function () {
       // Log user account creation date
       var user = firebase.auth().currentUser;
@@ -203,7 +193,7 @@ h6 {
 }
 
 #listings {
-  /* padding-top: 100px; */
+  padding-top: 100px;
   text-align: center;
 }
 
@@ -228,7 +218,6 @@ ul {
 li {
   flex: 1 0 25%;
   margin: 15px;
-  width: 10%;
 }
 
 p {
@@ -258,7 +247,7 @@ p {
 .myplan-card {
   /* margin: 0 25px; */
   height: 200px;
-  width:  110% !important;
+  width: 130% !important;
   /* padding-top: 35px; */
 }
 </style>

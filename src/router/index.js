@@ -10,6 +10,7 @@ import EditGoals from "./../components/EditGoals.vue";
 import MyPlansRect from "./../components/MyPlansRect.vue";
 import MySavings from "./../components/MySavings.vue";
 import AddPlan from "./../components/AddPlan.vue";
+import EditPlan from "./../components/EditPlan.vue";
 import VueRouter from "vue-router";
 import firebase from "firebase";
 import FAQ from "./../components/FAQ.vue";
@@ -94,6 +95,13 @@ let router = new VueRouter({
         {
             path: "/addplan",
             component: AddPlan,
+            meta: {
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/editplan",
+            component: EditPlan,
             meta: {
                 requiresAuth: true,
             },
