@@ -199,9 +199,9 @@ export default {
 }
 
 button {
-    background-color: white;
-    color: #545454;
-    border: 1px solid grey;
+    background-color: #192841;
+    color: white;
+    border: 1px solid white;
     align-items: center;
     display: inline-block;
     padding: 13px 28px;
