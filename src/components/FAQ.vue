@@ -26,7 +26,8 @@
             <label for="title2">Is MoneyGoWhere free?</label>
 
             <div class="content">
-            Your content goes here.
+            MoneyGoWhere is free for all users.<br>
+            Savers are at the heart of our work; we want to create value for our users at no additional cost to them.<br>
             </div>
 
             <input type="checkbox" id="title3" />
