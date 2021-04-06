@@ -28,6 +28,20 @@
             Your content goes here.
             </div>
 
+            <input type="checkbox" id="title4" />
+            <label for="title4">What is MoneyGoWhere?</label>
+
+            <div class="content">
+            Your content goes here.
+            </div>
+
+            <input type="checkbox" id="title5" />
+            <label for="title5">What is MoneyGoWhere?</label>
+
+            <div class="content">
+            Your content goes here.
+            </div>
+
         </div>
     </div>
 </template>
