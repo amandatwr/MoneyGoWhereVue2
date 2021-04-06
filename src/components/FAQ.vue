@@ -31,10 +31,11 @@
             </div>
 
             <input type="checkbox" id="title3" />
-            <label for="title3">What is MoneyGoWhere?</label>
+            <label for="title3">Is MoneyGoWhere associated with any of the financial institutions listed?</label>
 
             <div class="content">
-            Your content goes here.
+            No, MoneyGoWhere is an independent platform. <br>
+            We consolidate listings from the financial institutions, so that users can view all savings plans on a single platform. <br>
             </div>
 
             <input type="checkbox" id="title4" />
