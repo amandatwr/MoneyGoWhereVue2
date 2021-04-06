@@ -124,7 +124,12 @@ export default {
             dateSaved: currentDate,
             planID: this.planSelect,
           }),
-        });
+          
+        }).then(() => {
+  setTimeout(() => {
+    this.fetchItems();
+  }, 100); });
+       
       // db.collection('TestUsers').doc(user.uid).add({
       // 	planID: this.planSelect,
       // 	amount: this.planAmount,
@@ -132,6 +137,7 @@ export default {
       //}
     },
   },
+  
 
   created() {
     this.fetchItems();

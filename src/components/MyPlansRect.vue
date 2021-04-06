@@ -22,7 +22,7 @@
                 <!-- when the form is submitted, edit plan amount to the database -->
                 <!-- .prevent prevents the submission event from "reloading" the page -->
                 <v-card class="editcard">
-                  <form @submit.prevent="MySavings">
+                  <form @submit="mySubmitHandler">
                     <label> Edit Amount: </label>
                     <input
                       type="text"
@@ -101,6 +101,15 @@ export default {
               });
           }
         });
+    },
+
+    addPlan: function () {
+      console.log(this.planAmount);
+      var user = firebase.auth().currentUser;
+      database.collection("TestUsers")
+        .doc(user.id).update({
+ ["plans[" + this.index + "].amount"]: this.planAmount,
+});
     },
     // setItems: function () {
     //   database

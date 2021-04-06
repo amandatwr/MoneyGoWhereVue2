@@ -2,17 +2,14 @@
   <div id="listings">
     <div class="w3-row" style="padding: 20px 50px 50px 50px">
       <ul style="padding: 0px">
-        <li v-for="plan in plans" v-bind:key="plan">
-          <MyPlansRect v-bind:plan="plan" />
-            
-            
-          
+        <!-- (value, key, index) -->
+        <li v-for="(plan, index) in plans" v-bind:key="plan" v-bind:id="index">
+          <MyPlansRect v-bind:plan="plan" v-bind:myIndex="index" />
         </li>
       </ul>
     </div>
     <!--<input v-model="textValue" placeholder="input amount">-->
   </div>
-    
 </template>
 
 
@@ -92,6 +89,8 @@ export default {
           }
         });
     },
+
+    
     // setItems: function () {
     //   database
     //     .collection("TestUsers")
