@@ -5,7 +5,7 @@
     <div class='flex'>
     <Profile></Profile>
     <div class='savings'>
-    <MyPlansRect/>
+    <EditPlan></EditPlan>
     <br><br><br>
     <AddPlan></AddPlan>
     </div>
@@ -17,9 +17,9 @@
 
 <script>
 // import EditGoals from "./EditGoals.vue";
-import Profile from './Profile.vue'
-import MyPlansRect from "./MyPlansRect.vue";
+import Profile from './Profile.vue';
 import AddPlan from "./AddPlan.vue";
+import EditPlan from "./EditPlan.vue";
 // import database from "../firebase.js";
 // import firebase from "firebase";
 
@@ -32,9 +32,9 @@ export default {
 
 components: {
     // EditGoals: EditGoals,
-    MyPlansRect: MyPlansRect,
     AddPlan: AddPlan,
-    Profile: Profile
+    Profile: Profile,
+    EditPlan: EditPlan,
   },
 
 
