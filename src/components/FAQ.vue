@@ -11,7 +11,15 @@
             <label for="title1">What is MoneyGoWhere?</label>
 
             <div class="content">
-            Your content goes here.
+            MoneyGoWhere is a one-stop platform for all things savings. <br>
+            We started out with the aim to streamline a user's search process for savings plans. <br> 
+            <br>
+            MoneyGoWhere offers 3 unique features:<br> 
+                <div class ="bodyText">
+                1) A consolidated database with listings of all savings plans.<br>
+                2) A snapshot of all your savings plans, for you to have a consolidated view of your performance.<br>
+                3) A novel recommender, recommending you plans that suit your needs.<br>
+                </div>
             </div>
 
             <input type="checkbox" id="title2" />
@@ -131,11 +139,16 @@ input:checked + label + .content {
 
 .content {
     background: #fff;
-    padding: 10px 25px;
+    padding: 30px 30px;
     margin: 0 0 1px 0;
     border-radius: 3px;
     text-align: left;
     font-size: 18px;
+}
+
+.bodyText {
+    font-size: 14px;
+    color: grey;
 }
 
 </style>
