@@ -23,7 +23,7 @@
             </div>
 
             <input type="checkbox" id="title2" />
-            <label for="title2">What is MoneyGoWhere?</label>
+            <label for="title2">Is MoneyGoWhere free?</label>
 
             <div class="content">
             Your content goes here.
