@@ -13,7 +13,6 @@
       </div>
       <div id="logoContainer">
   <img id="companyLogo" src="./../assets/block.png"/>
-  <p class="footerPara">MoneyGoWhere</p>
   </div>
       <div id="footerRight">
       <p class=" footerPara copyright">&#169;2021 BT3103. All Rights Reserved</p>
@@ -30,7 +29,7 @@ export default {};
 #footer {
   margin: 0;
   padding: 25px;
-  height: 110px;
+  height: 80px;
   background-color: #1b1b1b ;
 }
 
@@ -44,7 +43,7 @@ export default {};
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70px;
+  height: 40px;
 }
 
 #social {
@@ -73,10 +72,10 @@ export default {};
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-right: 35px;;
 }
 
 .copyright {
+    padding-top: 15px;
     font-size: 9px;
     padding-left: 25px;
 }

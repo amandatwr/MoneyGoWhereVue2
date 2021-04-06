@@ -5,13 +5,13 @@
           <h1 class="company-name">MoneyGoWhere</h1>
            <transition name="fade" mode="out-in">
             <p key="1" class="tagline" v-if="generalText">Your one stop platform for all things Savings.</p>
-            <p key="2" class="tagline" v-else-if="isUser">Maximise your savings with one click.</p>
+            <p key="2" class="tagline" v-else-if="isUser">Start your journey with us today!</p>
             <!-- <p key="3" class="tagline" v-else-if="isSeller">Get matched with leads today.</p> -->
           </transition>
-          <!-- <div class="banner-buttons">
-          <button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">SAVER</button>
-            <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button>
-          </div> -->
+          <div class="banner-buttons">
+          <router-link class="saver-button" to='/register' exact><button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">Get Started</button></router-link>
+            <!-- <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button> -->
+          </div>
         </div>
       </div>
     
@@ -118,7 +118,7 @@ export default {
     padding: 0px 180px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     text-align: center;
 }
 
@@ -137,9 +137,7 @@ button {
     outline: 0;
 }
 
-.saver-button {
-  margin-right: 50px;
-}
+
 
 .advisor-button {
   margin-right: 50px;

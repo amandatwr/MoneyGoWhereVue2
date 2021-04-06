@@ -1,6 +1,7 @@
 <template>
-    <div style="text-align:center; padding-top:275px; padding-bottom:175px">
-        <h1 id="text"><b> Get your optimal savings plan in seconds </b></h1>
+    <div style="text-align:center; padding-bottom:175px">
+    <AccountBanner></AccountBanner>
+        <h1 id="text" style="padding-top:100px;" ><b> Get your optimal savings plan in seconds </b></h1>
         <h2 id="text">I want to invest $
             <input id="cond" type="number" v-model="amount" size="10"> and hold it for
             <input id="cond" type="number" v-model="years" size="5"> years.
@@ -66,7 +67,11 @@
 
 <script>
 import database from '../firebase.js'
+import AccountBanner from './AccountBanner.vue'
 export default {
+    components: {
+        AccountBanner: AccountBanner
+    },
     data() {
         return {
             selectedPlans: [],

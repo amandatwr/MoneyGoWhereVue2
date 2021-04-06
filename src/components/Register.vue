@@ -73,8 +73,8 @@
                   <input
                     class="input100"
                     type="number"
+                    min=0
                     name="goal"
-                    placeholder="Goal"
                     v-model="goal"
                   />
                   <span

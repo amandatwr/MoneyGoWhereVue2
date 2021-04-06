@@ -1,6 +1,6 @@
 <template>
   <div id="listings">
-    <div class="w3-row" style="padding: 20px 50px 50px 50px">
+    <div class="w3-row" style="padding: 20px 20px 20px 20px">
       <ul style="padding: 0px">
         <li v-for="plan in plans" v-bind:key="plan">
           <div class="tooltip">
@@ -196,7 +196,7 @@ h6 {
 }
 
 #listings {
-  padding-top: 100px;
+  /* padding-top: 100px; */
   text-align: center;
 }
 
