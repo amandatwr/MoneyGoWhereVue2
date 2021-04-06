@@ -5,10 +5,10 @@
                 <h1 class="page-title">Savings Plans</h1>
             </div>
         </div>
-
+    
         <br>
+        <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
         <div id="list1" class="dropdown-check-list" tabindex="100">
-            <p id="subheader">Scroll through a curated list of savings plans to find one that you like</p>
             <span class="anchor" @click="displayBox(); sameProvider()">Filter By Financial Institution</span>
             <ul class="items" style="text-align:left">
                 <li><input type="checkbox" id="allPlans" @click="selectAll()" /> Select All</li>
@@ -18,43 +18,37 @@
             </ul>
         </div>
         <br><br>
-        <button id="btn" type="button" @click="show_form = true; selectPlans(); findPlans(); show_original = false">Filter</button>
-
-        <div v-if="show_original">
-            <div class="w3-row" style="padding:30px 70px 20px 70px">
-                <ul style="padding:0px">
-                    <li v-for="plan in listOfPlans" v-bind:key="plan">
-                        <div class="w3-col s4 w3-center" style="padding:30px">
-                            <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo">
-                            <br><br>
-                            <p id="name"><b>{{plan.name}}</b></p>
-                            <p id="description">{{plan.description}}</p>
-                            <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
-                        </div>
-                    </li>
-                </ul>
+        <button id="btn" type="button" @click="show_form = true; selectPlans(); show_original = false">Filter</button>
+    
+        <div class="container" v-if="show_original">
+            <div class="row" style="padding:30px 120px 30px 120px">
+                <div v-for="plan in listOfPlans" v-bind:key="plan" class="col-sm-4" style="padding:30px">
+                    <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo"><br><br>
+                    <p id="name"><b>{{plan.name}}</b></p>
+                    <p id="description">{{plan.description}}</p>
+                    <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                </div>
             </div>
         </div>
-
-        <div v-if="show_form">
-            <div class="w3-row" style="padding:20px 70px 70px 70px">
-                <ul style="padding:0px">
-                    <li v-for="plan in recommendedPlans" v-bind:key="plan">
-                        <div class="w3-col s4 w3-center" style="padding:30px">
-                            <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo">
-                            <br><br>
-                            <p id="name"><b>{{plan.name}}</b></p>
-                            <p id="description">{{plan.description}}</p>
-                            <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
-                        </div>
-                    </li>
-                </ul>
+    
+        <div class="container" v-if="show_form">
+            <div class="row" style="padding:30px 120px 30px 120px">
+                <div v-for="plan in selectedPlans" v-bind:key="plan" class="col-sm-4" style="padding:30px">
+                    <img style="width:100%; height:230px" v-bind:src="plan.image" alt="logo"><br><br>
+                    <p id="name"><b>{{plan.name}}</b></p>
+                    <p id="description">{{plan.description}}</p>
+                    <button v-bind:id="plan.id" v-on:click="route($event)">Learn More</button>
+                </div>
             </div>
         </div>
-        <div class='note'><span >Can't decide which plan to choose? Let our</span><router-link class='note' to=/recommender exact>
-							recommender
-						</router-link> <span>do it for you!</span>
-                        </div>
+        <br>
+    
+        <div class='note'><span>Can't decide which plan to choose? Let our</span>
+            <router-link class='note' to=/recommender exact>
+                recommender
+            </router-link> <span>do it for you!</span>
+        </div>
+    
     </div>
 </template>
 
@@ -83,7 +77,7 @@ export default {
                     this.listOfPlans.push(list)
                 })
             })
-        }, 
+        },
         displayBox: function() {
             var checkList = document.getElementById('list1');
             if (checkList.classList.contains('visible')) {
@@ -93,15 +87,15 @@ export default {
             }
         },
         selectPlans: function() {
-             this.selectedPlans = []
-             for (let i = 0; i < this.selectedProviders.length; i++) {
-                 for (let j = 0; j < this.listOfPlans.length; j++) {
-                     if (this.listOfPlans[j].provider == this.selectedProviders[i]) {
-                         this.selectedPlans.push(this.listOfPlans[j])
-                     }
-                 }
-             }
-         },
+            this.selectedPlans = []
+            for (let i = 0; i < this.selectedProviders.length; i++) {
+                for (let j = 0; j < this.listOfPlans.length; j++) {
+                    if (this.listOfPlans[j].provider == this.selectedProviders[i]) {
+                        this.selectedPlans.push(this.listOfPlans[j])
+                    }
+                }
+            }
+        },
         findPlans: function() {
             this.recommendedPlans = []
             for (let i = 0; i < this.selectedPlans.length; i++) {
@@ -117,13 +111,13 @@ export default {
             }
         },
         sameProvider: function() {
-             for (let i = 0; i < this.listOfPlans.length; i++) {
-                 var provider = this.listOfPlans[i].provider;
-                 if (this.listOfProviders.indexOf(provider) == -1) {
-                     this.listOfProviders.push(provider)
-                 }
-             }
-         },
+            for (let i = 0; i < this.listOfPlans.length; i++) {
+                var provider = this.listOfPlans[i].provider;
+                if (this.listOfProviders.indexOf(provider) == -1) {
+                    this.listOfProviders.push(provider)
+                }
+            }
+        },
         route: function(event) {
             let doc_id = event.target.getAttribute("id");
             this.$router.push({
@@ -141,30 +135,33 @@ export default {
 
 <style scoped>
 .banner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-image: url("./../assets/office.jpg"); /* Need to change picture */
-  background-size: cover;
-  height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-image: url("./../assets/office.jpg");
+    /* Need to change picture */
+    background-size: cover;
+    height: 400px;
 }
+
 .banner-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .page-title {
-  font-family: "Open Sans", sans-serif;
-  font-size: 75px;
-  color: white;
-  margin: 0;
-  height: 90px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 75px;
+    color: white;
+    margin: 0;
+    height: 90px;
 }
 
 #listings {
-    text-align:center;
+    text-align: center;
 }
 
 #name {
@@ -177,11 +174,11 @@ export default {
 
 .note {
     font-size: 18px;
-	font-family: Poppins-Regular;
-	/* font-size: 14px; */
-	line-height: 1.7;
-	color: #666666;
-	/* margin: 0px; */
+    font-family: Poppins-Regular;
+    /* font-size: 14px; */
+    line-height: 1.7;
+    color: #666666;
+    /* margin: 0px; */
     margin-bottom: 25px;
 }
 
@@ -207,6 +204,7 @@ button {
     border: 1px solid grey;
     align-items: center;
     display: inline-block;
+    padding: 13px 28px;
 }
 
 #header {
@@ -218,7 +216,10 @@ button {
 #subheader {
     font-size: 30px;
     text-align: center;
-    font-family: Optima;
+}
+
+.plan {
+    height: 500px;
 }
 
 .dropdown-check-list {
@@ -269,4 +270,30 @@ button {
     display: block;
 }
 
+.container {
+    min-width: 992px
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px
+}
+
+.col-sm-4 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px
+}
+
+.col-sm-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%
+}
 </style>
