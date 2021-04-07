@@ -66,7 +66,20 @@
     
                 </div>
     
-                
+                <div v-if="show_form && recommendedPlans.length === 0">
+                    <h1 id="text">Your Curated Savings Plan:</h1>
+                    <br>
+                    <h4 id="text" style="color:#545454">No suitable savings plan found.</h4>
+                    <h4 id="text" v-if="failMinYear && !failMinAmt" style="color:#545454">Minimum of {{this.minAmt[0].min_years}} years required.</h4>
+                    <h4 id="text" v-if="failMinAmt && !failMinYear" style="color:#545454">Minimum of ${{this.minYears[0].min_amount}} required.</h4>
+                    <h4 id="text" v-if="failMinAmt && failMinYear && minAmt[0] != minYears[0]" style="color:#545454">
+                    Either a minimum of ${{this.minYears[0].min_amount}} and {{this.minYears[0].min_years}} years or <br>
+                    a minimum of ${{this.minAmt[0].min_amount}} and {{this.minAmt[0].min_years}} years is required.
+                    </h4>
+                    <h4 id="text" v-if="failMinAmt && failMinYear && minAmt[0] == minYears[0]" style="color:#545454">
+                    A minimum of ${{this.minYears[0].min_amount}} and {{this.minYears[0].min_years}} years is required.
+                    </h4>
+                </div>
     
             </div>
         </div>
