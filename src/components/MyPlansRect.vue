@@ -100,18 +100,20 @@ export default {
         });
     },
     editAmount: async function () {
-      console.log(this.myIndex);
-      console.log(this.planAmount);
-      this.plansRaw[this.myIndex].amount = this.planAmount;
-      console.log(this.plansRaw);
-      var user = await firebase.auth().currentUser;
-      database
+      // console.log(this.myIndex);
+      // console.log(typeof parseFloat(this.planAmount));
+      this.plansRaw[this.myIndex].amount = parseFloat(this.planAmount);
+      // console.log(this.plansRaw);
+      var user = firebase.auth().currentUser;
+      await database
         .collection("TestUsers")
         .doc(user.uid)
         .update({
-          plans: this.plansRaw,
-        });
-        console.log('updated')
+          plans: this.plansRaw
+        })
+        location.reload();
+        // alert('updated')
+      
     },
 
 
