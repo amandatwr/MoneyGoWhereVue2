@@ -199,12 +199,17 @@ export default {
 }
 
 button {
-    background-color: #192841;
-    color: white;
-    border: 1px solid white;
+    background-color: white;
+    color: #545454;
+    border: 1px solid grey;
     align-items: center;
     display: inline-block;
     padding: 13px 28px;
+}
+
+button:hover {
+    background-color: #192841;
+    color: white
 }
 
 #header {
