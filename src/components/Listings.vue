@@ -207,6 +207,11 @@ button {
     padding: 13px 28px;
 }
 
+button:hover {
+    background-color: #192841;
+    color: white
+}
+
 #header {
     font-size: 50px;
     text-align: center;
