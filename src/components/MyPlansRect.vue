@@ -1,37 +1,32 @@
 <template>
   <div class="tooltip">
-            <v-card class="myplan-card">
-              <button
-                v-bind:id="plan.id"
-                class="editButton"
-                v-on:click="show_form = !show_form"
-    
-              ></button>
-              <p id="name">
-                <b>{{ plan.name }}</b>
-              </p>
-              <p id="provider">{{ plan.provider }}</p>
-              <h3 text-align:center id="amount">{{ plan.amount }}</h3>
-              <span class="tooltiptext">
-                Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
-                {{ plan.capital_guaranteed }}<br />
-                Min. no. of Years: {{ plan.min_years }}</span
-              >
-            </v-card>
-  <div v-if="show_form">
-                <!-- when the form is submitted, edit plan amount to the database -->
-                <!-- .prevent prevents the submission event from "reloading" the page -->
-                <v-card class="editcard">
-                  <form @submit="mySubmitHandler">
-                    <label> Edit Amount: </label>
-                    <input
-                      type="text"
-                      v-model="planAmount"
-                      placeholder="Enter Value"
-                    />
-                  </form>
-                </v-card>
-              </div> 
+    <v-card class="myplan-card">
+      <button
+        v-bind:id="plan.id"
+        class="editButton"
+        v-on:click="show_form = !show_form"
+      ></button>
+      <p id="name">
+        <b>{{ plan.name }}</b>
+      </p>
+      <p id="provider">{{ plan.provider }}</p>
+      <h3 text-align:center id="amount">{{ plan.amount }}</h3>
+      <span class="tooltiptext">
+        Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
+        {{ plan.capital_guaranteed }}<br />
+        Min. no. of Years: {{ plan.min_years }}</span
+      >
+    </v-card>
+    <div v-if="show_form">
+      <!-- when the form is submitted, edit plan amount to the database -->
+      <!-- .prevent prevents the submission event from "reloading" the page -->
+      <v-card class="editcard">
+        <form @submit.prevent="editAmount">
+          <label> Edit Amount: </label>
+          <input type="text" v-model="planAmount" placeholder="Enter Value" />
+        </form>
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -45,17 +40,17 @@ export default {
   props: {
     item: Object,
     plan: Object,
+    myIndex: Number,
   },
   data() {
     return {
       textValue: "",
       plans: [],
       show_form: false,
- 
+      planAmount:0,
     };
   },
   methods: {
-    
     fetchItems: function () {
       // Log user account creation date
       var user = firebase.auth().currentUser;
@@ -102,25 +97,20 @@ export default {
           }
         });
     },
-
-    addPlan: function () {
+    editAmount: function () {
+      console.log(this.myIndex);
       console.log(this.planAmount);
+      this.plans[this.myIndex].amount = this.planAmount;
+      console.log(this.plans);
       var user = firebase.auth().currentUser;
-      database.collection("TestUsers")
-        .doc(user.id).update({
- ["plans[" + this.index + "].amount"]: this.planAmount,
-});
+      database
+        .collection("TestUsers")
+        .doc(user.id)
+        .update({
+          plans: this.plans,
+        });
     },
-    // setItems: function () {
-    //   database
-    //     .collection("TestUsers")
-    //     .doc(user.uid)
-    //     .get()
-    //     .then((querySnapShot) => {
-    //       var plans = querySnapShot.data().plans;
-    //       for (let i = 0; i < plans.length; i++) {
-    //         var planID = plans[i].planID;
-    // },
+
 
     round: function (value, decimals) {
       return Number(
@@ -267,7 +257,7 @@ p {
 .myplan-card {
   /* margin: 0 25px; */
   height: 200px;
-  width:  110% !important;
+  width: 110% !important;
   /* padding-top: 35px; */
 }
 </style>

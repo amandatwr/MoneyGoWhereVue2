@@ -125,10 +125,7 @@ export default {
             planID: this.planSelect,
           }),
           
-        }).then(() => {
-  setTimeout(() => {
-    this.fetchItems();
-  }, 100); });
+        }).then(this.$emit('wantPlanUpdate'));
        
       // db.collection('TestUsers').doc(user.uid).add({
       // 	planID: this.planSelect,
