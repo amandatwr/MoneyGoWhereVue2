@@ -39,7 +39,7 @@
           <br />
           Amount:
           <input
-            type="text"
+            type="number"
             v-model="planAmount"
             placeholder="Enter Amount Saved"
           />
@@ -69,7 +69,7 @@ export default {
       planName: "",
       planInterest: "",
       planMinYrs: "",
-      planAmount: "",
+      planAmount: 0,
       planProvider: "",
       planID: "",
     };
@@ -95,8 +95,9 @@ export default {
         });
     },
     // Event handler for form submission
-    addPlan: function () {
+    addPlan: async function () {
       var user = firebase.auth().currentUser;
+      console.log(user)
 
       // if (this.planSelect == 'other') {
       //this.planID = this.camelize(this.planName) + "_" + this.planProvider;
@@ -115,17 +116,18 @@ export default {
       
       // } else {
       // Add the plan to the user, with the existing selected plan
-    var currentDate = new Date();
-      db.collection("TestUsers")
+          var currentDate = new Date();
+      await db.collection("TestUsers")
         .doc(user.uid)
         .update({
           plans: firebase.firestore.FieldValue.arrayUnion({
-            amount: this.planAmount,
+            amount: parseFloat(this.planAmount),
             dateSaved: currentDate,
             planID: this.planSelect,
           }),
           
-        }).then(this.$emit('wantPlanUpdate'));
+        }).then(this.$emit('wantPlanUpdate'))
+        location.reload();
        
       // db.collection('TestUsers').doc(user.uid).add({
       // 	planID: this.planSelect,

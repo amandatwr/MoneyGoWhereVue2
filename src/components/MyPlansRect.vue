@@ -23,7 +23,7 @@
       <v-card class="editcard">
         <form @submit.prevent="editAmount">
           <label> Edit Amount: </label>
-          <input type="text" v-model="planAmount" placeholder="Enter Value" />
+          <input type="number" min=0 v-model="planAmount" placeholder="Enter Value" />
         </form>
       </v-card>
     </div>
@@ -47,7 +47,8 @@ export default {
       textValue: "",
       plans: [],
       show_form: false,
-      planAmount:0,
+      planAmount: 0,
+      plansRaw: []
     };
   },
   methods: {
@@ -64,6 +65,7 @@ export default {
         .get()
         .then((querySnapShot) => {
           var plans = querySnapShot.data().plans;
+          this.plansRaw = plans;
           for (let i = 0; i < plans.length; i++) {
             var planID = plans[i].planID;
             database
@@ -97,18 +99,19 @@ export default {
           }
         });
     },
-    editAmount: function () {
+    editAmount: async function () {
       console.log(this.myIndex);
       console.log(this.planAmount);
-      this.plans[this.myIndex].amount = this.planAmount;
-      console.log(this.plans);
-      var user = firebase.auth().currentUser;
+      this.plansRaw[this.myIndex].amount = this.planAmount;
+      console.log(this.plansRaw);
+      var user = await firebase.auth().currentUser;
       database
         .collection("TestUsers")
-        .doc(user.id)
+        .doc(user.uid)
         .update({
-          plans: this.plans,
+          plans: this.plansRaw,
         });
+        console.log('updated')
     },
 
 

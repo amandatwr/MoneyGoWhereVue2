@@ -2,14 +2,17 @@
   <div id="listings">
     <div class="w3-row" style="padding: 20px 50px 50px 50px">
       <ul style="padding: 0px">
-        <!-- (value, key, index) -->
-        <li v-for="(plan, index) in plans" v-bind:key="plan" v-bind:id="index">
-          <MyPlansRect v-bind:plan="plan" v-bind:myIndex="index" />
+        <li v-for="plan in plans" v-bind:key="plan">
+          <MyPlansRect v-bind:plan="plan" />
+            
+            
+          
         </li>
       </ul>
     </div>
     <!--<input v-model="textValue" placeholder="input amount">-->
   </div>
+    
 </template>
 
 
@@ -42,19 +45,6 @@ export default {
       } else {
         x.style.display = "none";
       }
-    },
-    editAmount: function () {
-      console.log(this.myIndex);
-      console.log(this.planAmount);
-      this.plans[this.myIndex].amount = this.planAmount;
-      console.log(this.plans);
-      var user = firebase.auth().currentUser;
-      database
-        .collection("TestUsers")
-        .doc(user.id)
-        .update({
-          plans: this.plans,
-        });
     },
     fetchItems: function () {
       // Log user account creation date
@@ -102,8 +92,6 @@ export default {
           }
         });
     },
-
-    
     // setItems: function () {
     //   database
     //     .collection("TestUsers")
@@ -205,7 +193,7 @@ h6 {
 }
 
 #listings {
-  padding-top: 100px;
+  /* padding-top: 10px; */
   text-align: center;
 }
 

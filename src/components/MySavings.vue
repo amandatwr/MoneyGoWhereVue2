@@ -3,7 +3,9 @@
   <AccountBanner></AccountBanner>
     <div class='flex'>
     <Profile class='profile'></Profile>
-    <v-card>
+    <div class='container'>
+    <v-card class='test'
+    min-width='85%'>
     <div class='header-container'>
     <h1>My Savings</h1>
     </div>
@@ -12,7 +14,9 @@
     <br><br><br>
     <AddPlan  v-on:wantPlanUpdate="fetchItems" />
     </div>
+  
     </v-card>
+    </div>
     <!-- <EditGoals></EditGoals> -->
     <!-- <br><br><br><br><br><br> -->
     </div>
@@ -82,7 +86,17 @@ components: {
 .header-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  width: 90%;
+}
+
+.test {
+  padding:0;
+  margin: 0;
 }
 
 </style>
