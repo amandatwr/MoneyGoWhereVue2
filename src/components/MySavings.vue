@@ -10,7 +10,7 @@
     <div class='savings'>
     <EditPlan></EditPlan>
     <br><br><br>
-    <AddPlan></AddPlan>
+    <AddPlan  v-on:wantPlanUpdate="fetchItems" />
     </div>
     </v-card>
     <!-- <EditGoals></EditGoals> -->
@@ -25,6 +25,7 @@ import Profile from './Profile.vue';
 import AddPlan from "./AddPlan.vue";
 import AccountBanner from './AccountBanner.vue'
 import EditPlan from "./EditPlan.vue";
+import db from "../firebase.js";
 
 // import database from "../firebase.js";
 // import firebase from "firebase";
@@ -32,7 +33,7 @@ import EditPlan from "./EditPlan.vue";
 export default {
   data() {
     return {
-        
+        plans:[],
     };
   },
 
@@ -47,7 +48,18 @@ components: {
 
    methods: {
     fetchItems: function () {
-    } 
+      this.plans=[];
+      db.collection("Listings")
+        .get()
+        .then((querySnapShot) => {
+          let list = {};
+          querySnapShot.forEach((doc) => {
+            list = doc.data();
+            list.id = doc.id;
+            this.plans.push(list);
+          });
+        });
+    },
     
   },
 

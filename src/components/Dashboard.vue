@@ -129,7 +129,7 @@ export default {
         { text: "Plan Name", value: "name" },
         { text: "Plan Provider", value: "provider" },
         { text: "Amount Saved", value: "amount" },
-        {text: 'Date Saved', value: 'dateSaved'},
+        { text: 'Date Saved', value: 'dateSaved'},
         { text: 'Earliest Withdrawal', value: 'dateWithdraw'}
       ],
       hasPlans: false,
@@ -140,7 +140,7 @@ export default {
   components: {
     MarketPerformance,
     SavingsDistribution,
-    Profile
+    Profile,
   },
   methods: {
     fetchItems: function () {

@@ -43,6 +43,19 @@ export default {
         x.style.display = "none";
       }
     },
+    editAmount: function () {
+      console.log(this.myIndex);
+      console.log(this.planAmount);
+      this.plans[this.myIndex].amount = this.planAmount;
+      console.log(this.plans);
+      var user = firebase.auth().currentUser;
+      database
+        .collection("TestUsers")
+        .doc(user.id)
+        .update({
+          plans: this.plans,
+        });
+    },
     fetchItems: function () {
       // Log user account creation date
       var user = firebase.auth().currentUser;
