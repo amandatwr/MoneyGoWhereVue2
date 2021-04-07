@@ -2,8 +2,8 @@
     <div style="text-align:center; min-height: 92vh">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <AccountBanner></AccountBanner>
-        <h1 id="text" style="padding-top:100px;"><b> Get your optimal savings plan in seconds </b></h1>
-        <h2 id="text">I want to invest $
+        <h1 style="padding-top:100px;"><b> Get your optimal savings plan in seconds </b></h1>
+        <h2>I want to invest $
             <input id="cond" type="number" v-model="amount" size="10" min=1> and hold it for
             <input id="cond" type="number" v-model="years" size="5" min=1> years.
         </h2>
@@ -70,8 +70,8 @@
                     <h1 id="text">Your Curated Savings Plan:</h1>
                     <br>
                     <h4 id="text" style="color:#545454">No suitable savings plan found.</h4>
-                    <h4 id="text" v-if="failMinYear && !failMinAmt" style="color:#545454">Minimum of {{this.minAmt[0].min_years}} years required.</h4>
-                    <h4 id="text" v-if="failMinAmt && !failMinYear" style="color:#545454">Minimum of ${{this.minYears[0].min_amount}} required.</h4>
+                    <h4 id="text" v-if="failMinYear && failMinAmt===false" style="color:#545454">Minimum of {{this.minYears[0].min_years}} years required.</h4>
+                    <h4 id="text" v-if="failMinAmt && failMinYear===false" style="color:#545454">Minimum of ${{this.minYears[0].min_amount}} required.</h4>
                     <h4 id="text" v-if="failMinAmt && failMinYear && minAmt[0] != minYears[0]" style="color:#545454">
                     Either a minimum of ${{this.minYears[0].min_amount}} and {{this.minYears[0].min_years}} years or <br>
                     a minimum of ${{this.minAmt[0].min_amount}} and {{this.minAmt[0].min_years}} years is required.
@@ -227,6 +227,15 @@ export default {
             } else {
                 this.failMinYear = false;
             }
+
+            if (this.amount >= this.minYears[0].min_amount) {
+                this.failMinAmt = false;
+            }
+
+            if (this.years >= this.minYears[0].min_years) {
+                this.failMinYear = false;
+            }
+
         }
     },
     created() {
@@ -297,7 +306,9 @@ html {
     padding-top: 100px;
 }
 
-#text {}
+#text {
+    font-family: Poppins-Regular
+}
 
 #name {
     font-size: 18px;
@@ -317,7 +328,7 @@ html {
 }
 
 #returns {
-    font-family: Optima;
+    font-family: Poppins-Regular;
     color: #405D93;
 }
 
@@ -341,18 +352,8 @@ button {
     border: 1px solid grey;
     align-items: center;
     display: inline-block;
-}
-
-#header {
-    font-size: 50px;
-    text-align: center;
-    font-family: Optima;
-}
-
-#subheader {
-    font-size: 30px;
-    text-align: center;
-    font-family: Optima;
+    padding: 13px 30px;
+    font-family: Poppins-Medium;
 }
 
 #curatedPlan {
