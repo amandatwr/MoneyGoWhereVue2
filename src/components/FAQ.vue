@@ -51,7 +51,7 @@
             <label for="title5">How do I register for an account with MoneyGoWhere?</label>
 
             <div class="content">
-            Simply click on the "Login" button in the navigation bar, and you can click "Register" to create an account online instantaneously. <br>
+            You can sign up online instantanously; simply register <router-link class="txt2" to=/register exact>here</router-link>. <br>
             <br>
             Creating an account will allow you to access our novel features: your very own savings dashboard & our novel plan recommender.<br>
             </div>
@@ -60,7 +60,7 @@
             <label for="title6">How can I contact MoneyGoWhere if I have more questions?</label>
 
             <div class="content">
-            Drop us an email at support@moneygowhere.com and we will get back to you within 3 business days. <br>
+            Drop us an email at  <a href="mailto:support@moneygowhere.com" class="txt2">support@moneygowhere.com</a> and we will get back to you within 3 business days. <br>
             </div>
 
         </div>
@@ -116,7 +116,7 @@ label {
     border-radius: 3px;
     color: #444;
     transition: ease .5s;
-    font-size: 20px;
+    font-size: 22px;
     position: relative;
 }
 
@@ -166,5 +166,12 @@ input:checked + label + .content {
     font-size: 14px;
     color: rgb(59, 59, 59);
 }
+
+.txt2 {
+	color: #666666;
+	text-decoration-color: #666666;
+        font-size: 18px;
+}
+
 
 </style>
