@@ -107,9 +107,10 @@ export default {
 /* Styling the accordion */
 
 label {
+    font-family: 'Poppins-Regular';
     display: block;    
     padding: 8px 22px;
-    margin: 0 0 1px 0;
+    margin: 0 0 3px 0;
     cursor: pointer;
     background: #eee;
     border-radius: 3px;
@@ -151,17 +152,19 @@ input:checked + label + .content {
 }
 
 .content {
+    font-family: 'Poppins-Regular';
     background: rgba(236, 236, 236, 0.315);
     padding: 30px 30px;
-    margin: 0 0 1px 0;
+    margin: 0 0 5px 0;
     border-radius: 3px;
     text-align: left;
     font-size: 18px;
 }
 
 .bodyText {
+    font-family: 'Poppins-Regular';
     font-size: 14px;
-    color: grey;
+    color: rgb(59, 59, 59);
 }
 
 </style>
