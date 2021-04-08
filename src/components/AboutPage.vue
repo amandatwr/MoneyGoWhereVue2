@@ -31,13 +31,13 @@
         <p class="aboutUsText">
           We cater to your needs, by providing you with: <br><br>
           
-          A SNAPSHOT OF ALL YOUR SAVINGS PLANS<br>
+           • a snapshot of your savings plans • <br>
           <br>
           
-          A CONSOLIDATED DATABASE OF SAVINGS PLANS<br>
+           • a consolidated database of saving plans • <br>
           <br>
 
-          A NOVEL RECOMMENDER TO OPTIMISE YOUR RETURNS<br>
+           • a novel recommender to optimise your returns • <br>
           <br>
         </p>
       </div>
