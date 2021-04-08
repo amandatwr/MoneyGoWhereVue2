@@ -29,16 +29,15 @@
         <h1 class="aboutUsTitle">Our Services</h1>
         <p class="aboutUsSubtitle">What We Do</p>
         <p class="aboutUsText">
-          <b>A CONSOLIDATED DATABASE WITH SAVINGS PLANS FROM ALL PROVIDERS</b><br>
-          Our consolidated database helps streamline your search process. <br>
+          We cater to your needs, by providing you with: <br><br>
+          
+          A SNAPSHOT OF ALL YOUR SAVINGS PLANS<br>
+          <br>
+          
+          A CONSOLIDATED DATABASE OF SAVINGS PLANS<br>
           <br>
 
-          <b> SNAPSHOT OF ALL YOUR SAVINGS PLANS</b><br>
-          Our analytics dashboard provides a consolidated view of your performance. <br>
-          <br>
-
-          <b>A NOVEL RECOMMENDER TO OPTIMISE YOUR SAVINGS</b><br>
-          Our novel recommender will recommend savings plans catered to your needs. <br>
+          A NOVEL RECOMMENDER TO OPTIMISE YOUR RETURNS<br>
           <br>
         </p>
       </div>
