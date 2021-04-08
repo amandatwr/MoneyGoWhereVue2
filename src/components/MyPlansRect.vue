@@ -1,40 +1,46 @@
 <template>
   <div>
-    <v-card class="myplan-card">
+    <v-card class="myplan-card" v-if="havePlans">
       <div class="a">
-      <b><button
-        v-bind:id="plan.id"
-        class="editButton"
-        v-on:click="show_form = !show_form"
-      ></button></b>
-      <!-- @submit.prevent="delItems" -->
-      <c><button 
-        v-bind:id="plan.id"
-        class="delButton"
-        v-on:click="delItems()"
-      ></button></c>
+        <button
+          v-bind:id="plan.id"
+          class="editButton"
+          v-on:click="show_form = !show_form"
+        ></button>
+        <!-- @submit.prevent="delItems" -->
+        <button
+          v-bind:id="plan.id"
+          class="delButton"
+          v-on:click="delItems()"
+        ></button>
       </div>
       <div class="tooltip">
-      <p id="name">
-        <b>{{ plan.name }}</b>
-      </p>
-      <p id="provider">{{ plan.provider }}</p>
-      <h3 text-align:center id="amount">{{ plan.amount }}</h3>
-      <span class="tooltiptext">
-        Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
-        {{ plan.capital_guaranteed }}<br />
-        Min. no. of Years: {{ plan.min_years }}</span
-      >
+        <!-- <img src=plan.image width= "120" height="100"> -->
+        <p id="name">
+          <b>{{ plan.name }}</b>
+        </p>
+        <p id="provider">{{ plan.provider }}</p>
+        <h3 text-align:center id="amount">{{ plan.amount }}</h3>
+        <span class="tooltiptext">
+          Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
+          {{ plan.capital_guaranteed }}<br />
+          Min. no. of Years: {{ plan.min_years }}</span
+        >
       </div>
     </v-card>
-  
+
     <div v-if="show_form">
       <!-- when the form is submitted, edit plan amount to the database -->
       <!-- .prevent prevents the submission event from "reloading" the page -->
       <v-card class="editcard">
         <form @submit.prevent="editAmount">
           <label> Edit Amount: </label>
-          <input type="number" min=0 v-model="planAmount" placeholder="Enter Value" />
+          <input
+            type="number"
+            min="0"
+            v-model="planAmount"
+            placeholder="Enter Value"
+          />
         </form>
       </v-card>
     </div>
@@ -59,7 +65,8 @@ export default {
       plans: [],
       show_form: false,
       planAmount: 0,
-      plansRaw: []
+      plansRaw: [],
+      havePlans: false,
     };
   },
   methods: {
@@ -77,6 +84,9 @@ export default {
         .then((querySnapShot) => {
           var plans = querySnapShot.data().plans;
           this.plansRaw = plans;
+          if (this.plans != null) {
+            this.havePlans = true;
+          }
           for (let i = 0; i < plans.length; i++) {
             var planID = plans[i].planID;
             database
@@ -92,6 +102,7 @@ export default {
                   100 * listingDetails.interest_pa,
                   2
                 );
+                planDetails["image"] = listingDetails.image;
                 planDetails["capital_guaranteed"] =
                   listingDetails.capital_guaranteed;
                 planDetails["min_years"] = listingDetails.min_years;
@@ -116,27 +127,20 @@ export default {
       this.plansRaw[this.myIndex].amount = parseFloat(this.planAmount);
       // console.log(this.plansRaw);
       var user = firebase.auth().currentUser;
-      await database
-        .collection("TestUsers")
-        .doc(user.uid)
-        .update({
-          plans: this.plansRaw
-        })
-        location.reload();
-        // alert('updated')
-      
+      await database.collection("TestUsers").doc(user.uid).update({
+        plans: this.plansRaw,
+      });
+      location.reload();
+      // alert('updated')
     },
 
-    delItems: async function() {
+    delItems: async function () {
       this.plansRaw.splice(this.myIndex, 1);
       var user = firebase.auth().currentUser;
-      await database
-        .collection("TestUsers")
-        .doc(user.uid)
-        .update({
-          plans : this.plansRaw
-        })
-        location.reload();
+      await database.collection("TestUsers").doc(user.uid).update({
+        plans: this.plansRaw,
+      });
+      location.reload();
     },
 
     round: function (value, decimals) {
@@ -170,53 +174,50 @@ export default {
 </script>
 
 <style scoped>
-#a{
-display: inline-block;
-vertical-align: middle;
-}
-
-.a b{
+#a {
   display: inline-block;
-margin-left: 220px; 
-  /* margin-bottom: 270px; */
-  margin-top: 10px;
-  margin-right: 0px;
   vertical-align: middle;
 }
 
-.a c{
-  display: inline-block;
-margin-left: 0px;
-  /* margin-bottom: 270px; */
-  margin-top: 10px;
-  margin-right: 0px;
-  vertical-align: middle;
-}
 .editButton {
+  border: solid;
   background-image: url("../assets/editplan.png");
-  background-size: 16px 16px;
+  background-size: contain;
   background-repeat: no-repeat;
-  height: 16px;
-  width: 16px;
+  height: 6px;
+  /* width: 16px; */
+  max-width: 6px;
   color: black;
-  
+  display: inline-block;
+  margin-left: 900px;
+  /* margin-bottom: 270px; */
+  margin-top: 15px;
+  margin-right: 0px;
+  vertical-align: middle;
 }
 
 .delButton {
+  border: solid;
   background-image: url("../assets/delbutton.png");
   background-size: 16px 16px;
   background-repeat: no-repeat;
   height: 16px;
-  width: 16px;
+  width: 5px;
   color: black;
-  
+  display: inline-block;
+  margin-left: 0px;
+  /* margin-bottom: 270px; */
+  margin-top: 15px;
+  margin-right: 0px;
+  vertical-align: middle;
 }
 
 .tooltip {
   position: relative;
   display: inline-block;
   height: 200px;
-  width: 20em;
+  width: 30em;
+  vertical-align: middle;
   /* border: solid;
   border-color: #e1c9c5; */
 }
@@ -231,20 +232,24 @@ margin-left: 0px;
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  top: 100%;
-  left: 50%;
-  margin-left: -100px;
+  top: -5px;
+  left: 110%;
+  vertical-align: middle;
+  /* margin-left: -100px; */
 }
 
 .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
+  /* bottom: 100%;
+  left: 50%; */
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent black transparent;
+  border-color: transparent black transparent transparent;
+  vertical-align: middle;
 }
 
 .tooltip:hover .tooltiptext {
