@@ -1,6 +1,6 @@
 <template>
   <div class="addNew">
-    <button class="addButton" @click="show_form = !show_form"></button>
+    <button @click="show_form = !show_form">Add Plan</button>
     <div v-if="show_form" class="centerimg2">
       <!-- when the form is submitted, add the plan to the database -->
       <!-- .prevent prevents the submission event from "reloading" the page -->
@@ -154,7 +154,7 @@ export default {
   text-align: center;
 }
 
-.addButton {
+/* .addButton {
   background-image: url("../assets/addnew.png");
   background-size: 64px 64px;
   height: 64px;
@@ -163,6 +163,19 @@ export default {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 50px;
+} */
+button {
+    background-color: white;
+    color: #545454;
+    border: 1px solid grey;
+    align-items: center;
+    display: inline-block;
+    padding: 13px 28px;
+}
+
+button:hover {
+    background-color: #192841;
+    color: white
 }
 
 .addNew {

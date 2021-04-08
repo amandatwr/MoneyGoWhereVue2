@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style scoped>
-.editButton {
+/* .editButton {
   background-image: url("../assets/editplan.png");
   background-size: 16px 16px;
   background-repeat: no-repeat;
@@ -139,49 +139,14 @@ export default {
   width: 16px;
   color: black;
   margin-left: 270px;
-  /* margin-bottom: 270px; */
+  margin-bottom: 270px;
   margin-top: 10px;
   margin-right: 10px;
-}
+} */
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  height: 200px;
-  width: 20em;
-  /* border: solid;
-  border-color: #e1c9c5; */
-}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  top: 100%;
-  left: 50%;
-  margin-left: -100px;
-}
 
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
-}
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
 
 h6 {
   color: black;
@@ -213,7 +178,7 @@ ul {
 }
 
 li {
-  flex: 1 0 25%;
+  flex: 0 0 75%;
   margin: 15px;
 }
 
@@ -223,23 +188,6 @@ p {
   margin-left: auto;
   margin-right: auto;
 }
-
-/* #flex-container {
-  display:flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-}
-
-#flex-item{
-  padding: 5px;
-  margin-top: 10px;
-  line-height: 150px;
-  color: white;
-} */
 
 .myplan-card {
   /* margin: 0 25px; */

@@ -27,7 +27,7 @@
     </div>
     <div class='savings'>
     <EditPlan></EditPlan>
-    <br><br><br>
+    <br>
     <AddPlan  v-on:wantPlanUpdate="fetchItems" />
     </div>
   
