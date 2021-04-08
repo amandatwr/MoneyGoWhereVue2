@@ -151,7 +151,7 @@ input:checked + label + .content {
 }
 
 .content {
-    background: #fff;
+    background: rgba(236, 236, 236, 0.315);
     padding: 30px 30px;
     margin: 0 0 1px 0;
     border-radius: 3px;
