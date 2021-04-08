@@ -36,6 +36,15 @@
             <div class="content">
             No, MoneyGoWhere is an independent platform. <br>
             We consolidate listings from the financial institutions, so that users can view all savings plans on a single platform. <br>
+            <br>
+                <div class ="bodyText">
+                Disclaimer: MoneyGoWhere is an academic project meant to solve a real world business challenge.
+                The information on this website does not constitute financial advice.
+                MoneyGoWhere is not responsible for any loss arising from decisions based on any perceived recommendation, or any other information contained here.
+                The contents of this website should not be construed as an express or implied promise, guarantee or implication set out by MoneyGoWhere that 
+                users will profit or that losses in connection therewith can or will be limited, from reliance on any information set out here.
+                Please consider your personal financial situation and seek independent consultation from an expert before making any decisions.
+                </div>
             </div>
 
             <input type="checkbox" id="title4" />
@@ -52,7 +61,6 @@
 
             <div class="content">
             You can sign up online instantanously; simply register <router-link class="txt2" to=/register exact>here</router-link>. <br>
-            <br>
             Creating an account will allow you to access our novel features: your very own savings dashboard & our novel plan recommender.<br>
             </div>
 
