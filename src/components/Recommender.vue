@@ -18,7 +18,7 @@
             </ul>
         </div>
         <br><br><br>
-        <button id="btn" type="button" @click="show_form = true; selectPlans(); findPlans(); calculateReturns(); meetReq(); togglePopup()">Next</button>
+        <button id="btn" type="button" @click="show_form = true; selectPlans(); findPlans(); calculateReturns(); meetReq(); togglePopup();">Next</button>
         <br><br><br><br>
     
         <div class="popup" id="popup-1">
@@ -45,13 +45,32 @@
                         </div>
                     </div>
     
-                    <div v-if="recommendedPlans.length > 1">
+                    <div v-if="recommendedPlans.length > 2">
                         <h1 id="text">You may also like...</h1>
                         <div class="w3-row" style="padding:20px 70px 70px 70px; text-align:center">
                             <ul style="padding:0px">
                                 <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
                                     <div class="tooltip">
-                                        <v-card class="w3-col w3-center" style="padding:30px; margin:11px; width: 350px; display:inline-block">
+                                        <v-card class="w3-col w3-center" style="padding:30px; margin:15px; width: 350px; display:inline-block">
+                                            <img id="otherPlans" v-bind:src="plan.logo" alt="logo">
+                                            <p id="name"><b>{{plan.name}}</b></p>
+                                            <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
+                                            <p id="name">Projected Returns: ${{(plan.returns).toLocaleString()}}</p>
+                                            <button class="learnMore" v-bind:id="plan.id" v-on:click="route($event)">Find Out More</button>
+                                        </v-card>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div v-if="recommendedPlans.length === 2">
+                        <h1 id="text">You may also like...</h1>
+                        <div class="w3-row" style="padding:20px 70px 70px 70px; text-align:center">
+                            <ul style="padding:0px">
+                                <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
+                                    <div class="tooltip">
+                                        <v-card class="w3-center" style="padding:30px; margin:11px; width: 350px; display:inline-block">
                                             <img id="otherPlans" v-bind:src="plan.logo" alt="logo">
                                             <p id="name"><b>{{plan.name}}</b></p>
                                             <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
@@ -79,6 +98,7 @@
                     <h4 id="text" v-if="failMinAmt && failMinYear && minAmt[0] == minYears[0]" style="color:#545454">
                     A minimum of ${{this.minYears[0].min_amount}} and {{this.minYears[0].min_years}} years is required.
                     </h4>
+                    <br>
                 </div>
     
             </div>
@@ -107,8 +127,8 @@ export default {
             checkList: document.getElementById('list1'),
             amount: null,
             years: null,
-            failMinYear: true,
-            failMinAmt: true,
+            failMinYear: false,
+            failMinAmt: false,
             failProvider: false,
             minAmt: [],
             minYears: [],
@@ -188,6 +208,8 @@ export default {
         meetReq: function() {
             this.minYears = []
             this.minAmt = []
+            this.failMinAmt = false;
+            this.failMinYear = false;
             this.selectedPlans.sort(function(a, b) {
                 return a.min_years - b.min_years
             })
@@ -199,7 +221,6 @@ export default {
                 return a.min_amount - b.min_amount
             })
             this.minYears.push(matchingPlans[0])
-
             this.selectedPlans.sort(function(a, b) {
                 return a.min_amount - b.min_amount
             })
@@ -211,7 +232,6 @@ export default {
                 return a.min_years - b.min_years
             })
             this.minAmt.push(matchingPlans[0])
-
             if (this.amount < this.minAmt[0].min_amount) {
                 this.failMinAmt = true;
             } else if (this.years < this.minAmt[0].min_years) {
@@ -219,7 +239,6 @@ export default {
             } else {
                 this.failMinAmt = false;
             }
-
             if (this.years < this.minYears[0].min_years) {
                 this.failMinYear = true;
             } else if (this.amount < this.minYears[0].min_amount) {
@@ -227,16 +246,11 @@ export default {
             } else {
                 this.failMinYear = false;
             }
-
             if (this.amount >= this.minYears[0].min_amount) {
                 this.failMinAmt = false;
             }
 
-            if (this.years >= this.minYears[0].min_years) {
-                this.failMinYear = false;
-            }
-
-        }
+        },
     },
     created() {
         this.fetchItems()
@@ -341,11 +355,6 @@ html {
     color: #545454
 }
 
-.photo {
-    height: 220px;
-    width: 100%;
-}
-
 button {
     background-color: white;
     color: #545454;
@@ -356,13 +365,18 @@ button {
     font-family: Poppins-Medium;
 }
 
+button:hover {
+    background-color: #192841;
+    color: white;
+}
+
 #curatedPlan {
     padding-top: 10px;
     padding-bottom: 0px;
     padding-left: 40px;
     padding-right: 40px;
     width: 100%;
-    height: 250px
+    height: 240px
 }
 
 #otherPlans {
@@ -371,7 +385,7 @@ button {
     padding-left: 20px;
     padding-right: 20px;
     width: 100%;
-    height: 180px
+    height: 170px
 }
 
 .popup .overlay {
@@ -396,7 +410,7 @@ button {
     max-height: 560px;
     z-index: 2;
     text-align: center;
-    padding: 40px 10px 40px 10px;
+    padding: 30px 10px 40px 10px;
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
     overflow: auto;
@@ -404,18 +418,18 @@ button {
 
 .popup .close-btn {
     cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 30px;
-    height: 30px;
+    position: sticky;
+    left: 95%;
+    top: 0%;
+    width: 40px;
+    height: 40px;
     background: #222;
     color: #fff;
     font-size: 25px;
     font-weight: 600;
-    line-height: 30px;
+    line-height: 40px;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 50%
 }
 
 .popup.active .overlay {

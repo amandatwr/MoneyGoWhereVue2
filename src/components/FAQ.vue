@@ -36,6 +36,15 @@
             <div class="content">
             No, MoneyGoWhere is an independent platform. <br>
             We consolidate listings from the financial institutions, so that users can view all savings plans on a single platform. <br>
+            <br>
+                <div class ="bodyText">
+                Disclaimer: MoneyGoWhere is an academic project meant to solve a real world business challenge.
+                The information on this website does not constitute financial advice.
+                MoneyGoWhere is not responsible for any loss arising from decisions based on any perceived recommendation, or any other information contained here.
+                The contents of this website should not be construed as an express or implied promise, guarantee or implication set out by MoneyGoWhere that 
+                users will profit or that losses in connection therewith can or will be limited, from reliance on any information set out here.
+                Please consider your personal financial situation and seek independent consultation from an expert before making any decisions.
+                </div>
             </div>
 
             <input type="checkbox" id="title4" />
@@ -44,15 +53,14 @@
             <div class="content">
             MoneyGoWhere will never sell your data.<br>
             We are committed to driving value for our users, with customer-centric & trust being our core values. <br>
-            Your data is encrypted and protected on our servers.<br>
+            Your data is encrypted and protected.<br>
             </div>
 
             <input type="checkbox" id="title5" />
             <label for="title5">How do I register for an account with MoneyGoWhere?</label>
 
             <div class="content">
-            Simply click on the "Login" button in the navigation bar, and you can click "Register" to create an account online instantaneously. <br>
-            <br>
+            You can sign up online instantanously; simply register <router-link class="txt2" to=/register exact>here</router-link>. <br>
             Creating an account will allow you to access our novel features: your very own savings dashboard & our novel plan recommender.<br>
             </div>
 
@@ -60,9 +68,27 @@
             <label for="title6">How can I contact MoneyGoWhere if I have more questions?</label>
 
             <div class="content">
-            Drop us an email at support@moneygowhere.com and we will get back to you within 3 business days. <br>
+            Drop us an email at  <a href="mailto:support@moneygowhere.com" class="txt2">support@moneygowhere.com</a> and we will get back to you within 3 business days. <br>
             </div>
 
+            <input type="checkbox" id="title7" />
+            <label for="title7">Disclaimer</label>
+
+            <div class="content">
+            MoneyGoWhere shall not in any event be liable for any damages or injury arising out of your access to, or inability to access, this site or from your reliance on 
+            any information provided here. MoneyGoWhere disclaims any and all liability for direct, indirect, incidental, consequential, punitive, and special or other damages, 
+            lost opportunities, lost profit or any other loss or damages of any kind. This limitation includes any damage or virus, which may affect your computer equipment.
+            By continuing to access this site and/or utilise any information/products/services through this website, you agree to be bound to this version of the Disclaimer.
+            <br><br>
+                <div class ="bodyText">
+                MoneyGoWhere is an academic project meant to solve a real world business challenge.
+                The information on this website does not constitute financial advice.
+                MoneyGoWhere is not responsible for any loss arising from decisions based on any perceived recommendation, or any other information contained here.
+                The contents of this website should not be construed as an express or implied promise, guarantee or implication set out by MoneyGoWhere that 
+                users will profit or that losses in connection therewith can or will be limited, from reliance on any information set out here.
+                Please consider your personal financial situation and seek independent consultation from an expert before making any decisions.
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -103,19 +129,24 @@ export default {
     justify-content: center;
     align-items: center;
 }
-
+.txt2 {
+	color: #666666;
+	text-decoration-color: #666666;
+    font-size: 18px;
+}
 /* Styling the accordion */
 
 label {
+    font-family: 'Poppins-Regular';
     display: block;    
     padding: 8px 22px;
-    margin: 0 0 1px 0;
+    margin: 0 0 3px 0;
     cursor: pointer;
     background: #eee;
     border-radius: 3px;
     color: #444;
     transition: ease .5s;
-    font-size: 20px;
+    font-size: 22px;
     position: relative;
 }
 
@@ -151,17 +182,23 @@ input:checked + label + .content {
 }
 
 .content {
-    background: #fff;
+    font-family: 'Poppins-Regular';
+    background: rgba(236, 236, 236, 0.315);
     padding: 30px 30px;
-    margin: 0 0 1px 0;
+    margin: 0 0 5px 0;
     border-radius: 3px;
-    text-align: left;
+    text-align: justify;
     font-size: 18px;
+    
 }
 
 .bodyText {
+    font-family: 'Poppins-Regular';
     font-size: 14px;
-    color: grey;
+    color: rgb(59, 59, 59);
 }
+
+
+
 
 </style>
