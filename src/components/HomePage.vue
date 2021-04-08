@@ -6,11 +6,9 @@
            <transition name="fade" mode="out-in">
             <p key="1" class="tagline" v-if="generalText">Your one stop platform for all things Savings.</p>
             <p key="2" class="tagline" v-else-if="isUser">Start your journey with us today!</p>
-            <!-- <p key="3" class="tagline" v-else-if="isSeller">Get matched with leads today.</p> -->
           </transition>
           <div class="banner-buttons">
           <router-link class="saver-button" to='/register' exact><button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">Get Started</button></router-link>
-            <!-- <button class="advisor-button" @mouseover="toggleIsSeller" @mouseout="toggleIsSeller">FINANCIAL<br>INSTITUTION</button> -->
           </div>
         </div>
       </div>
@@ -22,8 +20,6 @@
 
 <script>
 import AboutPage from "./AboutPage.vue";
-// import SellerDashboard from "./SellerDashboard.vue"
-// import FindOutMorePlans from "./FindOutMorePlans.vue"
 import database from "../firebase.js"; 
 
 export default {
@@ -53,9 +49,6 @@ export default {
 
   components: {
     AboutPage
-    // SaverPage: SaverPage,
-    // SellerDashboard: SellerDashboard,
-    // FindOutMorePlans: FindOutMorePlans,
   },
 
   created() {
@@ -147,7 +140,4 @@ button {
     background-color: #192841;
 }
 
-.advisor-button:hover {
-    background-color: #722f37;
-}
 </style>
