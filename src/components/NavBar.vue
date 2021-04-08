@@ -158,7 +158,6 @@ export default {
         .ref("users/" + user.uid + "/user.png")
         .getDownloadURL()
         .then((imgURL) => {
-            console.log("HIII ITS ME")
           this.imageSource = imgURL;
         })
         .catch((err) => {
