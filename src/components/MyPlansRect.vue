@@ -1,11 +1,20 @@
 <template>
-  <div class="tooltip">
+  <div>
     <v-card class="myplan-card">
-      <button
+      <div class="a">
+      <b><button
         v-bind:id="plan.id"
         class="editButton"
         v-on:click="show_form = !show_form"
-      ></button>
+      ></button></b>
+      <!-- @submit.prevent="delItems" -->
+      <c><button 
+        v-bind:id="plan.id"
+        class="delButton"
+        v-on:click="delItems()"
+      ></button></c>
+      </div>
+      <div class="tooltip">
       <p id="name">
         <b>{{ plan.name }}</b>
       </p>
@@ -16,7 +25,9 @@
         {{ plan.capital_guaranteed }}<br />
         Min. no. of Years: {{ plan.min_years }}</span
       >
+      </div>
     </v-card>
+  
     <div v-if="show_form">
       <!-- when the form is submitted, edit plan amount to the database -->
       <!-- .prevent prevents the submission event from "reloading" the page -->
@@ -116,6 +127,17 @@ export default {
       
     },
 
+    delItems: async function() {
+      this.plansRaw.splice(this.myIndex, 1);
+      var user = firebase.auth().currentUser;
+      await database
+        .collection("TestUsers")
+        .doc(user.uid)
+        .update({
+          plans : this.plansRaw
+        })
+        location.reload();
+    },
 
     round: function (value, decimals) {
       return Number(
@@ -148,6 +170,28 @@ export default {
 </script>
 
 <style scoped>
+#a{
+display: inline-block;
+vertical-align: middle;
+}
+
+.a b{
+  display: inline-block;
+margin-left: 220px; 
+  /* margin-bottom: 270px; */
+  margin-top: 10px;
+  margin-right: 0px;
+  vertical-align: middle;
+}
+
+.a c{
+  display: inline-block;
+margin-left: 0px;
+  /* margin-bottom: 270px; */
+  margin-top: 10px;
+  margin-right: 0px;
+  vertical-align: middle;
+}
 .editButton {
   background-image: url("../assets/editplan.png");
   background-size: 16px 16px;
@@ -155,10 +199,17 @@ export default {
   height: 16px;
   width: 16px;
   color: black;
-  margin-left: 270px;
-  /* margin-bottom: 270px; */
-  margin-top: 10px;
-  margin-right: 10px;
+  
+}
+
+.delButton {
+  background-image: url("../assets/delbutton.png");
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  height: 16px;
+  width: 16px;
+  color: black;
+  
 }
 
 .tooltip {
