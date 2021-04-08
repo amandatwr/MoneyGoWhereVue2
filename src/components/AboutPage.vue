@@ -8,7 +8,7 @@
         <p class="aboutUsSubtitle">Who Are We</p>
         <p class="aboutUsText">
           At MoneyGoWhere, we help you consolidate all things savings. <br><br>
-          Launched in 2021, MoneyGoWhere helps streamline users' search for savings plans, <br>
+          Launched in 2021, MoneyGoWhere helps streamline users' search for savings plans, 
           and consolidates users' savings decisions in a single application. <br>
 
         </p>
@@ -103,13 +103,13 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 15%;
+  padding: 0 15% ;
 }
 
 
 
 .aboutUsRight {
-    max-width: 50%;
+  max-width: 50%;
 }
 
 .aboutUsTitle {

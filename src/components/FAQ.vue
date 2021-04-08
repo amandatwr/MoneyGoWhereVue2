@@ -129,7 +129,11 @@ export default {
     justify-content: center;
     align-items: center;
 }
-
+.txt2 {
+	color: #666666;
+	text-decoration-color: #666666;
+    font-size: 18px;
+}
 /* Styling the accordion */
 
 label {
@@ -194,11 +198,7 @@ input:checked + label + .content {
     color: rgb(59, 59, 59);
 }
 
-.txt2 {
-	color: #666666;
-	text-decoration-color: #666666;
-        font-size: 18px;
-}
+
 
 
 </style>
