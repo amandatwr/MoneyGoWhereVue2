@@ -1,31 +1,36 @@
 <template>
   <div>
     <v-card class="myplan-card">
-      <div class="a">
-        <button
-          v-bind:id="plan.id"
-          class="editButton"
-          v-on:click="show_form = !show_form"
-        ></button>
-        <!-- @submit.prevent="delItems" -->
-        <button
-          v-bind:id="plan.id"
-          class="delButton"
-          v-on:click="delItems()"
-        ></button>
-      </div>
-      <div class="tooltip">
-        <!-- <img src=plan.image width= "120" height="100"> -->
-        <p id="name">
-          <b>{{ plan.name }}</b>
-        </p>
-        <p id="provider">{{ plan.provider }}</p>
-        <h3 text-align:center id="amount">{{ plan.amount }}</h3>
-        <span class="tooltiptext">
-          Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
-          {{ plan.capital_guaranteed }}<br />
-          Min. no. of Years: {{ plan.min_years }}</span
-        >
+      <div class="flexWrap">
+        <div class="displayImage"> <img v-bind:src="plan.image" alt="planpic"></div>
+        <div class="content">
+          <div class="a">
+            <button
+              v-bind:id="plan.id"
+              class="editButton"
+              v-on:click="show_form = !show_form"
+            ></button>
+            <!-- @submit.prevent="delItems" -->
+            <button
+              v-bind:id="plan.id"
+              class="delButton"
+              v-on:click="delItems()"
+            ></button>
+          </div>
+          <div class="tooltip">
+            <!-- <img src=plan.image width= "120" height="100"> -->
+            <p id="name">
+              <b>{{ plan.name }}</b>
+            </p>
+            <p id="provider">{{ plan.provider }}</p>
+            <h3 text-align:center id="amount">{{ plan.amount }}</h3>
+            <span class="tooltiptext">
+              Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
+              {{ plan.capital_guaranteed }}<br />
+              Min. no. of Years: {{ plan.min_years }}</span
+            >
+          </div>
+        </div>
       </div>
     </v-card>
 
@@ -210,6 +215,15 @@ export default {
   margin-top: 15px;
   margin-right: 0px;
   vertical-align: middle;
+}
+
+.displayImage {
+  height: 40px;
+  width: 60px;
+}
+
+.flexWrap {
+  display: inline-block;
 }
 
 .tooltip {
