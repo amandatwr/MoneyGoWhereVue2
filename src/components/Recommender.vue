@@ -51,7 +51,7 @@
                             <ul style="padding:0px">
                                 <li v-for="plan in recommendedPlans.slice(1,4)" v-bind:key="plan">
                                     <div class="tooltip">
-                                        <v-card class="w3-col w3-center" style="padding:30px; margin:15px; width: 350px; display:inline-block">
+                                        <v-card class="w3-col w3-center" style="padding:30px; margin:11px; width: 350px; display:inline-block">
                                             <img id="otherPlans" v-bind:src="plan.logo" alt="logo">
                                             <p id="name"><b>{{plan.name}}</b></p>
                                             <p id="name">Interest Rate: {{(plan.interest_pa*100).toFixed(2)}}%</p>
@@ -337,7 +337,7 @@ html {
 #projectedReturns {
     display: inline;
     padding-right: 170px;
-    padding-top: 150px;
+    padding-top: 128px;
     justify-content: center
 }
 
@@ -376,7 +376,7 @@ button:hover {
     padding-left: 40px;
     padding-right: 40px;
     width: 100%;
-    height: 240px
+    height: 220px
 }
 
 #otherPlans {
