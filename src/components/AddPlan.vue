@@ -1,6 +1,12 @@
 <template>
   <div class="addNew">
-    <button @click="show_form = !show_form">Add Plan</button>
+    <div class="tooltip">
+    <button class="addButton" @click="show_form = !show_form"></button>
+    
+      <span class="tooltiptext">
+      Click here to add a plan to your dashboard!
+      </span>
+    </div>
     <div v-if="show_form" class="centerimg2">
       <!-- when the form is submitted, add the plan to the database -->
       <!-- .prevent prevents the submission event from "reloading" the page -->
@@ -20,21 +26,6 @@
             <!-- <option value="other">Other</option> -->
           </select>
 
-          <!-- <div v-if="planSelect != 'other'"> -->
-          <!-- You are adding {{planSelect}} -->
-          <!-- </div> -->
-          <!-- <div v-else>
-					The user wants to add a new plan -->
-          <!-- Bidirectionally bind planName, planInterest, planMinYrs to these input elements -->
-          <!-- <input type="text" v-model="planName" placeholder="Enter Plan Name">
-                    <br>
-                    <input type="text" v-model="planProvider" placeholder="Enter Plan Provider">
-                    <br>
-					<input type="text" v-model="planInterest" placeholder="Enter Interest Rate">
-                    <br>
-					<input type="text" v-model="planMinYrs" placeholder="Enter Minimum No. of Years">
-				</div> -->
-
           <!-- Bidirectionally bind planAmount -->
           <br />
           Amount:
@@ -47,8 +38,9 @@
           <button type="submit"
             class="submitbutton"
           >
-            Add Plan
+            Submit
           </button>
+          <div v-if='error'><p class='alert'>{{this.errorMessage}}</p></div>
         </form>
       </v-card>
     </div>
@@ -72,6 +64,8 @@ export default {
       planAmount: 0,
       planProvider: "",
       planID: "",
+      error: false,
+			errorMessage: 'Invalid input Amount.'
     };
   },
   methods: {
@@ -99,24 +93,9 @@ export default {
       var user = firebase.auth().currentUser;
       console.log(user)
 
-      // if (this.planSelect == 'other') {
-      //this.planID = this.camelize(this.planName) + "_" + this.planProvider;
-    //   console.log(this.planSelect);
-    //   console.log(this.planAmount);
-      // 	// Create a new plan before adding the plan to the user
-      // 	db.collection('Listings').doc(this.planID).add({
-      // 		name: this.planName, // planID
-      //         provider: this.planProvider,
-      // 		interest_pa: this.planInterest,
-      // 		min_years: this.planMinYrs,
+      var currentDate = new Date();
 
-      // 	});
-
-      // 	// Add the plan to the user, with the above created plan
-      
-      // } else {
-      // Add the plan to the user, with the existing selected plan
-          var currentDate = new Date();
+      if (parseFloat(this.planAmount) > 0) {
       await db.collection("TestUsers")
         .doc(user.uid)
         .update({
@@ -128,12 +107,10 @@ export default {
           
         }).then(this.$emit('wantPlanUpdate'))
         location.reload();
-       
-      // db.collection('TestUsers').doc(user.uid).add({
-      // 	planID: this.planSelect,
-      // 	amount: this.planAmount,
-      // });
-      //}
+    } else {
+        this.error =true;
+    }
+
     },
   },
   
@@ -145,6 +122,11 @@ export default {
 </script>
 
 <style scoped>
+.alert {
+	margin-top: 10px;
+	color: red;
+}
+
 .banner-buttons {
   width: 100%;
   padding: 0px 180px;
@@ -154,24 +136,25 @@ export default {
   text-align: center;
 }
 
-/* .addButton {
-  background-image: url("../assets/addnew.png");
+.addButton {
+  background-image: url("../assets/addiconsq.png");
   background-size: 64px 64px;
-  height: 64px;
-  width: 64px;
+  height: 66px;
+  width: 67px;
   color: black;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 50px;
-} */
-button {
+  margin-bottom: 10px;
+}
+
+/* button {
     background-color: white;
     color: #545454;
     border: 1px solid grey;
     align-items: center;
     display: inline-block;
     padding: 13px 28px;
-}
+} */
 
 button:hover {
     background-color: #192841;
@@ -212,5 +195,30 @@ button:hover {
   color: #545454;
   align-items: center;
   display: inline-block;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -100px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 </style>
