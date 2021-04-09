@@ -156,7 +156,6 @@ export default {
         .get()
         .then((querySnapShot) => {
           this.goal = querySnapShot.data().goal
-          console.log(this.goal)
           var plans = querySnapShot.data().plans
           for ( let i = 0 ; i < plans.length ; i++ ) {
             this.hasPlans = true;
@@ -175,11 +174,12 @@ export default {
                 planDetails['dateWithdraw'] = this.getReturnsDate(plans[i].dateSaved.toDate(), listingDetails.min_years).toLocaleDateString();
                 this.plans.push(planDetails);
                 this.totalEndowment += plans[i].amount;
-                this.projectedReturns += plans[i].amount * listingDetails.interest_pa;
-                this.value += plans[i].amount * listingDetails.interest_pa / this.goal * 100
+                this.projectedReturns += plans[i].amount * listingDetails.interest_pa * listingDetails.min_years;
+                console.log('returns guaranteed', listingDetails.returns_guaranteed)
+                this.value += (plans[i].amount * listingDetails.interest_pa * listingDetails.min_years) / this.goal * 100 
                 
                 if (listingDetails.returns_guaranteed) {
-                  this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa;
+                  this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa * listingDetails.min_years;
                 }
                 if (listingDetails.capital_guaranteed) {
                   this.capitalGuaranteed += plans[i].amount

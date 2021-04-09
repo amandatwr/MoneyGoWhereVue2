@@ -6,18 +6,19 @@
     <div class='container'>
     <v-card class='my-progress-card flex align-vertical-center'>
     <div class='header-container my-progress-text'>
-    <h3 class='my-progress-text'>My Progress</h3>
+    <h3 class='my-progress-text'><b>My Progress</b></h3>
     </div>
-    <div class='progress-bar-container align-vertical-center flex'>
+    <div class='progress-bar-container align-vertical-center flex flex-vertical'>
      <v-progress-linear
       :rounded="true"
       :height="20"
       :value="value"
       color="#192841"
-      
-    ><template v-slot="{ value }">
-        <strong>{{value}}%</strong>
-      </template></v-progress-linear>
+    ></v-progress-linear>
+    <p>{{projectedReturns}}</p>
+    </div>
+    <div>
+    <h3>{{value}}</h3>
     </div>
     </v-card>
     <v-card class='test'
@@ -55,7 +56,8 @@ export default {
     return {
         plans:[],
         value: 0,
-        goal: null
+        goal: null,
+        projectedReturns: 0
     };
   },
 
@@ -99,7 +101,8 @@ components: {
               .get()
               .then((listing) => {
                 var listingDetails = listing.data();
-                this.value += plans[i].amount * listingDetails.interest_pa / this.goal * 100
+                this.projectedReturns += plans[i].amount * listingDetails.interest_pa * listingDetails.min_years
+                this.value += plans[i].amount * listingDetails.interest_pa * listingDetails.min_years/ this.goal * 100
               })}
         });          
     },
@@ -141,7 +144,7 @@ components: {
 .progress-bar-container {
   height: 100px;
   width: 100%;
-  padding: 0 40px;
+  padding: 25px 40px 0 40px;
 }
 
 .my-progress-card {
@@ -150,10 +153,15 @@ components: {
 
 .align-vertical-center {
   align-items: center;
+  justify-content: center;
 }
 
 .my-progress-text {
-  width: 175px;
+  width: 190px;
   padding-left: 20px;
+}
+
+.flex-vertical {
+  flex-direction: column;
 }
 </style>
