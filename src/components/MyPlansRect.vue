@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="myplan-card" v-if="havePlans">
+    <v-card class="myplan-card">
       <div class="a">
         <button
           v-bind:id="plan.id"
@@ -84,9 +84,9 @@ export default {
         .then((querySnapShot) => {
           var plans = querySnapShot.data().plans;
           this.plansRaw = plans;
-          if (this.plans != null) {
-            this.havePlans = true;
-          }
+          // if (this.plans != null) {
+          //   this.havePlans = true;
+          // }
           for (let i = 0; i < plans.length; i++) {
             var planID = plans[i].planID;
             database
@@ -180,7 +180,7 @@ export default {
 }
 
 .editButton {
-  border: solid;
+  /* border: solid; */
   background-image: url("../assets/editplan.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -189,7 +189,7 @@ export default {
   max-width: 6px;
   color: black;
   display: inline-block;
-  margin-left: 900px;
+  margin-left: 700px;
   /* margin-bottom: 270px; */
   margin-top: 15px;
   margin-right: 0px;
@@ -197,9 +197,9 @@ export default {
 }
 
 .delButton {
-  border: solid;
+  /* border: solid; */
   background-image: url("../assets/delbutton.png");
-  background-size: 16px 16px;
+  background-size: contain;
   background-repeat: no-repeat;
   height: 16px;
   width: 5px;
