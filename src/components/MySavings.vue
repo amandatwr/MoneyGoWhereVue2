@@ -1,43 +1,45 @@
 <template>
   <div>
-  <AccountBanner></AccountBanner>
-    <div class='flex'>
-    <Profile class='profile'></Profile>
-    <div class='container'>
-    <v-card class='my-progress-card flex align-vertical-center'>
-    <div class='header-container my-progress-text'>
-    <h3 class='my-progress-text'><b>My Progress</b></h3>
+    <AccountBanner></AccountBanner>
+    <div class="flex">
+      <Profile class="profile"></Profile>
+      <div class="container">
+        <v-card class="my-progress-card ">
+        <div class='my-progress-card-contents flex align-vertical-center'>
+          <div class="header-container my-progress-text">
+            <h3 class="my-progress-text"><b>My Progress</b></h3>
+          </div>
+          <div
+            class="progress-bar-container align-vertical-center flex flex-vertical"
+          >
+            <v-progress-linear
+              :rounded="true"
+              :height="20"
+              :value="value"
+              color="#192841"
+            ></v-progress-linear>
+            <p>{{ this.formatter().format(projectedReturns) }} of {{this.formatter().format(goal)}}</p>
+          </div>
+          <div>
+            <h3>{{ Math.round(value * 100) / 100 }}%</h3>
+          </div>
+          </div>
+        </v-card>
+        <v-card class="test" min-width="85%">
+          <div class="header-container padding-top-30">
+            <h1>My Savings Plans</h1>
+          </div>
+          <div class="savings">
+            <EditPlan></EditPlan>
+            <br />
+            <AddPlan v-on:wantPlanUpdate="fetchItems" />
+          </div>
+        </v-card>
+      </div>
+      <!-- <EditGoals></EditGoals> -->
+      <!-- <br><br><br><br><br><br> -->
     </div>
-    <div class='progress-bar-container align-vertical-center flex flex-vertical'>
-     <v-progress-linear
-      :rounded="true"
-      :height="20"
-      :value="value"
-      color="#192841"
-    ></v-progress-linear>
-    <p>{{projectedReturns}}</p>
-    </div>
-    <div>
-    <h3>{{value}}</h3>
-    </div>
-    </v-card>
-    <v-card class='test'
-    min-width='85%'>
-    <div class='header-container'>
-    <h1>My Savings</h1>
-    </div>
-    <div class='savings'>
-    <EditPlan></EditPlan>
-    <br>
-    <AddPlan  v-on:wantPlanUpdate="fetchItems" />
-    </div>
-  
-    </v-card>
-    </div>
-    <!-- <EditGoals></EditGoals> -->
-    <!-- <br><br><br><br><br><br> -->
-    </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -106,8 +108,14 @@ components: {
               })}
         });          
     },
-    
-  },
+    formatter: function () {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+      })
+    }
+},
 
   created() {
     this.fetchItems();
@@ -137,18 +145,19 @@ components: {
 }
 
 .test {
-  padding:0;
+  padding: 0;
   margin: 0;
 }
 
 .progress-bar-container {
   height: 100px;
   width: 100%;
-  padding: 25px 40px 0 40px;
+  padding: 40px 40px 0 0px;
 }
 
 .my-progress-card {
   margin-bottom: 20px;
+  height: 105px;
 }
 
 .align-vertical-center {
@@ -158,10 +167,17 @@ components: {
 
 .my-progress-text {
   width: 190px;
-  padding-left: 20px;
 }
 
 .flex-vertical {
   flex-direction: column;
+}
+
+.my-progress-card-contents {
+  padding: 0px 10%;
+}
+
+.padding-top-30 {
+  padding-top: 30px;
 }
 </style>
