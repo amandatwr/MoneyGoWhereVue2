@@ -2,7 +2,7 @@
   <div>
     <v-card class="myplan-card">
       <div class="flexWrap">
-        <div class="displayImage"> <img v-bind:src="plan.image" alt="planpic"></div>
+        <!-- <div class="displayImage"> <img v-bind:src="plan.image" alt="planpic"></div> -->
         <div class="content">
           <div class="a">
             <button
