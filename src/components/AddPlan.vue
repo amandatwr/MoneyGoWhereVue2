@@ -2,7 +2,6 @@
   <div class="addNew">
     <div class="tooltip">
     <button class="addButton" @click="show_form = !show_form"></button>
-    
       <span class="tooltiptext">
       Click here to add a plan to your dashboard!
       </span>
@@ -197,28 +196,37 @@ button:hover {
   display: inline-block;
 }
 
+
+
 .tooltip {
   position: relative;
   display: inline-block;
+
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 200px;
+  width: 300px;
   background-color: black;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;  
-  /* Position the tooltip */
+  padding: 5px 0;
   position: absolute;
   z-index: 1;
-  top: 100%;
+  bottom: 100%;
   left: 50%;
-  margin-left: -100px;
+  margin-left: -150px;
+  
+  /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+  opacity: 1;
 }
+
+
 </style>
