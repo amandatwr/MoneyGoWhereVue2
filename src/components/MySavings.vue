@@ -7,7 +7,7 @@
         <v-card class="my-progress-card ">
         <div class='my-progress-card-contents flex align-vertical-center'>
           <div class="header-container my-progress-text">
-            <h3 class="my-progress-text"><b>My Progress</b></h3>
+            <h2 class="my-progress-text"><b>My Goal</b></h2>
           </div>
           <div
             class="progress-bar-container align-vertical-center flex flex-vertical"
@@ -21,7 +21,7 @@
             <p>{{ this.formatter().format(projectedReturns) }} of {{this.formatter().format(goal)}}</p>
           </div>
           <div>
-            <h3>{{ Math.round(value * 100) / 100 }}%</h3>
+            <h3 class='poppins'>{{ Math.round(value * 100) / 100 }}%</h3>
           </div>
           </div>
         </v-card>
@@ -124,6 +124,12 @@ components: {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "Poppins-Medium";
+  src: local("Poppins-Medium"),
+   url(../fonts/poppins/Poppins-Medium.ttf) format("truetype");
+}
+
 .flex {
   display: flex;
   padding: 50px 50px;
@@ -144,11 +150,6 @@ components: {
   width: 90%;
 }
 
-.test {
-  padding: 0;
-  margin: 0;
-}
-
 .progress-bar-container {
   height: 100px;
   width: 100%;
@@ -166,7 +167,7 @@ components: {
 }
 
 .my-progress-text {
-  width: 190px;
+  width: 150px;
 }
 
 .flex-vertical {
@@ -179,5 +180,9 @@ components: {
 
 .padding-top-30 {
   padding-top: 30px;
+}
+
+.poppins {
+  font-family: 'Poppins-Medium';
 }
 </style>

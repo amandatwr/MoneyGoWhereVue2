@@ -19,9 +19,10 @@ export default {
       },
       options: {
         title: {
-          display: true,
+          display: false,
           text: "Monthly STI Index",
           fontSize: 20,
+          fontStyle: "Poppins-EM",
         },
         legend: {
           display: false,

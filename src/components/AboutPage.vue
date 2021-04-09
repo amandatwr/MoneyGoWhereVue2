@@ -103,7 +103,8 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 15% ;
+  padding: 0 7% ;
+  width: 100%
 }
 
 

@@ -54,7 +54,7 @@
 
       <div class="dashboard-row">
         <v-card class="card market-performance-card">
-        <h2 class="heading">Summary</h2>
+        <h2 class="heading poppins my-summary-heading">Summary</h2>
           <v-data-table
             :items="plans"
             :headers="headers"
@@ -72,14 +72,14 @@
     </div>
         </v-card>
         <v-card class="card savings-distribution-card">
-        <h2>My Goal</h2>
+        <h2 class='poppins my-goal-heading'>My Goal</h2>
         <v-progress-circular class='progress-bar'
       :rotate="90"
-      :size="225"
+      :size="200"
       :width="12.5"
       :value="value"
       color="#282726"
-    ><h2>Progress<br>{{ Math.round(value * 100) / 100}}%</h2>
+    ><h4 class='poppins'>{{ Math.round(value * 100) / 100}}%<br>attained</h4>
    
       
     </v-progress-circular>
@@ -89,13 +89,14 @@
 
       <div class="dashboard-row last-row">
         <v-card class="card market-performance-card">
+         <h2 class="heading poppins my-summary-heading">Monthly STI Index</h2>
           <market-performance
-            class="market-performance-canvas"
+            class="market-performance-canvas "
           ></market-performance
         ></v-card>
         <v-card class="card savings-distribution-card"
           >
-          <h3>Savings Distribution</h3>
+          <h2 class="heading poppins">Savings Distribution</h2>
           <div v-if='!hasPlans'><p>No data available</p></div>
           <savings-distribution v-if='hasPlans'
             class="savings-distribution-canvas"
@@ -114,6 +115,7 @@ import firebase from "firebase";
 import MarketPerformance from "../charts/marketperformance.js";
 import SavingsDistribution from "../charts/savingsdistribution.js";
 import Profile from './Profile.vue'
+
 
 export default {
   data() {
@@ -211,6 +213,11 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "Poppins-Medium";
+  src: local("Poppins-Medium"),
+   url(../fonts/poppins/Poppins-Medium.ttf) format("truetype");
+}
 
 .header {
   text-align: center;
@@ -236,7 +243,7 @@ export default {
 .card {
   margin: 0 25px;
   padding: 3%;
-  height: 375px;
+  height: 400px;
   padding-top: 0;
 }
 .market-performance-card {
@@ -248,7 +255,7 @@ export default {
   width: 100%;
 }
 .progress-bar-card {
-  width: 30%;
+  width: 40%;
   padding: 0;
   margin: 0;
 }
@@ -277,8 +284,9 @@ export default {
 .heading {
   text-align: center;
   padding: 0;
-  margin: -5px 0;
+  margin: 0px 0;
 }
+
 .heading > h2 {
   font-size: 40px !important;
   font-style: bold;
@@ -359,6 +367,22 @@ export default {
   background-size: cover;
   height: 240px;
   background-position: 0% 50%;
+}
+
+.inherit {
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.poppins {
+  font-family: 'Poppins-Medium';
+}
+
+.my-summary-heading {
+  margin: 5px 0 10px 0;
+}
+
+.my-goal-heading {
+  margin-top: 10px;
 }
 
 </style>
