@@ -4,7 +4,7 @@
     <div class="flex">
       <Profile class="profile"></Profile>
       <div class="container">
-        <v-card class="my-progress-card ">
+        <!-- <v-card class="my-progress-card ">
         <div class='my-progress-card-contents flex align-vertical-center'>
           <div class="header-container my-progress-text">
             <h2 class="my-progress-text"><b>My Goal</b></h2>
@@ -24,7 +24,7 @@
             <h3 class='poppins'>{{ Math.round(value * 100) / 100 }}%</h3>
           </div>
           </div>
-        </v-card>
+        </v-card> -->
         <v-card class="test" min-width="85%">
           <div class="header-container padding-top-30">
             <h1>My Savings Plans</h1>
