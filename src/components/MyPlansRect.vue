@@ -1,55 +1,97 @@
 <template>
   <div>
-    <v-card class="myplan-card">
-      <div class="flexWrap">
-        <div class="displayImage"><v-card><img v-bind:id ="plan.id" :src="plan.image" width="200" height="150"></v-card></div>
-        <div class="content">
-          <div class="a">
-            <button
-              v-bind:id="plan.id"
-              class="editButton"
-              v-on:click="show_form = !show_form"
-            ></button>
-            <!-- @submit.prevent="delItems" -->
-            <button
-              v-bind:id="plan.id"
-              class="delButton"
-              v-on:click="delItems()"
-            ></button>
-          </div>
-          <div class="tooltip">
-            <!-- <img src=plan.image width= "120" height="100"> -->
-            <!-- <img v-bind:id ="plan.id" v-bind:src="plan.image" alt="planpic"> -->
-            <p id="name">
-              <b>{{ plan.name }}</b>
-            </p>
-            <p id="provider">{{ plan.provider }}</p>
-            <h3 text-align:center id="amount">{{ plan.amount }}</h3>
-            <span class="tooltiptext">
-              Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
-              {{ plan.capital_guaranteed }}<br />
-              Min. no. of Years: {{ plan.min_years }}</span
-            >
-          </div>
-        </div>
-      </div>
-    </v-card>
+    <v-card>
+    <!-- Each plan is a card -->
+    <div class="d-flex flex-no-wrap">
+      <!-- Put the image on the left -->
+      <v-img class="rounded-l" :src="plan.image" max-width="200" />
+      <!-- Put the content on the right -->
+      <div class="flex-grow-1">
+        <!-- Content should take up as much space (flex-grow) -->
 
-    <div v-if="show_form">
-      <!-- when the form is submitted, edit plan amount to the database -->
-      <!-- .prevent prevents the submission event from "reloading" the page -->
-      <v-card class="editcard">
-        <form @submit.prevent="editAmount">
-          <label> Edit Amount: </label>
-          <input
+        <!-- In the content, we have the title, subtitle and action buttons -->
+        <div class="d-flex">
+          <!-- Put the title and subtile on the left of the action buttons -->
+          <div class="flex-grow-1">
+            <!-- Title and subtitle should take up as much space (flex-grow) -->
+            <v-card-title class="prevent-break">{{ plan.name }}</v-card-title>
+            <v-card-subtitle>{{ plan.provider }}</v-card-subtitle>
+          </div>
+
+          <!-- Put the action buttons on the right -->
+          <v-card-actions>
+            <!-- Provide a tooltip for the edit and close button -->
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on: tooltip }">
+                <!-- When the button is clicked, we flip the component state into show_form state. Setting planAmount forces planAmount to be updated always when the edit button is pressed -->
+                <v-btn
+                  icon
+                  v-on="{ ...tooltip }"
+                  @click="
+                    show_form = !show_form;
+                    planAmount = plan.amount;
+                  "
+                >
+                  <v-icon v-if="show_form">mdi-close</v-icon>
+                  <v-icon v-else>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+              <span v-if="show_form">Cancel</span>
+              <span v-else>Edit</span>
+            </v-tooltip>
+
+            <!-- Provide a tooltip for the delete button -->
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on: tooltip }">
+                <v-btn
+                  icon
+                  color="error"
+                  v-on="{ ...tooltip }"
+                  @click="deletePlan"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </template>
+              <span>Delete</span>
+            </v-tooltip>
+          </v-card-actions>
+        </div>
+
+        <!-- Show amount under the title, subtitle and action buttons -->
+        <v-card-text class="fixed-height">
+          <!-- If not in the show_form state, show a formatted version of the currency -->
+          <div class="display-1" v-if="!show_form">
+            {{ plan.amount }}
+          </div>
+          <!-- If in the show_form state, show text input with a save button -->
+          <v-text-field
             type="number"
-            min="0"
+            class="pt-0"
+            v-else
             v-model="planAmount"
-            placeholder="Enter Value"
-          />
-        </form>
-      </v-card>
+            prefix="$"
+          >
+            <!-- v-text-field allows for appended elements. We put a tooltip and button there -->
+            <template v-slot:append-outer>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on: tooltip }">
+                  <v-btn
+                    icon
+                    color="success"
+                    v-on="{ ...tooltip }"
+                    @click="editAmount"
+                  >
+                    <v-icon>mdi-content-save</v-icon>
+                  </v-btn>
+                </template>
+                <span>Save</span>
+              </v-tooltip>
+            </template>
+          </v-text-field>
+        </v-card-text>
+      </div>
     </div>
+  </v-card>
   </div>
 </template>
 
@@ -140,7 +182,7 @@ export default {
       // alert('updated')
     },
 
-    delItems: async function () {
+    deletePlan: async function () {
       this.plansRaw.splice(this.myIndex, 1);
       var user = firebase.auth().currentUser;
       await database.collection("TestUsers").doc(user.uid).update({
@@ -165,13 +207,21 @@ export default {
       return Math.floor((from - to) / 86400000);
     },
 
-    formatter: function () {
+    formatter: function (value, currency = "USD") {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD",
+        currency,
         minimumFractionDigits: 2,
-      });
+      }).format(value);
     },
+
+    // formatter: function () {
+    //   return new Intl.NumberFormat("en-US", {
+    //     style: "currency",
+    //     currency: "USD",
+    //     minimumFractionDigits: 2,
+    //   });
+    // },
   },
   created() {
     this.fetchItems();
@@ -180,6 +230,14 @@ export default {
 </script>
 
 <style scoped>
+.fixed-height {
+  /* Keep a fixed height for the textarea and amount, reducing jumping */
+  height: 5.5em;
+}
+.prevent-break {
+  word-break: break-word;
+}
+
 #a {
   display: inline-block;
   vertical-align: middle;
