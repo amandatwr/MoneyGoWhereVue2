@@ -139,22 +139,7 @@ h6 {
   text-justify: auto;
 }
 
-#listings {
-  /* padding-top: 10px; */
-  text-align: center;
-}
 
-#name {
-  font-size: 18px;
-  white-space: nowrap;
-  text-align: center;
-}
-
-#provider {
-  font-size: 14px;
-  white-space: nowrap;
-  text-align: center;
-}
 
 ul {
   display: flex;

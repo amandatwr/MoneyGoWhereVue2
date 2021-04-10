@@ -4,7 +4,7 @@
     <!-- Each plan is a card -->
     <div class="d-flex flex-no-wrap">
       <!-- Put the image on the left -->
-      <v-img class="rounded-l" :src="plan.image" max-width="200" />
+      <v-img class="rounded-l" :src="plan.image" max-width="250" />
       <!-- Put the content on the right -->
       <div class="flex-grow-1">
         <!-- Content should take up as much space (flex-grow) -->
@@ -340,27 +340,19 @@ export default {
   visibility: visible;
 }
 
-h6 {
-  color: black;
-  text-align: center;
-  text-justify: auto;
-}
 
-#listings {
-  /* padding-top: 100px; */
-  text-align: center;
-}
+
 
 #name {
   font-size: 18px;
   white-space: nowrap;
-  text-align: center;
+
 }
 
 #provider {
   font-size: 14px;
   white-space: nowrap;
-  text-align: center;
+ 
 }
 
 ul {
