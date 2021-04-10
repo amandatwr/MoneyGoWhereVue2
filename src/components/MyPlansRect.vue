@@ -2,7 +2,7 @@
   <div>
     <v-card class="myplan-card">
       <div class="flexWrap">
-        <!-- <div class="displayImage"> <img v-bind:id ="plan.id" v-bind:src="plan.image" alt="planpic"></div> -->
+        <div class="displayImage"><v-card><img v-bind:id ="plan.id" :src="plan.image" width="200" height="150"></v-card></div>
         <div class="content">
           <div class="a">
             <button
@@ -19,6 +19,7 @@
           </div>
           <div class="tooltip">
             <!-- <img src=plan.image width= "120" height="100"> -->
+            <!-- <img v-bind:id ="plan.id" v-bind:src="plan.image" alt="planpic"> -->
             <p id="name">
               <b>{{ plan.name }}</b>
             </p>
@@ -127,10 +128,10 @@ export default {
         });
     },
     editAmount: async function () {
+      
       // console.log(this.myIndex);
       // console.log(typeof parseFloat(this.planAmount));
       this.plansRaw[this.myIndex].amount = parseFloat(this.planAmount);
-      // console.log(this.plansRaw);
       var user = firebase.auth().currentUser;
       await database.collection("TestUsers").doc(user.uid).update({
         plans: this.plansRaw,
@@ -217,13 +218,24 @@ export default {
   vertical-align: middle;
 }
 
+.button{
+  margin:0px;
+  padding:0px;
+}
+
 .displayImage {
+  margin:20px;
   height: 40px;
-  width: 60px;
+  width: 40px;
+}
+
+.content {
+  margin:auto;
 }
 
 .flexWrap {
   display: inline-block;
+  flex: 1 1 25%;
 }
 
 .tooltip {
