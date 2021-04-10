@@ -80,6 +80,7 @@ export default {
                 planDetails["dateSaved"] = plans[i].dateSaved
                   .toDate()
                   .toLocaleDateString();
+                planDetails["image"] = listingDetails.image;  
                 planDetails["dateWithdraw"] = this.getReturnsDate(
                   plans[i].dateSaved.toDate(),
                   listingDetails.min_years
@@ -131,22 +132,6 @@ export default {
 </script>
 
 <style scoped>
-/* .editButton {
-  background-image: url("../assets/editplan.png");
-  background-size: 16px 16px;
-  background-repeat: no-repeat;
-  height: 16px;
-  width: 16px;
-  color: black;
-  margin-left: 270px;
-  margin-bottom: 270px;
-  margin-top: 10px;
-  margin-right: 10px;
-} */
-
-
-
-
 
 h6 {
   color: black;
