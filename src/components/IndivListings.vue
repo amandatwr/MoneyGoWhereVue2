@@ -85,6 +85,7 @@ ul li::before {
 #name {
     font-size: 45px;
     color: black;
+    font-family: Poppins-Regular;
 }
 
 #provider {
@@ -92,7 +93,7 @@ ul li::before {
 }
 
 #text {
-
+    font-family: Poppins-Regular;
 }
 
 img {
@@ -103,6 +104,17 @@ img {
     display: inline-block;
     border: 1px solid black;
     color: black;
+    font-size: 18px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+#site:hover {
+    display: inline-block;
+    border: 1px solid black;
+    color: white;
+    background-color: #192841;
     font-size: 18px;
     padding: 10px;
     box-sizing: border-box;
@@ -127,11 +139,13 @@ img {
 
 #feature {
     text-align: left;
+    font-family: Poppins-Regular;
 }
 
 #content {
     text-align: left;
     font-size: 20px;
+    font-family: Poppins-Regular;
 }
 
 #points {
