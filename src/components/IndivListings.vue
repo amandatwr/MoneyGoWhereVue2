@@ -103,8 +103,8 @@ img {
 #site {
     font-family: Poppins-Regular;
     display: inline-block;
-    border: 1px solid black;
-    color: black;
+    border: 1px solid grey;
+    color: #545454;
     font-size: 18px;
     padding: 10px;
     box-sizing: border-box;
