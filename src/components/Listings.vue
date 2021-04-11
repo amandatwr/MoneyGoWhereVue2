@@ -173,8 +173,8 @@ export default {
 }
 
 .note {
-    font-size: 18px;
-    font-family: Poppins-Regular;
+    font-size: 20px;
+    font-family: inherit;
     /* font-size: 14px; */
     line-height: 1.7;
     color: #666666;
