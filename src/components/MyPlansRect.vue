@@ -3,12 +3,14 @@
     <v-card>
     <!-- Each plan is a card -->
     <div class="d-flex flex-no-wrap">
+      
       <!-- Put the image on the left -->
-      <v-img class="rounded-l" :src="plan.image" max-width="250" />
+      <v-img class="rounded-l" :src="plan.image" max-width="300" />
       <!-- Put the content on the right -->
       <div class="flex-grow-1">
         <!-- Content should take up as much space (flex-grow) -->
 
+        
         <!-- In the content, we have the title, subtitle and action buttons -->
         <div class="d-flex">
           <!-- Put the title and subtile on the left of the action buttons -->
@@ -17,6 +19,14 @@
             <v-card-title class="prevent-break">{{ plan.name }}</v-card-title>
             <v-card-subtitle>{{ plan.provider }}</v-card-subtitle>
           </div>
+          <!-- <v-tooltip right>
+            <template v-slot:activator="{ on: tooltip }">
+              <span>
+              Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
+              {{ plan.capital_guaranteed }}<br />
+              Min. no. of Years: {{ plan.min_years }}</span>
+            </template>
+          </v-tooltip> -->
 
           <!-- Put the action buttons on the right -->
           <v-card-actions>
@@ -56,7 +66,7 @@
             </v-tooltip>
           </v-card-actions>
         </div>
-
+        
         <!-- Show amount under the title, subtitle and action buttons -->
         <v-card-text class="fixed-height">
           <!-- If not in the show_form state, show a formatted version of the currency -->
@@ -89,6 +99,7 @@
             </template>
           </v-text-field>
         </v-card-text>
+        
       </div>
     </div>
   </v-card>
@@ -132,17 +143,16 @@ export default {
         .then((querySnapShot) => {
           var plans = querySnapShot.data().plans;
           this.plansRaw = plans;
-          // if (this.plans != null) {
-          //   this.havePlans = true;
-          // }
+          
+          //Map every plan to a promise returning the plan
+          var planPromises = plans.map(plan => database.collection("listings").doc(plan.planID).get());
+
+          //wait for all promises
+          Promise.all(planPromises).then(plans => {
+
           for (let i = 0; i < plans.length; i++) {
-            var planID = plans[i].planID;
-            database
-              .collection("Listings")
-              .doc(planID)
-              .get()
-              .then((listing) => {
-                var listingDetails = listing.data();
+              
+                var listingDetails = plans[i].data();
                 var planDetails = {};
                 planDetails["name"] = listingDetails.name;
                 planDetails["provider"] = listingDetails.provider;
@@ -164,9 +174,10 @@ export default {
                   plans[i].dateSaved.toDate(),
                   listingDetails.min_years
                 ).toLocaleDateString();
-                this.plans.push(planDetails);
-              });
-          }
+            }
+
+            });
+        
         });
     },
     editAmount: async function () {
@@ -299,8 +310,8 @@ export default {
 .tooltip {
   position: relative;
   display: inline-block;
-  height: 200px;
-  width: 30em;
+  height: 10px;
+  width: 300px;
   vertical-align: middle;
   /* border: solid;
   border-color: #e1c9c5; */
