@@ -173,8 +173,8 @@ export default {
 }
 
 .note {
-    font-size: 18px;
-    font-family: Poppins-Regular;
+    font-size: 20px;
+    font-family: inherit;
     /* font-size: 14px; */
     line-height: 1.7;
     color: #666666;
@@ -199,6 +199,7 @@ export default {
 }
 
 button {
+    font-family: Poppins-Regular;
     background-color: white;
     color: #545454;
     border: 1px solid grey;
@@ -219,6 +220,7 @@ button:hover {
 }
 
 #subheader {
+    font-family: inherit;
     font-size: 30px;
     text-align: center;
 }
