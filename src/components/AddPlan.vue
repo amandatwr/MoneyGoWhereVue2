@@ -1,7 +1,7 @@
 <template>
   <div class="addNew">
     <div class="tooltip">
-    <button class="addButton" @click="show_form = !show_form"></button>
+    <button class="addButton" @click="show_form = !show_form; togglePopup()"></button>
       <span class="tooltiptext">
       Click here to add a plan to your dashboard!
       </span>
@@ -43,6 +43,50 @@
         </form>
       </v-card>
     </div>
+    <div class="popup" id="popup-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" @click="togglePopup">&times;</div>
+                <div v-if="show_form" class="centerimg2">
+                <!-- when the form is submitted, add the plan to the database -->
+                <!-- .prevent prevents the submission event from "reloading" the page -->
+                <v-card v-if="show_form" class="card">
+                  <br />
+                  <form @submit.prevent="addPlan">
+                    <label>Add a Plan: </label>
+                    <!-- Bidirectionally bind planSelect to this select element -->
+                    <select v-model="planSelect" class="drawbox">
+                      <option
+                        v-for="plan in plans"
+                        v-bind:key="plan.name"
+                        v-bind:value="plan.id"
+                      >
+                        {{ plan.name }}
+                      </option>
+                      <!-- <option value="other">Other</option> -->
+                    </select>
+
+                    <!-- Bidirectionally bind planAmount -->
+                    <br />
+                    Amount:
+                    <input
+                      type="number"
+                      v-model="planAmount"
+                      style="width:174px"
+                      placeholder="Enter Amount Saved"
+                    />
+                    <br /><br />
+                    <button type="submit"
+                      class="submitbutton"
+                    >
+                      Submit
+                    </button>
+                    <div v-if='error'><p class='alert'>{{this.errorMessage}}</p></div>
+                  </form>
+                </v-card>
+              </div>
+            </div>
+      </div>
     <br /><br /><br />
   </div>
 </template>
@@ -111,6 +155,9 @@ export default {
     }
 
     },
+    togglePopup: function() {
+            document.getElementById("popup-1").classList.toggle("active");
+    },
   },
   
 
@@ -167,7 +214,7 @@ button:hover {
   width: 70%;
   font-size: 18px;
   justify-content: center;
-  font-family: Optima;
+  font-family: Poppins-Regular;
 }
 
 .centerimg2 {
@@ -181,6 +228,7 @@ button:hover {
   margin: 0px 20px;
   padding: 5%;
   height: 200px;
+  font-family: Poppins-Regular;
 }
 
 .drawbox {
@@ -226,6 +274,59 @@ button:hover {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.popup .overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    display: none;
+    overflow: auto;
+}
+
+.popup .content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    width: 800px;
+    max-height: 560px;
+    z-index: 2;
+    text-align: center;
+    padding: 10px 10px 40px 10px;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    overflow: auto;
+}
+
+.popup .close-btn {
+    cursor: pointer;
+    position: sticky;
+    left: 95%;
+    top: 0%;
+    width: 40px;
+    height: 40px;
+    background: #222;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%
+}
+
+.popup.active .overlay {
+    display: block;
+}
+
+.popup.active .content {
+    transition: all 300ms ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 
