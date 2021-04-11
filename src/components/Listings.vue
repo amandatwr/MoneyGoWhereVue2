@@ -199,6 +199,7 @@ export default {
 }
 
 button {
+    font-family: "poppins medium";
     background-color: white;
     color: #545454;
     border: 1px solid grey;
