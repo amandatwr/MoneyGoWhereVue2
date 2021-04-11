@@ -220,6 +220,7 @@ button:hover {
 }
 
 #subheader {
+    font-family: inherit;
     font-size: 30px;
     text-align: center;
 }
