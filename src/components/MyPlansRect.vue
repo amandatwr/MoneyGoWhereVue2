@@ -1,5 +1,7 @@
 <template>
   <div>
+    <v-tooltip right>
+    <template v-slot:activator="{ on: tooltip }">
     <v-card>
     <!-- Each plan is a card -->
     <div class="d-flex flex-no-wrap">
@@ -10,24 +12,17 @@
       <div class="flex-grow-1">
         <!-- Content should take up as much space (flex-grow) -->
 
-        
+      
         <!-- In the content, we have the title, subtitle and action buttons -->
-        <div class="d-flex">
+        <div class="d-flex" >
+          
           <!-- Put the title and subtile on the left of the action buttons -->
-          <div class="flex-grow-1">
+          <div class="flex-grow-1" v-on="{ ...tooltip }">
             <!-- Title and subtitle should take up as much space (flex-grow) -->
             <v-card-title class="prevent-break">{{ plan.name }}</v-card-title>
             <v-card-subtitle>{{ plan.provider }}</v-card-subtitle>
           </div>
-          <!-- <v-tooltip right>
-            <template v-slot:activator="{ on: tooltip }">
-              <span>
-              Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
-              {{ plan.capital_guaranteed }}<br />
-              Min. no. of Years: {{ plan.min_years }}</span>
-            </template>
-          </v-tooltip> -->
-
+          
           <!-- Put the action buttons on the right -->
           <v-card-actions>
             <!-- Provide a tooltip for the edit and close button -->
@@ -101,8 +96,16 @@
         </v-card-text>
         
       </div>
+      
     </div>
   </v-card>
+  </template>
+  <span>
+  Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
+  {{ plan.capital_guaranteed }}<br />
+  Min. no. of Years: {{ plan.min_years }}</span>
+            
+  </v-tooltip>
   </div>
 </template>
 
@@ -143,45 +146,40 @@ export default {
         .then((querySnapShot) => {
           var plans = querySnapShot.data().plans;
           this.plansRaw = plans;
-          
+
           //Map every plan to a promise returning the plan
-          var planPromises = plans.map(plan => database.collection("listings").doc(plan.planID).get());
+          var planPromises = plans.map((plan) =>
+            database.collection("listings").doc(plan.planID).get()
+          );
 
           //wait for all promises
-          Promise.all(planPromises).then(plans => {
-
-          for (let i = 0; i < plans.length; i++) {
-              
-                var listingDetails = plans[i].data();
-                var planDetails = {};
-                planDetails["name"] = listingDetails.name;
-                planDetails["provider"] = listingDetails.provider;
-                planDetails["interest"] = this.round(
-                  100 * listingDetails.interest_pa,
-                  2
-                );
-                planDetails["image"] = listingDetails.image;
-                planDetails["capital_guaranteed"] =
-                  listingDetails.capital_guaranteed;
-                planDetails["min_years"] = listingDetails.min_years;
-                planDetails["amount"] = this.formatter().format(
-                  plans[i].amount
-                );
-                planDetails["dateSaved"] = plans[i].dateSaved
-                  .toDate()
-                  .toLocaleDateString();
-                planDetails["dateWithdraw"] = this.getReturnsDate(
-                  plans[i].dateSaved.toDate(),
-                  listingDetails.min_years
-                ).toLocaleDateString();
+          Promise.all(planPromises).then((plans) => {
+            for (let i = 0; i < plans.length; i++) {
+              var listingDetails = plans[i].data();
+              var planDetails = {};
+              planDetails["name"] = listingDetails.name;
+              planDetails["provider"] = listingDetails.provider;
+              planDetails["interest"] = this.round(
+                100 * listingDetails.interest_pa,
+                2
+              );
+              planDetails["image"] = listingDetails.image;
+              planDetails["capital_guaranteed"] =
+                listingDetails.capital_guaranteed;
+              planDetails["min_years"] = listingDetails.min_years;
+              planDetails["amount"] = this.formatter().format(plans[i].amount);
+              planDetails["dateSaved"] = plans[i].dateSaved
+                .toDate()
+                .toLocaleDateString();
+              planDetails["dateWithdraw"] = this.getReturnsDate(
+                plans[i].dateSaved.toDate(),
+                listingDetails.min_years
+              ).toLocaleDateString();
             }
-
-            });
-        
+          });
         });
     },
     editAmount: async function () {
-      
       // console.log(this.myIndex);
       // console.log(typeof parseFloat(this.planAmount));
       this.plansRaw[this.myIndex].amount = parseFloat(this.planAmount);
@@ -287,19 +285,19 @@ export default {
   vertical-align: middle;
 }
 
-.button{
-  margin:0px;
-  padding:0px;
+.button {
+  margin: 0px;
+  padding: 0px;
 }
 
 .displayImage {
-  margin:20px;
+  margin: 20px;
   height: 40px;
   width: 40px;
 }
 
 .content {
-  margin:auto;
+  margin: auto;
 }
 
 .flexWrap {
@@ -351,19 +349,14 @@ export default {
   visibility: visible;
 }
 
-
-
-
 #name {
   font-size: 18px;
   white-space: nowrap;
-
 }
 
 #provider {
   font-size: 14px;
   white-space: nowrap;
- 
 }
 
 ul {
