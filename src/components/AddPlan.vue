@@ -6,51 +6,14 @@
       Click here to add a plan to your dashboard!
       </span>
     </div>
-    <div v-if="show_form" class="centerimg2">
-      <!-- when the form is submitted, add the plan to the database -->
-      <!-- .prevent prevents the submission event from "reloading" the page -->
-      <v-card class="card">
-        <br />
-        <form @submit.prevent="addPlan">
-          <label>Add a Plan: </label>
-          <!-- Bidirectionally bind planSelect to this select element -->
-          <select v-model="planSelect" class="drawbox">
-            <option
-              v-for="plan in plans"
-              v-bind:key="plan.name"
-              v-bind:value="plan.id"
-            >
-              {{ plan.name }}
-            </option>
-            <!-- <option value="other">Other</option> -->
-          </select>
-
-          <!-- Bidirectionally bind planAmount -->
-          <br />
-          Amount:
-          <input
-            type="number"
-            v-model="planAmount"
-            placeholder="Enter Amount Saved"
-          />
-          <br /><br />
-          <button type="submit"
-            class="submitbutton"
-          >
-            Submit
-          </button>
-          <div v-if='error'><p class='alert'>{{this.errorMessage}}</p></div>
-        </form>
-      </v-card>
-    </div>
     <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
                 <div class="close-btn" @click="togglePopup">&times;</div>
-                <div v-if="show_form" class="centerimg2">
+                <div class="centerimg2">
                 <!-- when the form is submitted, add the plan to the database -->
                 <!-- .prevent prevents the submission event from "reloading" the page -->
-                <v-card v-if="show_form" class="card">
+                <v-card class="card">
                   <br />
                   <form @submit.prevent="addPlan">
                     <label>Add a Plan: </label>
@@ -294,7 +257,7 @@ button:hover {
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
-    width: 800px;
+    width: 700px;
     max-height: 560px;
     z-index: 2;
     text-align: center;
