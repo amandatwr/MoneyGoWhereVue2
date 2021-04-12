@@ -103,7 +103,7 @@
   <span>
   Interest Rate: {{ plan.interest }}<br />Capital Guaranteed:
   {{ plan.capital_guaranteed }}<br />
-  Min. no. of Years: {{ plan.min_years }}</span>
+  Min. no. of Years: {{ plan.min_years }}<br /> Date Saved: {{ plan.dateSaved }}</span>
             
   </v-tooltip>
   </div>
