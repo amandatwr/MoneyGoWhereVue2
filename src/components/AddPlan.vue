@@ -13,12 +13,12 @@
                 <div class="centerimg2">
                 <!-- when the form is submitted, add the plan to the database -->
                 <!-- .prevent prevents the submission event from "reloading" the page -->
-                <v-card class="card">
+                <!-- <v-card class="card"> -->
                   <br />
                   <form @submit.prevent="addPlan">
                     <label>Add a Plan: </label>
                     <!-- Bidirectionally bind planSelect to this select element -->
-                    <select v-model="planSelect" class="drawbox">
+                    <select v-model="planSelect" class="drawbox" style="width:280px">
                       <option
                         v-for="plan in plans"
                         v-bind:key="plan.name"
@@ -35,7 +35,7 @@
                     <input
                       type="number"
                       v-model="planAmount"
-                      style="width:174px"
+                      style="width:200px"
                       placeholder="Enter Amount Saved"
                     />
                     <br /><br />
@@ -46,7 +46,7 @@
                     </button>
                     <div v-if='error'><p class='alert'>{{this.errorMessage}}</p></div>
                   </form>
-                </v-card>
+                <!-- </v-card> -->
               </div>
             </div>
       </div>

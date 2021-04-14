@@ -9,7 +9,7 @@ import IndivListings from "./../components/IndivListings.vue";
 import EditGoals from "./../components/EditGoals.vue";
 import MyPlansRect from "./../components/MyPlansRect.vue";
 import MySavings from "./../components/MySavings.vue";
-import AddPlan from "./../components/AddPlan.vue";
+import Profile from "./../components/Profile.vue";
 import EditPlan from "./../components/EditPlan.vue";
 import VueRouter from "vue-router";
 import firebase from "firebase";
@@ -93,8 +93,8 @@ let router = new VueRouter({
             },
         },
         {
-            path: "/addplan",
-            component: AddPlan,
+            path: "/profile",
+            component: Profile,
             meta: {
                 requiresAuth: true,
             },

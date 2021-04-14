@@ -1,30 +1,36 @@
 <template>
   <div>
     <AccountBanner></AccountBanner>
+    
     <div class="flex">
+      <div class="flex2">
       <Profile class="profile"></Profile>
-      <div class="container">
-        <!-- <v-card class="my-progress-card ">
+       <v-card class="my-progress-card ">
         <div class='my-progress-card-contents flex align-vertical-center'>
           <div class="header-container my-progress-text">
             <h2 class="my-progress-text"><b>My Goal</b></h2>
+            <br><br>
           </div>
           <div
             class="progress-bar-container align-vertical-center flex flex-vertical"
-          >
+          ><br>
             <v-progress-linear
               :rounded="true"
               :height="20"
               :value="value"
               color="#192841"
-            ></v-progress-linear>
+            ></v-progress-linear> <br>
             <p>{{ this.formatter().format(projectedReturns) }} of {{this.formatter().format(goal)}}</p>
-          </div>
+          </div><br>
           <div>
             <h3 class='poppins'>{{ Math.round(value * 100) / 100 }}%</h3>
           </div>
           </div>
-        </v-card> -->
+        </v-card>
+        </div>
+
+      <div class="container">
+        
         <v-card class="test" min-width="85%">
           <div class="header-container padding-top-30">
             <h1>My Savings Plans</h1>
@@ -135,6 +141,13 @@ components: {
   padding: 50px 50px;
 }
 
+.flex2 {
+  display: flex;
+  /* margin: 10px; */
+  /* padding: 50px 50px; */
+  flex-direction:column;
+}
+
 .profile {
   margin-right: 25px;
 }
@@ -157,8 +170,8 @@ components: {
 }
 
 .my-progress-card {
-  margin-bottom: 20px;
-  height: 105px;
+  margin-top: 20px;
+  width:250px;
 }
 
 .align-vertical-center {
