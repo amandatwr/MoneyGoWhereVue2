@@ -6,13 +6,13 @@
       <div class="flex2">
       <Profile class="profile"></Profile>
        <v-card class="my-progress-card ">
-        <div class='my-progress-card-contents flex align-vertical-center'>
+        <div class='my-progress-card-contents flex align-horizontal-center'>
           <div class="header-container my-progress-text">
             <h2 class="my-progress-text"><b>My Goal</b></h2>
             <br><br>
           </div>
           <div
-            class="progress-bar-container align-vertical-center flex flex-vertical"
+            class="progress-bar-container align-horizontal-center flex flex-vertical"
           ><br>
             <v-progress-linear
               :rounded="true"
@@ -164,7 +164,7 @@ components: {
 }
 
 .progress-bar-container {
-  height: 100px;
+  /* height: 100px; */
   width: 100%;
   padding: 40px 40px 0 0px;
 }
@@ -174,7 +174,7 @@ components: {
   width:250px;
 }
 
-.align-vertical-center {
+.align-horizontal-center {
   align-items: center;
   justify-content: center;
 }
@@ -184,7 +184,7 @@ components: {
 }
 
 .flex-vertical {
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .my-progress-card-contents {

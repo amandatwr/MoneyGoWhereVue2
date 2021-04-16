@@ -1,7 +1,7 @@
 <template>
   <div class="addNew">
     <div class="tooltip">
-    <button class="addButton" @click="show_form = !show_form; togglePopup()"></button>
+    <button @click="show_form = !show_form; togglePopup()">Add a Plan</button>
       <span class="tooltiptext">
       Click here to add a plan to your dashboard!
       </span>
@@ -14,11 +14,12 @@
                 <!-- when the form is submitted, add the plan to the database -->
                 <!-- .prevent prevents the submission event from "reloading" the page -->
                 <!-- <v-card class="card"> -->
-                  <br />
+                  
                   <form @submit.prevent="addPlan">
-                    <label>Add a Plan: </label>
+                    <label> Add a Plan </label><br><br>
+                    <label>Plan Name: </label>
                     <!-- Bidirectionally bind planSelect to this select element -->
-                    <select v-model="planSelect" class="drawbox" style="width:280px">
+                    <select v-model="planSelect" class="drawbox" style="width:300px">
                       <option
                         v-for="plan in plans"
                         v-bind:key="plan.name"
@@ -35,18 +36,19 @@
                     <input
                       type="number"
                       v-model="planAmount"
-                      style="width:200px"
+                      style="width:200px; padding-top:20px;"
                       placeholder="Enter Amount Saved"
                     />
-                    <br /><br />
+                    <br><br>
                     <button type="submit"
                       class="submitbutton"
                     >
-                      Submit
+                      Add
                     </button>
                     <div v-if='error'><p class='alert'>{{this.errorMessage}}</p></div>
                   </form>
                 <!-- </v-card> -->
+              
               </div>
             </div>
       </div>
@@ -145,6 +147,11 @@ export default {
   text-align: center;
 }
 
+.input{
+  padding : 20px;
+  margin-top:10px;
+}
+
 .addButton {
   background-image: url("../assets/addiconsq.png");
   background-size: 64px 64px;
@@ -156,14 +163,14 @@ export default {
   margin-bottom: 10px;
 }
 
-/* button {
+button {
     background-color: white;
     color: #545454;
     border: 1px solid grey;
     align-items: center;
     display: inline-block;
     padding: 13px 28px;
-} */
+}
 
 button:hover {
     background-color: #192841;
