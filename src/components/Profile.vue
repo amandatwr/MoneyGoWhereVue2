@@ -32,7 +32,8 @@
             type="file"
             v-on:change="chooseFile"
           />
-              <div class='button-container flex'><button v-on:click="upload">
+              <div class='button-container flex'><button class=
+            'button' v-on:click="upload">
                 Upload
               </button>
               </div>
@@ -119,7 +120,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "./../css/util.css";
 @import "./../css/main.css";
 
@@ -181,7 +182,7 @@ export default {
   height: 25px;
 }
 
-button {
+.button {
     font-family: Poppins-Regular;
     background-color: white;
     color: #545454;
@@ -191,7 +192,7 @@ button {
     padding: 13px 45px;
 }
 
-button:hover {
+.button:hover {
     background-color: #192841;
     color: white
 }
@@ -199,9 +200,4 @@ button:hover {
 .button-container {
   margin-top: 20px;
 }
-
-.overflow-hidden {
-  overflow: hidden;
-}
-
 </style>

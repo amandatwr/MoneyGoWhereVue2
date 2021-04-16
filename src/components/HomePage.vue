@@ -5,7 +5,7 @@
           <h1 class="company-name">MoneyGoWhere</h1>
            <transition name="fade" mode="out-in">
             <p key="1" class="tagline" v-if="generalText" style='font-family: inherit; font-weight:100;'>Your one stop platform for all things Savings.</p>
-            <p key="2" class="tagline" v-else-if="isUser">Start your journey with us today!</p>
+            <p key="2" class="tagline" v-else-if="isUser"  style='font-family: inherit; font-weight:100;'>Start your journey with us today!</p>
           </transition>
           <div class="banner-buttons">
           <router-link class="saver-button" to='/register' exact><button class="saver-button" @mouseover="toggleIsUser" @mouseout="toggleIsUser">Get Started</button></router-link>

@@ -11,10 +11,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-image: url("./../assets/account-banner.jpeg");
+  background-image: url("./../assets/test.jpg");
   background-size: cover;
   height: 300px;
-  background-position: 0% 50%;
+  background-position: 0% 22.5%;
 }
 
 </style>   

@@ -65,7 +65,7 @@
             <router-link class="w3-button" to="/mysavings">
               <div class="dropdown-item">
                 <img src="./../assets/chart-line.png" />
-                <div>My Savings</div>
+                <div>My Savings Plans</div>
               </div>
             </router-link>
             <router-link class="w3-bar-item w3-button" to="/dashboard">

@@ -162,6 +162,10 @@ export default {
       if (this.name == "") {
         this.error = true;
         this.errorMessage = "'Name' field required.";
+      } else if (this.goal < 0) {
+        this.error = true;
+        this.errorMessage="Invalid 'Goal' input amount."
+      
       } else {
         firebase
           .auth()
