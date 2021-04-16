@@ -9,6 +9,7 @@
     <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
+            <h1>hi</h1>
                 <div class="close-btn" @click="togglePopup">&times;</div>
                 <div class="centerimg2">
                 <!-- when the form is submitted, add the plan to the database -->
@@ -73,7 +74,7 @@ export default {
       planProvider: "",
       planID: "",
       error: false,
-			errorMessage: 'Invalid input Amount.'
+			errorMessage: 'Invalid input amount.'
     };
   },
   methods: {

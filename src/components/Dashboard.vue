@@ -1,10 +1,10 @@
 <template>
   <div class='outline'>
-   <div class="banner"><h1>MoneyGoWhere</h1></div>
+   <AccountBanner></AccountBanner>
   <div class='flex'>
   <Profile class='profile'></Profile>
   <v-card class="dashboard-card">
-  <h1 class='header'>Analytics Overview</h1>
+  <h1 class='header'>Analytics</h1>
     <div class="dashboard">
       <div class="dashboard-row first-row-alignment">
         <v-card class="card first-row">
@@ -35,7 +35,7 @@
         <v-card class="card first-row">
           <div class="content">
             <div class="heading">
-              <h2>{{ this.formatter().format(projectedReturns) }}</h2>
+              <h2>{{ this.formatter().format(projectedReturnsPerAnnum) }}</h2>
             </div>
             <div class="subheading"><p>Projected Returns (PR) Per Annum</p></div>
           </div>
@@ -83,7 +83,7 @@
    
       
     </v-progress-circular>
-     <p>You are at {{this.formatter().format(projectedReturns)}} of {{this.formatter().format(goal)}}</p>
+     <p>You are at {{this.formatter().format(projectedReturnsTotal)}} of {{this.formatter().format(goal)}}</p>
 </v-card>
       </div>
 
@@ -115,6 +115,7 @@ import firebase from "firebase";
 import MarketPerformance from "../charts/marketperformance.js";
 import SavingsDistribution from "../charts/savingsdistribution.js";
 import Profile from './Profile.vue'
+import AccountBanner from './AccountBanner.vue'
 
 
 export default {
@@ -122,7 +123,8 @@ export default {
     return {
       totalEndowment: 0,
       capitalGuaranteed: 0,
-      projectedReturns: 0,
+      projectedReturnsTotal: 0,
+      projectedReturnsPerAnnum: 0,
       returnsGuaranteed: 0,
       goal: 0,
       page: 1,
@@ -143,6 +145,7 @@ export default {
     MarketPerformance,
     SavingsDistribution,
     Profile,
+    AccountBanner,
   },
   methods: {
     fetchItems: function () {
@@ -176,12 +179,13 @@ export default {
                 planDetails['dateWithdraw'] = this.getReturnsDate(plans[i].dateSaved.toDate(), listingDetails.min_years).toLocaleDateString();
                 this.plans.push(planDetails);
                 this.totalEndowment += plans[i].amount;
-                this.projectedReturns += plans[i].amount * listingDetails.interest_pa * listingDetails.min_years;
+                this.projectedReturnsPerAnnum += plans[i].amount * listingDetails.interest_pa
+                this.projectedReturnsTotal += plans[i].amount * listingDetails.interest_pa * listingDetails.min_years;
                 console.log('returns guaranteed', listingDetails.returns_guaranteed)
                 this.value += (plans[i].amount * listingDetails.interest_pa * listingDetails.min_years) / this.goal * 100 
                 
                 if (listingDetails.returns_guaranteed) {
-                  this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa * listingDetails.min_years;
+                  this.returnsGuaranteed += plans[i].amount * listingDetails.interest_pa;
                 }
                 if (listingDetails.capital_guaranteed) {
                   this.capitalGuaranteed += plans[i].amount
