@@ -2,7 +2,7 @@
   <div>
     <v-card id="profile">
       <div id="profile-container">
-        <div class="avatar-container" v-on:click="change = !change">
+        <div class="avatar-container flex" v-on:click="change = !change">
           <v-avatar
             class="avatar"
             color="grey"
@@ -26,21 +26,17 @@
                 <p class='intro'>Click on your profile picture to change it!</p> -->
         </div>
         <div v-if="change">
-          <input
+          <input class='overflow-hidden'
             id="file-input"
             v-if="change"
             type="file"
             v-on:change="chooseFile"
           />
-          <div class="container-login100-form-btn">
-            <div class="wrap-login100-form-btn upload-button">
-              <div class="login100-form-bgbtn"></div>
-              <button class="login100-form-btn" v-on:click="upload">
+              <div class='button-container flex'><button v-on:click="upload">
                 Upload
               </button>
+              </div>
             </div>
-          </div>
-        </div>
       </div>
     </v-card>
    
@@ -136,12 +132,15 @@ export default {
   text-align: center;
 }
 
-.avatar-container {
-  margin: 20px;
+.flex {
   display: flex;
   justify-content: center;
-
 }
+
+.avatar-container {
+  margin: 20px;
+}
+
 .avatar {
   color: grey;
 }
@@ -181,4 +180,28 @@ export default {
 .hover > img {
   height: 25px;
 }
+
+button {
+    font-family: Poppins-Regular;
+    background-color: white;
+    color: #545454;
+    border: 1px solid grey;
+    align-items: center;
+    display: inline-block;
+    padding: 13px 45px;
+}
+
+button:hover {
+    background-color: #192841;
+    color: white
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
 </style>
