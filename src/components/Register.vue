@@ -182,7 +182,7 @@ export default {
               .set({
                 name: this.name,
                 email: this.email,
-                goal: this.goal,
+                goal: parseFloat(this.goal),
                 plans: []
               });
           }).then(() =>{

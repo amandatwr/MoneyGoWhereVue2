@@ -13,7 +13,7 @@
             <img v-bind:src="imageSource" />
            </v-avatar
           > <div class="hover" v-if='hover'>
-              <img class='change-picture-button' src='./../assets/edit.png' v-on:click='change=!change'/>
+              <v-icon medium color='white' >mdi-pencil</v-icon>
             </div>
         </div>
         <h2 class="profile-header">{{ name }}</h2>
@@ -70,7 +70,7 @@
           </div>
           <v-text-field
             type="number"
-            class="test"
+            class='test'
             v-else
             v-model="updatedGoal"
             prefix="$"
@@ -97,6 +97,9 @@
           <div class='subheading'> 
           <p>My Savings Goal</p>
           </div>
+          <div v-if="error">
+              <p class="alert">Invalid input amount.</p>
+            </div>
           </div>
           <div class='color-strip color1'></div>
         </v-card>
@@ -119,7 +122,8 @@ export default {
       hover: false,
       goal: null,
       show_form: false,
-      updatedGoal: null
+      updatedGoal: null,
+      error: false
     };
   },
   components: {},
@@ -185,19 +189,23 @@ export default {
     },
 
     editGoal: function() {
+      if (this.updatedGoal < 0) {
+        this.error = true;
+      } else {
       var uid = firebase.auth().currentUser.uid;
 
       firebase
         database.collection("TestUsers").doc(uid).update({
-        goal: this.updatedGoal
+        goal: parseFloat(this.updatedGoal)
       }).then(() => {
-          alert("goal edited");
+          console.log('goal edited')
         })
         .catch((err) => {
           console.log(err.message);
         }).then( () => {
           location.reload();
         })
+      }
     }
   },
   created() {
@@ -253,7 +261,7 @@ export default {
 .intro {
   text-align: center;
   padding: 0;
-  margin: 0;
+  margin-top: 10px;
 }
 
 .avatar > img:hover {
@@ -321,8 +329,8 @@ export default {
 }
 
 .my-goal {
-  margin-top: 12px;
-  width:60%;
+  margin-top: 20px;
+  width:75%;
 }
 
 .my-goal-amount {
@@ -330,6 +338,6 @@ export default {
 }
 
 .test {
-  width: 10px;
+  margin: -15px 0px -11px 0px;
 }
 </style>

@@ -9,7 +9,6 @@
     <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
-            <h1>hi</h1>
                 <div class="close-btn" @click="togglePopup">&times;</div>
                 <div class="centerimg2">
                 <!-- when the form is submitted, add the plan to the database -->
@@ -17,7 +16,7 @@
                 <!-- <v-card class="card"> -->
                   
                   <form @submit.prevent="addPlan">
-                    <label> Add a Plan </label><br><br>
+                    <h2> Add a Plan </h2><br>
                     <label>Plan Name: </label>
                     <!-- Bidirectionally bind planSelect to this select element -->
                     <select v-model="planSelect" class="drawbox" style="width:300px">
@@ -74,7 +73,7 @@ export default {
       planProvider: "",
       planID: "",
       error: false,
-			errorMessage: 'Invalid input amount.'
+			errorMessage: "Invalid 'Amount' input amount."
     };
   },
   methods: {
