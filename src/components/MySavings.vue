@@ -5,28 +5,7 @@
     <div class="flex">
       <div class="flex2">
       <Profile class="profile"></Profile>
-       <v-card class="my-progress-card ">
-        <div class='my-progress-card-contents flex align-horizontal-center'>
-          <div class="header-container my-progress-text">
-            <h2 class="my-progress-text"><b>My Goal</b></h2>
-            <br><br>
-          </div>
-          <div
-            class="progress-bar-container align-horizontal-center flex flex-vertical"
-          ><br>
-            <v-progress-linear
-              :rounded="true"
-              :height="20"
-              :value="value"
-              color="#192841"
-            ></v-progress-linear> <br>
-            <p>{{ this.formatter().format(projectedReturns) }} of {{this.formatter().format(goal)}}</p>
-          </div><br>
-          <div>
-            <h3 class='poppins'>{{ Math.round(value * 100) / 100 }}%</h3>
-          </div>
-          </div>
-        </v-card>
+       
         </div>
 
       <div class="container">
