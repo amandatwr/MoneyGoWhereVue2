@@ -162,7 +162,7 @@ export default {
       if (this.name == "") {
         this.error = true;
         this.errorMessage = "'Name' field required.";
-      } else if (this.goal < 0) {
+      } else if (this.goal < 0 || isNaN(this.goal) || this.goal == null || this.goal == '') {
         this.error = true;
         this.errorMessage="Invalid 'Goal' input amount."
       
@@ -186,7 +186,7 @@ export default {
                 plans: []
               });
           }).then(() =>{
-              this.$router.go({ path: this.$router.path });
+              // this.$router.go({ path: this.$router.path });
           },
             (err) => {
               console.log(err.message);

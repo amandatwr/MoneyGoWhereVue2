@@ -73,7 +73,7 @@ export default {
       planProvider: "",
       planID: "",
       error: false,
-			errorMessage: "Invalid 'Amount' input amount."
+			errorMessage: "Invalid input amount."
     };
   },
   methods: {
@@ -136,6 +136,7 @@ export default {
 .alert {
 	margin-top: 20px;
 	color: red;
+  margin-bottom: -5%;
 }
 
 .banner-buttons {

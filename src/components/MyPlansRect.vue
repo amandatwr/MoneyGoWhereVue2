@@ -2,7 +2,7 @@
   <div>
     <v-tooltip right>
     <template v-slot:activator="{ on: tooltip }">
-    <v-card>
+    <v-card class='plan-card'>
     <!-- Each plan is a card -->
     <div class="d-flex flex-no-wrap">
       
@@ -29,12 +29,13 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on: tooltip }">
                 <!-- When the button is clicked, we flip the component state into show_form state. Setting planAmount forces planAmount to be updated always when the edit button is pressed -->
-                <v-btn
+                <v-btn class='edit-button'
                   icon
                   v-on="{ ...tooltip }"
                   @click="
                     show_form = !show_form;
                     planAmount = plan.amount;
+                    error = false;
                   "
                 >
                   <v-icon v-if="show_form">mdi-close</v-icon>
@@ -48,13 +49,13 @@
             <!-- Provide a tooltip for the delete button -->
             <v-tooltip bottom>
               <template v-slot:activator="{ on: tooltip }">
-                <v-btn
+                <v-btn class='delete-button'
                   icon
                   color="error"
                   v-on="{ ...tooltip }"
                   @click="deletePlan"
                 >
-                  <v-icon>mdi-delete</v-icon>
+                  <v-icon >mdi-delete</v-icon>
                 </v-btn>
               </template>
               <span>Delete</span>
@@ -63,7 +64,7 @@
         </div>
         
         <!-- Show amount under the title, subtitle and action buttons -->
-        <v-card-text class="fixed-height">
+        <v-card-text class="fixed-height plan-amount">
           <!-- If not in the show_form state, show a formatted version of the currency -->
           <div class="display-1" v-if="!show_form">
             {{ plan.amount }}
@@ -94,7 +95,9 @@
             </template>
           </v-text-field>
         </v-card-text>
-        
+        <div class='alert' v-if='error'>
+          <p>Invalid input amount.</p>
+          </div>
       </div>
       
     </div>
@@ -129,6 +132,7 @@ export default {
       planAmount: 0,
       plansRaw: [],
       havePlans: false,
+      error: false
     };
   },
   methods: {
@@ -182,13 +186,18 @@ export default {
     editAmount: async function () {
       // console.log(this.myIndex);
       // console.log(typeof parseFloat(this.planAmount));
+      if (this.planAmount < 0 || isNaN(this.planAmount)) {
+        this.error = true;
+      } else {
       this.plansRaw[this.myIndex].amount = parseFloat(this.planAmount);
       var user = firebase.auth().currentUser;
       await database.collection("TestUsers").doc(user.uid).update({
         plans: this.plansRaw,
+      }).then( () => {
+        location.reload()
       });
-      location.reload();
       // alert('updated')
+    }
     },
 
     deletePlan: async function () {
@@ -401,4 +410,32 @@ p {
   width: 110% !important;
   /* padding-top: 35px; */
 }
+
+.edit-button {
+  position:absolute;
+  top: 14px;
+  right: 45px;
+}
+
+.delete-button {
+  position:absolute;
+  top: 14px;
+  right: 10px;
+}
+
+.plan-amount {
+  width: 75%;
+  padding-top: 5%;
+}
+
+.alert {
+  margin: -3% 0px 0px -150px  ;
+  padding: 0;
+  /* margin-left:  */
+}
+
+.alert > p{
+  color:red;
+}
+
 </style>

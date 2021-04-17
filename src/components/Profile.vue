@@ -25,7 +25,7 @@
           <!-- <p class='intro'>1. Add and edit any plans that you have saved under<br>2. View your personalised analytics dashboard<br>3. Find the best plans using our Savings Recommender</p>
                 <p class='intro'>Click on your profile picture to change it!</p> -->
         </div>
-        <div v-if="change">
+        <div style='margin-top: -10px' v-if="change">
           <input
             id="file-input"
             v-if="change"
@@ -52,6 +52,7 @@
                   v-on="{ ...tooltip }"
                   @click="
                     show_form = !show_form;
+                    error = false;
                   "
                 >
                   <v-icon v-if="show_form">mdi-close</v-icon>
@@ -189,9 +190,10 @@ export default {
     },
 
     editGoal: function() {
-      if (this.updatedGoal < 0) {
+      if (this.updatedGoal < 0 || this.updatedGoal == null ) {
         this.error = true;
       } else {
+        alert(this.updatedGoal)
       var uid = firebase.auth().currentUser.uid;
 
       firebase
