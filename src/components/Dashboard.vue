@@ -72,7 +72,7 @@
     </div>
         </v-card>
         <v-card class="card savings-distribution-card">
-        <h2 class='poppins my-goal-heading'>My Goal</h2>
+        <h2 class='poppins my-goal-heading'>My Progress</h2>
         <v-progress-circular class='progress-bar'
       :rotate="90"
       :size="200"
@@ -317,7 +317,7 @@ export default {
   width: 100%;
 }
 .color1 {
-  background-color: #282726 !important;
+  background-color: #3A4B6A !important;
 }
 .color2 {
   background-color: #a7414a !important;
