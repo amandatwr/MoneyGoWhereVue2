@@ -425,17 +425,18 @@ p {
 
 .plan-amount {
   width: 75%;
-  padding-top: 5%;
+  padding-top: 1%;
 }
 
 .alert {
-  margin: -3% 0px 0px -150px  ;
+  left: 0;
+  margin: -30px 0px 0px -150px  ;
   padding: 0;
+  height: 30px;
   /* margin-left:  */
 }
 
 .alert > p{
   color:red;
 }
-
 </style>

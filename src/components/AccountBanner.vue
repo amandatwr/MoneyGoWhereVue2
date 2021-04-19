@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="banner"><img src="./../assets/logo_black-removebg-preview.png" style="margin-top:25px; width:150px; height:150px;"></div>
+    <div class="banner"><img src="./../assets/logo_black-removebg-preview.png" style="margin-top:75px; width:150px; height:150px;"></div>
   </div>
 </template>
 
