@@ -193,7 +193,6 @@ export default {
       if (this.updatedGoal < 0 || this.updatedGoal == null ) {
         this.error = true;
       } else {
-        alert(this.updatedGoal)
       var uid = firebase.auth().currentUser.uid;
 
       firebase
