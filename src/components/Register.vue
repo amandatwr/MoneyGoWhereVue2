@@ -186,7 +186,7 @@ export default {
                 plans: []
               });
           }).then(() =>{
-              // this.$router.go({ path: this.$router.path });
+              this.$router.go({ path: this.$router.path });
           },
             (err) => {
               console.log(err.message);
