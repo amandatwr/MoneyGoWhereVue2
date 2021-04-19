@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="banner"></div>
+    <div class="banner"><img src="./../assets/logo_black-removebg-preview.png" style="margin-top:25px; width:150px; height:150px;"></div>
   </div>
 </template>
 
@@ -11,10 +11,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-image: url("./../assets/banner-edit1.png");
+  background-image: url("./../assets/account-banner.jpg");
   background-size: cover;
   height: 300px;
-  background-position: 0% 22.5%;
+  background-position: 0% 25%;
 }
 
 </style>   
