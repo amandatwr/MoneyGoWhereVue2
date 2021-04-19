@@ -51,7 +51,7 @@
           v-if="isLoggedIn"
           class="w3-bar-item w3-button w3-dropdown-hover w3-hide-small w3-padding-large dropdown-item"
         >
-          <span>
+          <div>
             <span>MY ACC</span>
             <v-avatar
               class="avatar"
@@ -60,7 +60,7 @@
             >
               <img v-bind:src="imageSource"
             /></v-avatar>
-          </span>
+          </div>
           <div id="dropdown" class="w3-dropdown-content w3-bar-block w3-card-4">
             <router-link class="w3-button" to="/mysavings">
               <div class="dropdown-item">
