@@ -55,8 +55,8 @@
             <span>MY ACC</span>
             <v-avatar
             class="avatar"
-            color="grey"
-            size="30"
+            color="#1b1b1b"
+            size="40"
            
           >
             <img v-bind:src="imageSource" />
