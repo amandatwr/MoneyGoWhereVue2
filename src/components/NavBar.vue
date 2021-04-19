@@ -54,12 +54,13 @@
           <span>
             <span>MY ACC</span>
             <v-avatar
-              class="avatar"
-              color="white"
-              size="30"
-            >
-              <img v-bind:src="imageSource"
-            /></v-avatar>
+            class="avatar"
+            color="grey"
+            size="30"
+           
+          >
+            <img v-bind:src="imageSource" />
+           </v-avatar>
           </span>
           <div id="dropdown" class="w3-dropdown-content w3-bar-block w3-card-4">
             <router-link class="w3-button" to="/mysavings">
